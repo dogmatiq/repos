@@ -1,11 +1,9 @@
 resource "github_repository" "this" {
-  lifecycle {
-    prevent_destroy = true
-  }
+  archive_on_destroy = true
 
   name        = var.name
   description = var.description
-  visibility  = "public"
+  visibility  = var.public ? "public" : "private"
 
   has_projects = false
   has_wiki     = false

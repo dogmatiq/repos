@@ -8,6 +8,12 @@ variable "description" {
   type        = string
 }
 
+variable "public" {
+  description = "Indicates whether the repository is visible to the public"
+  type        = bool
+  default     = false
+}
+
 variable "template" {
   description = "The template repository used to create this repository"
   type        = string
