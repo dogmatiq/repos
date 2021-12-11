@@ -5,6 +5,7 @@ resource "github_repository" "this" {
   description = var.description
   visibility  = var.public ? "public" : "private"
 
+  has_issues   = true
   has_projects = false
   has_wiki     = false
 
