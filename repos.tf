@@ -3,5 +3,6 @@ module "repo_test" {
   name        = "test-terraform-creation"
   description = "Test creating repositories with terraform."
 
-  copyright_start_year = 2021
+  copyright_start_year = 2020
+  copyright_holders    = ["Anonymous"]
 }
