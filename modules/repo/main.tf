@@ -10,7 +10,11 @@ resource "github_repository" "this" {
   has_wiki     = false
 
   delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  allow_merge_commit     = true
+  allow_squash_merge     = false
+  allow_rebase_merge     = false
+
+  vulnerability_alerts = true
 
   dynamic "template" {
     for_each = var.template != null ? [null] : []
