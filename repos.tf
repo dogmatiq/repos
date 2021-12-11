@@ -1,9 +1,7 @@
-# module "repo_test" {
-#   source      = "./modules/repo"
-#   name        = "test-terraform-creation"
-#   description = "Test creating repositories with terraform."
-#   public      = true
+module "repo_cloud" {
+  source      = "./modules/repo"
+  name        = "cloud"
+  description = "The easiest way to run Dogma applications in the cloud."
 
-#   copyright_start_year = 2020
-#   copyright_holders    = ["Anonymous"]
-# }
+  copyright_start_year = 2021
+}
