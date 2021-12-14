@@ -65,6 +65,14 @@ module "repo_dogmavet" {
   copyright_start_year = 2020
 }
 
+module "repo_interopspec" {
+  source               = "./modules/repo"
+  name                 = "interopspec"
+  description          = "🚧 Protocol Buffers and gRPC definitions for improving engine interoperability."
+  public               = true
+  copyright_start_year = 2019
+}
+
 module "repo_marshalkit" {
   source               = "./modules/repo"
   name                 = "marshalkit"
