@@ -65,6 +65,14 @@ module "repo_dogmavet" {
   copyright_start_year = 2020
 }
 
+module "repo_marshalkit" {
+  source               = "./modules/repo"
+  name                 = "marshalkit"
+  description          = "Marshal and unmarshal Dogma messages and other types."
+  public               = true
+  copyright_start_year = 2019
+}
+
 module "repo_projectionkit" {
   source               = "./modules/repo"
   name                 = "projectionkit"
