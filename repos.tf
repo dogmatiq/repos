@@ -6,6 +6,15 @@ module "repo_cloud" {
   copyright_start_year = 2021
 }
 
+module "repo_dissolve" {
+  source      = "./modules/repo"
+  name        = "dissolve"
+  description = "🚧 A DNS-SD, Multicast DNS and Zeroconf/Bonjour toolkit for Go."
+  public      = true
+
+  copyright_start_year = 2019
+}
+
 module "repo_dogma" {
   source      = "./modules/repo"
   name        = "dogma"
@@ -16,7 +25,6 @@ module "repo_dogma" {
   copyright_start_year = 2018
   copyright_holders    = ["Kevin Millar", "Danil Petrov"]
 }
-
 
 module "repo_verity" {
   source      = "./modules/repo"

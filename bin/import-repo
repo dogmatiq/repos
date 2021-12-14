@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+terraform import module.repo_$1.github_repository.this $1
+terraform import module.repo_$1.github_repository_file.license $1/LICENSE:main
