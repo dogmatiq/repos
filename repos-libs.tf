@@ -54,3 +54,11 @@ module "repo_mobius" {
   public               = true
   copyright_start_year = 2019
 }
+
+module "repo_protean" {
+  source               = "./modules/repo"
+  name                 = "protean"
+  description          = "🚧 A Protocol Buffers RPC framework for Go, consumable from the browser using standard APIs."
+  public               = true
+  copyright_start_year = 2021
+}
