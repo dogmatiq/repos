@@ -1,12 +1,3 @@
-module "repo_configkit" {
-  source               = "./modules/repo"
-  name                 = "configkit"
-  description          = "Inspect, validate and visualize Dogma application configurations."
-  public               = true
-  copyright_start_year = 2019
-  copyright_holders    = ["Danil Petrov"]
-}
-
 module "repo_aperture" {
   source               = "./modules/repo"
   name                 = "aperture"
@@ -23,12 +14,29 @@ module "repo_browser" {
   copyright_start_year = 2021
 }
 
+module "repo_configkit" {
+  source               = "./modules/repo"
+  name                 = "configkit"
+  description          = "Inspect, validate and visualize Dogma application configurations."
+  public               = true
+  copyright_start_year = 2019
+  copyright_holders    = ["Danil Petrov"]
+}
+
 module "repo_cloud" {
   source               = "./modules/repo"
   name                 = "cloud"
   description          = "The easiest way to run Dogma applications in the cloud."
   public               = false
   copyright_start_year = 2021
+}
+
+module "repo_discoverkit" {
+  source               = "./modules/repo"
+  name                 = "discoverkit"
+  description          = "Discover running Dogma applications on the network."
+  public               = true
+  copyright_start_year = 2019
 }
 
 module "repo_dogma" {
