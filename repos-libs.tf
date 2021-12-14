@@ -37,6 +37,7 @@ module "repo_harpy" {
   description          = "🚧 A transport-agnostic JSON-RPC v2 server toolkit for Go."
   public               = true
   copyright_start_year = 2020
+  template             = null
 }
 
 module "repo_iago" {
