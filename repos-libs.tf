@@ -40,3 +40,11 @@ module "repo_linger" {
   public               = true
   copyright_start_year = 2019
 }
+
+module "repo_mobius" {
+  source               = "./modules/repo"
+  name                 = "mobius"
+  description          = "🚧 A weighted consistent-hashing implementation for Go."
+  public               = true
+  copyright_start_year = 2019
+}
