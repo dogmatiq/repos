@@ -11,7 +11,6 @@ variable "description" {
 variable "public" {
   description = "Indicates whether the repository is visible to the public"
   type        = bool
-  default     = false
 }
 
 variable "template" {
