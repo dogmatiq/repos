@@ -15,6 +15,15 @@ module "repo_iago" {
   template             = null
 }
 
+module "repo_kyu" {
+  source               = "./modules/repo"
+  name                 = "kyu"
+  description          = "IO utilities for Go."
+  public               = true
+  copyright_start_year = 2020
+  template             = null
+}
+
 module "repo_linger" {
   source               = "./modules/repo"
   name                 = "linger"
