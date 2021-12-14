@@ -16,8 +16,10 @@ resource "github_repository" "this" {
 
   vulnerability_alerts = true
 
+  is_template = var.is_template
+
   dynamic "template" {
-    for_each = var.template != null ? [null] : []
+    for_each = (var.is_template || var.template == null) ? [] : [null]
     content {
       owner      = "dogmatiq"
       repository = var.template
@@ -35,7 +37,7 @@ resource "github_repository_file" "license" {
     "${path.module}/license-template.txt",
     {
       start_year = var.copyright_start_year
-      end_year   = "2021"
+      end_year   = var.copyright_end_year
       holders    = concat(["James Harris"], var.copyright_holders)
     }
   )

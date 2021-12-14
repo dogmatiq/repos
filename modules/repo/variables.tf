@@ -19,9 +19,22 @@ variable "template" {
   default     = "template"
 }
 
+variable "is_template" {
+  description = "Indicates whether the repository is a template repository"
+  type        = bool
+  default     = false
+}
+
 variable "copyright_start_year" {
   description = "The start year for the copyright notice in the LICENSE file"
   type        = string
+  default     = "2021"
+}
+
+variable "copyright_end_year" {
+  description = "The end year for the copyright notice in the LICENSE file"
+  type        = string
+  default     = "2021"
 }
 
 variable "copyright_holders" {
