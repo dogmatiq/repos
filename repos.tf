@@ -55,6 +55,14 @@ module "repo_dogmavet" {
   copyright_start_year = 2020
 }
 
+module "repo_linger" {
+  source               = "./modules/repo"
+  name                 = "linger"
+  description          = "Timeout and retry utilities for Go."
+  public               = true
+  copyright_start_year = 2019
+}
+
 module "repo_sqltest" {
   source               = "./modules/repo"
   name                 = "sqltest"
