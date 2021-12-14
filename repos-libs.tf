@@ -14,6 +14,15 @@ module "repo_dissolve" {
   copyright_start_year = 2019
 }
 
+module "repo_dodeca" {
+  source               = "./modules/repo"
+  name                 = "dodeca"
+  description          = "Utilities for 12-Factor applications written in Go."
+  public               = true
+  copyright_start_year = 2019
+  template             = null
+}
+
 module "repo_dosh" {
   source               = "./modules/repo"
   name                 = "dosh"
