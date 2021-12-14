@@ -75,6 +75,16 @@ module "repo_example" {
   template             = null
 }
 
+module "repo_example-ui" {
+  source               = "./modules/repo"
+  name                 = "example-ui"
+  description          = "🚧 A web based frontend for the example Bank application."
+  public               = false
+  copyright_start_year = 2021
+  copyright_holders    = ["Erin Millard"]
+  template             = null
+}
+
 module "repo_interopspec" {
   source               = "./modules/repo"
   name                 = "interopspec"
