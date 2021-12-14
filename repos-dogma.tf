@@ -21,14 +21,6 @@ module "repo_cloud" {
   copyright_start_year = 2021
 }
 
-module "repo_dissolve" {
-  source               = "./modules/repo"
-  name                 = "dissolve"
-  description          = "🚧 A DNS-SD, Multicast DNS and Zeroconf/Bonjour toolkit for Go."
-  public               = true
-  copyright_start_year = 2019
-}
-
 module "repo_dogma" {
   source               = "./modules/repo"
   name                 = "dogma"
@@ -53,14 +45,6 @@ module "repo_dogmavet" {
   description          = "🚧 A Go vet tool for checking Dogma application and handler implementations."
   public               = true
   copyright_start_year = 2020
-}
-
-module "repo_linger" {
-  source               = "./modules/repo"
-  name                 = "linger"
-  description          = "Timeout and retry utilities for Go."
-  public               = true
-  copyright_start_year = 2019
 }
 
 module "repo_projectionkit" {
