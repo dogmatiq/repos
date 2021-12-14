@@ -26,9 +26,9 @@ module "repo_dogma" {
   name                 = "dogma"
   description          = "A specification and API for building message-based applications in Go."
   public               = true
-  template             = null
   copyright_start_year = 2018
   copyright_holders    = ["Kevin Millar", "Danil Petrov"]
+  template             = null
 }
 
 module "repo_dogmacli" {

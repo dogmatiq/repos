@@ -6,6 +6,15 @@ module "repo_dissolve" {
   copyright_start_year = 2019
 }
 
+module "repo_iago" {
+  source               = "./modules/repo"
+  name                 = "iago"
+  description          = "IO utilities for Go."
+  public               = true
+  copyright_start_year = 2019
+  template             = null
+}
+
 module "repo_linger" {
   source               = "./modules/repo"
   name                 = "linger"
