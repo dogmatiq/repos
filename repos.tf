@@ -1,3 +1,11 @@
+module "repo_cloud" {
+  source      = "./modules/repo"
+  name        = "cloud"
+  description = "The easiest way to run Dogma applications in the cloud."
+
+  copyright_start_year = 2021
+}
+
 module "repo_dogma" {
   source      = "./modules/repo"
   name        = "dogma"
@@ -9,10 +17,12 @@ module "repo_dogma" {
   copyright_holders    = ["Kevin Millar", "Danil Petrov"]
 }
 
-module "repo_cloud" {
-  source      = "./modules/repo"
-  name        = "cloud"
-  description = "The easiest way to run Dogma applications in the cloud."
 
-  copyright_start_year = 2021
+module "repo_verity" {
+  source      = "./modules/repo"
+  name        = "verity"
+  description = "🚧 A scalable, event-sourced Dogma engine."
+  public      = true
+
+  copyright_start_year = 2019
 }
