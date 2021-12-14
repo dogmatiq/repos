@@ -63,6 +63,14 @@ module "repo_linger" {
   copyright_start_year = 2019
 }
 
+module "repo_projectionkit" {
+  source               = "./modules/repo"
+  name                 = "projectionkit"
+  description          = "Build Dogma projections using popular database systems."
+  public               = true
+  copyright_start_year = 2019
+}
+
 module "repo_sqltest" {
   source               = "./modules/repo"
   name                 = "sqltest"
