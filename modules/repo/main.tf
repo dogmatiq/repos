@@ -35,7 +35,7 @@ resource "github_repository_file" "license" {
     "${path.module}/license-template.txt",
     {
       start_year = var.copyright_start_year
-      end_year   = formatdate("YYYY", timestamp())
+      end_year   = "2021"
       holders    = concat(["James Harris"], var.copyright_holders)
     }
   )
