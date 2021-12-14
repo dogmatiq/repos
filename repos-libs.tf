@@ -18,7 +18,7 @@ module "repo_iago" {
 module "repo_kyu" {
   source               = "./modules/repo"
   name                 = "kyu"
-  description          = "IO utilities for Go."
+  description          = "🚧 Queue data-structures for Go."
   public               = true
   copyright_start_year = 2020
   template             = null
