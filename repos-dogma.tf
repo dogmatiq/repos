@@ -85,6 +85,14 @@ module "repo_example_ui" {
   template             = null
 }
 
+module "repo_infix" {
+  source               = "./modules/repo"
+  name                 = "infix"
+  description          = "🚧 An embeddable Dogma engine."
+  public               = false
+  copyright_start_year = 2019
+}
+
 module "repo_interopspec" {
   source               = "./modules/repo"
   name                 = "interopspec"
