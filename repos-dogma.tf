@@ -1,3 +1,12 @@
+module "repo_configkit" {
+  source               = "./modules/repo"
+  name                 = "configkit"
+  description          = "Inspect, validate and visualize Dogma application configurations."
+  public               = true
+  copyright_start_year = 2019
+  copyright_holders    = ["Danil Petrov"]
+}
+
 module "repo_aperture" {
   source               = "./modules/repo"
   name                 = "aperture"

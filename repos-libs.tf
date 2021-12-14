@@ -1,10 +1,9 @@
-module "repo_configkit" {
+module "repo_cosyne" {
   source               = "./modules/repo"
-  name                 = "configkit"
-  description          = "Inspect, validate and visualize Dogma application configurations."
+  name                 = "cosyne"
+  description          = "Context-aware synchronization primitives for Go."
   public               = true
-  copyright_start_year = 2019
-  copyright_holders    = ["Danil Petrov"]
+  copyright_start_year = 2020
 }
 
 module "repo_dissolve" {
