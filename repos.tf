@@ -15,6 +15,14 @@ module "repo_dissolve" {
   copyright_start_year = 2019
 }
 
+module "repo_dogmacli" {
+  source               = "./modules/repo"
+  name                 = "dogmacli"
+  description          = "🚧 Command line tools for Dogma applications."
+  public               = true
+  copyright_start_year = 2020
+}
+
 module "repo_dogma" {
   source      = "./modules/repo"
   name        = "dogma"
