@@ -6,6 +6,15 @@ module "repo_cosyne" {
   copyright_start_year = 2020
 }
 
+module "repo_dapper" {
+  source               = "./modules/repo"
+  name                 = "dapper"
+  description          = "A pretty-printer for Go values with minimalistic output."
+  public               = true
+  copyright_start_year = 2019
+  template             = null
+}
+
 module "repo_dissolve" {
   source               = "./modules/repo"
   name                 = "dissolve"
