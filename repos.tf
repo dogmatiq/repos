@@ -15,13 +15,6 @@ module "repo_dissolve" {
   copyright_start_year = 2019
 }
 
-module "repo_dogmacli" {
-  source               = "./modules/repo"
-  name                 = "dogmacli"
-  description          = "🚧 Command line tools for Dogma applications."
-  public               = true
-  copyright_start_year = 2020
-}
 
 module "repo_dogma" {
   source      = "./modules/repo"
@@ -32,6 +25,22 @@ module "repo_dogma" {
 
   copyright_start_year = 2018
   copyright_holders    = ["Kevin Millar", "Danil Petrov"]
+}
+
+module "repo_dogmacli" {
+  source               = "./modules/repo"
+  name                 = "dogmacli"
+  description          = "🚧 Command line tools for Dogma applications."
+  public               = true
+  copyright_start_year = 2020
+}
+
+module "repo_dogmavet" {
+  source               = "./modules/repo"
+  name                 = "dogmavet"
+  description          = "🚧 A Go vet tool for checking Dogma application and handler implementations."
+  public               = true
+  copyright_start_year = 2020
 }
 
 module "repo_veracity" {
