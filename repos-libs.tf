@@ -15,6 +15,14 @@ module "repo_dissolve" {
   copyright_start_year = 2019
 }
 
+module "repo_dosh" {
+  source               = "./modules/repo"
+  name                 = "dosh"
+  description          = "🚧 A Go library for representing monetary values in-process and on-the-wire."
+  public               = true
+  copyright_start_year = 2021
+}
+
 module "repo_iago" {
   source               = "./modules/repo"
   name                 = "iago"
@@ -30,7 +38,6 @@ module "repo_kyu" {
   description          = "🚧 Queue data-structures for Go."
   public               = true
   copyright_start_year = 2020
-  template             = null
 }
 
 module "repo_linger" {
