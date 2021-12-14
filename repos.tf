@@ -1,3 +1,11 @@
+module "repo_aperture" {
+  source               = "./modules/repo"
+  name                 = "aperture"
+  description          = "🚧 An intensely minimal projection-only Dogma engine."
+  public               = true
+  copyright_start_year = 2019
+}
+
 module "repo_browser" {
   source               = "./modules/repo"
   name                 = "browser"
