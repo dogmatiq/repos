@@ -1,3 +1,12 @@
+module "repo_browser" {
+  source      = "./modules/repo"
+  name        = "browser"
+  description = "🚧 A web-based documentation server for inspecting Dogma applications."
+  public      = true
+
+  copyright_start_year = 2021
+}
+
 module "repo_cloud" {
   source      = "./modules/repo"
   name        = "cloud"
@@ -14,7 +23,6 @@ module "repo_dissolve" {
 
   copyright_start_year = 2019
 }
-
 
 module "repo_dogma" {
   source      = "./modules/repo"
