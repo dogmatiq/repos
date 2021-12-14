@@ -75,7 +75,7 @@ module "repo_example" {
   template             = null
 }
 
-module "repo_example-ui" {
+module "repo_example_ui" {
   source               = "./modules/repo"
   name                 = "example-ui"
   description          = "🚧 A web based frontend for the example Bank application."
