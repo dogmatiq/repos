@@ -26,6 +26,14 @@ module "repo_dogma" {
   copyright_holders    = ["Kevin Millar", "Danil Petrov"]
 }
 
+module "repo_veracity" {
+  source      = "./modules/repo"
+  name        = "veracity"
+  description = "🚧 An event-sourced Dogma engine that uses an append-only journal for persistence."
+
+  copyright_start_year = 2021
+}
+
 module "repo_verity" {
   source      = "./modules/repo"
   name        = "verity"
