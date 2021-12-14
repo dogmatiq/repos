@@ -65,6 +65,16 @@ module "repo_dogmavet" {
   copyright_start_year = 2020
 }
 
+module "repo_example" {
+  source               = "./modules/repo"
+  name                 = "example"
+  description          = "An example Dogma application with the features of a simple bank."
+  public               = true
+  copyright_start_year = 2019
+  copyright_holders    = ["Kevin Millar"]
+  template             = null
+}
+
 module "repo_interopspec" {
   source               = "./modules/repo"
   name                 = "interopspec"
