@@ -81,6 +81,15 @@ module "repo_sqltest" {
   copyright_start_year = 2020
 }
 
+module "repo_testkit" {
+  source               = "./modules/repo"
+  name                 = "testkit"
+  description          = "Write blackbox tests for Dogma applications."
+  public               = true
+  copyright_start_year = 2019
+  template             = null
+}
+
 module "repo_veracity" {
   source               = "./modules/repo"
   name                 = "veracity"
