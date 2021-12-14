@@ -47,6 +47,14 @@ module "repo_dogmavet" {
   copyright_start_year = 2020
 }
 
+module "repo_sqltest" {
+  source               = "./modules/repo"
+  name                 = "sqltest"
+  description          = "🚧 Internal utilities for testing Dogma projects that use SQL databases."
+  public               = true
+  copyright_start_year = 2020
+}
+
 module "repo_veracity" {
   source               = "./modules/repo"
   name                 = "veracity"
