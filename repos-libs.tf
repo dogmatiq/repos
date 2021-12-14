@@ -31,6 +31,14 @@ module "repo_dosh" {
   copyright_start_year = 2021
 }
 
+module "repo_harpy" {
+  source               = "./modules/repo"
+  name                 = "harpy"
+  description          = "🚧 A transport-agnostic JSON-RPC v2 server toolkit for Go."
+  public               = true
+  copyright_start_year = 2020
+}
+
 module "repo_iago" {
   source               = "./modules/repo"
   name                 = "iago"
