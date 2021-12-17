@@ -39,7 +39,7 @@ resource "github_repository_file" "license" {
   commit_message      = "Update license based on Terraform configuration"
   overwrite_on_create = true
   content = templatefile(
-    "${path.module}/license-template.txt",
+    "${path.module}/../../templates/LICENSE.tftpl",
     {
       start_year = local.copyright.since
       end_year   = "2021"
