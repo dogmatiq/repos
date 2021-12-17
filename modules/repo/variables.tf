@@ -14,9 +14,15 @@ variable "private" {
   default     = false
 }
 
-variable "template" {
-  description = "The template repository used to create this repository"
+variable "language" {
+  description = "The primary language used within the repository"
   type        = string
+}
+
+variable "omit_template" {
+  description = "Whether or not to omit the template repository configuration"
+  type        = bool
+  default     = false
 }
 
 variable "copyright" {

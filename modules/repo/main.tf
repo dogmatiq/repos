@@ -24,10 +24,10 @@ resource "github_repository" "this" {
   vulnerability_alerts = true
 
   dynamic "template" {
-    for_each = var.template == null ? [] : [null]
+    for_each = var.omit_template ? [] : [null]
     content {
       owner      = "dogmatiq"
-      repository = "template-${var.template}"
+      repository = "template-${var.language}"
     }
   }
 }
