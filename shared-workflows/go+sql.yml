@@ -1,8 +1,9 @@
 on:
   workflow_call:
+
 jobs:
-  ci:
-    name: Continuous Integration
+  go:
+    name: Go with SQL services
     runs-on: ubuntu-latest
 
     env:

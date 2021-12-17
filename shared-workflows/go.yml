@@ -1,8 +1,9 @@
 on:
   workflow_call:
+
 jobs:
-  ci:
-    name: Continuous Integration
+  go:
+    name: Go
     runs-on: ubuntu-latest
 
     steps:
