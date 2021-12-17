@@ -25,7 +25,6 @@ module "repo_configkit" {
   name        = "configkit"
   description = "Inspect, validate and visualize Dogma application configurations."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since   = 2019
@@ -39,7 +38,6 @@ module "repo_cloud" {
   description = "The easiest way to run Dogma applications in the cloud."
   private     = true
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2021
@@ -51,7 +49,6 @@ module "repo_discoverkit" {
   name        = "discoverkit"
   description = "Discover running Dogma applications on the network."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2019
@@ -76,7 +73,6 @@ module "repo_dogmacli" {
   name        = "dogmacli"
   description = "🚧 Command line tools for Dogma applications."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2020
@@ -88,7 +84,6 @@ module "repo_dogmavet" {
   name        = "dogmavet"
   description = "🚧 A Go vet tool for checking Dogma application and handler implementations."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2020
@@ -101,7 +96,6 @@ module "repo_example" {
   description = "An example Dogma application with the features of a simple bank."
   languages   = ["go"]
   template    = null
-  workflow    = null
 
   copyright = {
     since   = 2019
@@ -129,7 +123,6 @@ module "repo_interopspec" {
   name        = "interopspec"
   description = "🚧 Protocol Buffers and gRPC definitions for improving engine interoperability."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2019
@@ -141,7 +134,6 @@ module "repo_marshalkit" {
   name        = "marshalkit"
   description = "Marshal and unmarshal Dogma messages and other types."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2019
@@ -178,7 +170,6 @@ module "repo_testkit" {
   description = "Write blackbox tests for Dogma applications."
   languages   = ["go"]
   template    = null
-  workflow    = null
 
   copyright = {
     since = 2019
@@ -191,7 +182,6 @@ module "repo_veracity" {
   description = "🚧 An event-sourced Dogma engine that uses an append-only journal for persistence."
   private     = true
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2021

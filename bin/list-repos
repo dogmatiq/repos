@@ -3,4 +3,4 @@ set -euo pipefail
 
 # List all of the "normal" repositories managed by Terraform that use the "repo"
 # module. This does not include template repositories or other "unusual" repos.
-terraform state list | egrep -o 'module.repo_([^\.]+)' | sort | uniq | cut -d_ -f2
+terraform state list | egrep -o 'module.repo_([^\.]+)' | sort | uniq | cut -d_ -f2-
