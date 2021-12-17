@@ -1,0 +1,9 @@
+version: 2
+updates:
+  %{~ for ecosystem in ecosystems ~}
+  - package-ecosystem: ${ecosystem}
+    directory: "/"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 10
+  %{~ endfor ~}

@@ -62,6 +62,8 @@ module "repo_dogma" {
   language      = "go"
   omit_template = true
 
+  _dependabot_experiment = true
+
   copyright = {
     since   = 2018
     holders = ["Kevin Millar", "Danil Petrov"]
