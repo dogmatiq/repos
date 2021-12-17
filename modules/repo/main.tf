@@ -1,3 +1,10 @@
+locals {
+  copyright = defaults(
+    var.copyright,
+    {},
+  )
+}
+
 resource "github_repository" "this" {
   archive_on_destroy = true
 
@@ -34,9 +41,9 @@ resource "github_repository_file" "license" {
   content = templatefile(
     "${path.module}/license-template.txt",
     {
-      start_year = var.copyright_start_year
-      end_year   = var.copyright_end_year
-      holders    = concat(["James Harris"], var.copyright_holders)
+      start_year = local.copyright.since
+      end_year   = "2021"
+      holders    = concat(["James Harris"], local.copyright.holders)
     }
   )
 }

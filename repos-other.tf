@@ -1,9 +1,12 @@
 module "repo_dotgithub" {
-  source               = "./modules/repo"
-  name                 = ".github"
-  description          = "Dogmatiq community health files."
-  template             = null
-  copyright_start_year = 2019
+  source      = "./modules/repo"
+  name        = ".github"
+  description = "Dogmatiq community health files."
+  template    = null
+
+  copyright = {
+    since = 2019
+  }
 }
 
 resource "github_repository" "website" {

@@ -19,20 +19,11 @@ variable "template" {
   type        = string
 }
 
-variable "copyright_start_year" {
-  description = "The start year for the copyright notice in the LICENSE file"
-  type        = string
-  default     = "2021"
-}
-
-variable "copyright_end_year" {
-  description = "The end year for the copyright notice in the LICENSE file"
-  type        = string
-  default     = "2021"
-}
-
-variable "copyright_holders" {
-  description = "The names of additional people to list in the copyright notice in the LICENSE file"
-  type        = list(string)
-  default     = []
+variable "copyright" {
+  description = "Information about the copyright notice to include in the LICENSE file"
+  type = object({
+    since   = string,
+    holders = optional(list(string))
+  })
+  default = { since : "2021" }
 }
