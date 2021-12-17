@@ -59,7 +59,7 @@ module "repo_dogma" {
   source      = "./modules/repo"
   name        = "dogma"
   description = "A specification and API for building message-based applications in Go."
-  template    = null
+  template    = "go"
 
   copyright = {
     since   = 2018
