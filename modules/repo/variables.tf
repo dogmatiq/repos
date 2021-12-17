@@ -8,9 +8,10 @@ variable "description" {
   type        = string
 }
 
-variable "public" {
-  description = "Indicates whether the repository is visible to the public"
+variable "private" {
+  description = "Indicates whether the repository is hidden from the public"
   type        = bool
+  default     = false
 }
 
 variable "template" {
