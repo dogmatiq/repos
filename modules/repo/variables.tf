@@ -30,6 +30,13 @@ variable "template" {
   nullable    = true
 }
 
+variable "workflow" {
+  description = "Override the GitHub Actions workflow, otherwise it is determined based on the specified language"
+  type        = string
+  default     = "(default)"
+  nullable    = true
+}
+
 variable "copyright" {
   description = "Information about the copyright notice to include in the LICENSE file"
   type = object({
