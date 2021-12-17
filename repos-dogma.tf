@@ -166,7 +166,7 @@ module "repo_sqltest" {
   name        = "sqltest"
   description = "🚧 Internal utilities for testing Dogma projects that use SQL databases."
   languages   = ["go"]
-  workflow    = null
+  workflow    = "go+sql"
 
   copyright = {
     since = 2020
