@@ -1,4 +1,4 @@
-module "repo_template" {
+module "repo_template_go" {
   source      = "./modules/repo"
   name        = "template"
   description = "Repository template for Go modules."
