@@ -1,10 +1,5 @@
-variable "_dependabot_experiment" {
-  type    = bool
-  default = false
-}
-
 resource "github_repository_file" "dependabot_config" {
-  count = var._dependabot_experiment && length(var.languages) > 0 ? 1 : 0
+  count = length(var.languages) > 0 ? 1 : 0
 
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch

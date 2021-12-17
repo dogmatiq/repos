@@ -62,8 +62,6 @@ module "repo_dogma" {
   languages   = ["go"]
   template    = null
 
-  _dependabot_experiment = true
-
   copyright = {
     since   = 2018
     holders = ["Kevin Millar", "Danil Petrov"]
@@ -112,8 +110,6 @@ module "repo_example_ui" {
   private     = true
   languages   = ["go", "js"]
   template    = null
-
-  _dependabot_experiment = true
 
   copyright = {
     since   = 2021
