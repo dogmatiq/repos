@@ -5,6 +5,8 @@ module "repo_dotgithub" {
   language      = null
   omit_template = true
 
+  _dependabot_experiment = true
+
   copyright = {
     since = 2019
   }

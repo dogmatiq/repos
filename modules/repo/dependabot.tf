@@ -18,6 +18,7 @@ resource "github_repository_file" "dependabot_config" {
       ecosystems = compact([
         "github-actions",
         var.language == "go" ? "gomod" : "",
+        var.language == "js" ? "npm" : "",
       ])
     }
   )

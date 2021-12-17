@@ -110,8 +110,10 @@ module "repo_example_ui" {
   name          = "example-ui"
   description   = "🚧 A web based frontend for the example Bank application."
   private       = true
-  language      = null
+  language      = "js"
   omit_template = true
+
+  _dependabot_experiment = true
 
   copyright = {
     since   = 2021
