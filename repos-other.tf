@@ -1,6 +1,6 @@
 module "repo_template_go" {
   source      = "./modules/repo"
-  name        = "template"
+  name        = "template-go"
   description = "Repository template for Go modules."
   public      = true
   is_template = true
