@@ -14,7 +14,6 @@ module "repo_browser" {
   name        = "browser"
   description = "🚧 A web-based documentation server for inspecting Dogma applications."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2021
