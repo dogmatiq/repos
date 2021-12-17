@@ -1,12 +1,12 @@
 name: CI
 on:
   push:
-    branches:
-      - "*"
+    branches-ignore:
+      - main
   pull_request:
 jobs:
-  terraform:
-    name: Terraform
+  plan:
+    name: Plan Changes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,11 +19,5 @@ jobs:
         run: terraform fmt -check
       - name: Initialize
         run: terraform init
-      - name: Validate
-        run: terraform validate
       - name: Plan
-        if: github.event_name == 'pull_request'
         run: terraform plan -input=false
-      - name: Apply
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve -input=false
