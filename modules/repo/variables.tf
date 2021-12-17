@@ -1,28 +1,33 @@
 variable "name" {
   description = "The repository name"
   type        = string
+  nullable    = false
 }
 
 variable "description" {
   description = "The repository description"
   type        = string
+  nullable    = false
 }
 
 variable "private" {
   description = "Indicates whether the repository is hidden from the public"
   type        = bool
   default     = false
+  nullable    = false
 }
 
-variable "language" {
+variable "languages" {
   description = "The primary language used within the repository"
-  type        = string
+  type        = list(string)
+  nullable    = false
 }
 
-variable "omit_template" {
-  description = "Whether or not to omit the template repository configuration"
-  type        = bool
-  default     = false
+variable "template" {
+  description = "Override the template repository, otherwise it is determined based on the specified language"
+  type        = string
+  default     = "(default)"
+  nullable    = true
 }
 
 variable "copyright" {
@@ -31,5 +36,6 @@ variable "copyright" {
     since   = string,
     holders = optional(list(string))
   })
-  default = { since : "2021" }
+  default  = { since : "2021" }
+  nullable = false
 }

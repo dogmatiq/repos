@@ -1,9 +1,9 @@
 module "repo_dotgithub" {
-  source        = "./modules/repo"
-  name          = ".github"
-  description   = "Dogmatiq community health files."
-  language      = null
-  omit_template = true
+  source      = "./modules/repo"
+  name        = ".github"
+  description = "Dogmatiq community health files."
+  languages   = []
+  template    = null
 
   _dependabot_experiment = true
 

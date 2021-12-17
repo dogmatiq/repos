@@ -1,3 +1,7 @@
+locals {
+  template = var.template == "(default)" ? var.languages[0] : var.template
+}
+
 resource "github_repository" "this" {
   archive_on_destroy = true
 
@@ -17,10 +21,10 @@ resource "github_repository" "this" {
   vulnerability_alerts = true
 
   dynamic "template" {
-    for_each = var.omit_template ? [] : [null]
+    for_each = local.template == null ? [] : [null]
     content {
       owner      = "dogmatiq"
-      repository = "template-${var.language}"
+      repository = "template-${local.template}"
     }
   }
 }
