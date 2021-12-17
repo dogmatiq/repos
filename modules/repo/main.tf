@@ -20,7 +20,7 @@ resource "github_repository" "this" {
     for_each = var.template == null ? [] : [null]
     content {
       owner      = "dogmatiq"
-      repository = var.template
+      repository = "template-${var.template}"
     }
   }
 }

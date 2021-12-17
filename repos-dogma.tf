@@ -3,6 +3,7 @@ module "repo_aperture" {
   name                 = "aperture"
   description          = "🚧 An intensely minimal projection-only Dogma engine."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -11,6 +12,7 @@ module "repo_browser" {
   name                 = "browser"
   description          = "🚧 A web-based documentation server for inspecting Dogma applications."
   public               = true
+  template             = "go"
   copyright_start_year = 2021
 }
 
@@ -19,6 +21,7 @@ module "repo_configkit" {
   name                 = "configkit"
   description          = "Inspect, validate and visualize Dogma application configurations."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
   copyright_holders    = ["Danil Petrov"]
 }
@@ -28,6 +31,7 @@ module "repo_cloud" {
   name                 = "cloud"
   description          = "The easiest way to run Dogma applications in the cloud."
   public               = false
+  template             = "go"
   copyright_start_year = 2021
 }
 
@@ -36,6 +40,7 @@ module "repo_discoverkit" {
   name                 = "discoverkit"
   description          = "Discover running Dogma applications on the network."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -44,9 +49,9 @@ module "repo_dogma" {
   name                 = "dogma"
   description          = "A specification and API for building message-based applications in Go."
   public               = true
+  template             = null
   copyright_start_year = 2018
   copyright_holders    = ["Kevin Millar", "Danil Petrov"]
-  template             = null
 }
 
 module "repo_dogmacli" {
@@ -54,6 +59,7 @@ module "repo_dogmacli" {
   name                 = "dogmacli"
   description          = "🚧 Command line tools for Dogma applications."
   public               = true
+  template             = "go"
   copyright_start_year = 2020
 }
 
@@ -62,6 +68,7 @@ module "repo_dogmavet" {
   name                 = "dogmavet"
   description          = "🚧 A Go vet tool for checking Dogma application and handler implementations."
   public               = true
+  template             = "go"
   copyright_start_year = 2020
 }
 
@@ -70,9 +77,9 @@ module "repo_example" {
   name                 = "example"
   description          = "An example Dogma application with the features of a simple bank."
   public               = true
+  template             = null
   copyright_start_year = 2019
   copyright_holders    = ["Kevin Millar"]
-  template             = null
 }
 
 module "repo_example_ui" {
@@ -80,9 +87,9 @@ module "repo_example_ui" {
   name                 = "example-ui"
   description          = "🚧 A web based frontend for the example Bank application."
   public               = false
+  template             = null
   copyright_start_year = 2021
   copyright_holders    = ["Erin Millard"]
-  template             = null
 }
 
 module "repo_interopspec" {
@@ -90,6 +97,7 @@ module "repo_interopspec" {
   name                 = "interopspec"
   description          = "🚧 Protocol Buffers and gRPC definitions for improving engine interoperability."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -98,6 +106,7 @@ module "repo_marshalkit" {
   name                 = "marshalkit"
   description          = "Marshal and unmarshal Dogma messages and other types."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -106,6 +115,7 @@ module "repo_projectionkit" {
   name                 = "projectionkit"
   description          = "Build Dogma projections using popular database systems."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -114,6 +124,7 @@ module "repo_sqltest" {
   name                 = "sqltest"
   description          = "🚧 Internal utilities for testing Dogma projects that use SQL databases."
   public               = true
+  template             = "go"
   copyright_start_year = 2020
 }
 
@@ -122,8 +133,8 @@ module "repo_testkit" {
   name                 = "testkit"
   description          = "Write blackbox tests for Dogma applications."
   public               = true
-  copyright_start_year = 2019
   template             = null
+  copyright_start_year = 2019
 }
 
 module "repo_veracity" {
@@ -131,6 +142,7 @@ module "repo_veracity" {
   name                 = "veracity"
   description          = "🚧 An event-sourced Dogma engine that uses an append-only journal for persistence."
   public               = false
+  template             = "go"
   copyright_start_year = 2021
 }
 
@@ -139,5 +151,6 @@ module "repo_verity" {
   name                 = "verity"
   description          = "🚧 A scalable, event-sourced Dogma engine."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }

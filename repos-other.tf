@@ -3,8 +3,8 @@ module "repo_dotgithub" {
   name                 = ".github"
   description          = "Dogmatiq community health files."
   public               = true
-  copyright_start_year = 2019
   template             = null
+  copyright_start_year = 2019
 }
 
 resource "github_repository" "website" {

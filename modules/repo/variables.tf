@@ -16,7 +16,6 @@ variable "public" {
 variable "template" {
   description = "The template repository used to create this repository"
   type        = string
-  default     = "template"
 }
 
 variable "copyright_start_year" {

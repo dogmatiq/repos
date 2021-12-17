@@ -3,6 +3,7 @@ module "repo_cosyne" {
   name                 = "cosyne"
   description          = "Context-aware synchronization primitives for Go."
   public               = true
+  template             = "go"
   copyright_start_year = 2020
 }
 
@@ -11,8 +12,8 @@ module "repo_dapper" {
   name                 = "dapper"
   description          = "A pretty-printer for Go values with minimalistic output."
   public               = true
-  copyright_start_year = 2019
   template             = null
+  copyright_start_year = 2019
 }
 
 module "repo_dissolve" {
@@ -20,6 +21,7 @@ module "repo_dissolve" {
   name                 = "dissolve"
   description          = "🚧 A DNS-SD, Multicast DNS and Zeroconf/Bonjour toolkit for Go."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -28,8 +30,8 @@ module "repo_dodeca" {
   name                 = "dodeca"
   description          = "Utilities for 12-Factor applications written in Go."
   public               = true
-  copyright_start_year = 2019
   template             = null
+  copyright_start_year = 2019
 }
 
 module "repo_dosh" {
@@ -37,6 +39,7 @@ module "repo_dosh" {
   name                 = "dosh"
   description          = "🚧 A Go library for representing monetary values in-process and on-the-wire."
   public               = true
+  template             = "go"
   copyright_start_year = 2021
 }
 
@@ -45,8 +48,8 @@ module "repo_harpy" {
   name                 = "harpy"
   description          = "🚧 A transport-agnostic JSON-RPC v2 server toolkit for Go."
   public               = true
-  copyright_start_year = 2020
   template             = null
+  copyright_start_year = 2020
 }
 
 module "repo_iago" {
@@ -54,8 +57,8 @@ module "repo_iago" {
   name                 = "iago"
   description          = "IO utilities for Go."
   public               = true
-  copyright_start_year = 2019
   template             = null
+  copyright_start_year = 2019
 }
 
 module "repo_kyu" {
@@ -63,6 +66,7 @@ module "repo_kyu" {
   name                 = "kyu"
   description          = "🚧 Queue data-structures for Go."
   public               = true
+  template             = "go"
   copyright_start_year = 2020
 }
 
@@ -71,6 +75,7 @@ module "repo_linger" {
   name                 = "linger"
   description          = "Timeout and retry utilities for Go."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -79,6 +84,7 @@ module "repo_mobius" {
   name                 = "mobius"
   description          = "🚧 A weighted consistent-hashing implementation for Go."
   public               = true
+  template             = "go"
   copyright_start_year = 2019
 }
 
@@ -87,5 +93,6 @@ module "repo_protean" {
   name                 = "protean"
   description          = "🚧 A Protocol Buffers RPC framework for Go, consumable from the browser using standard APIs."
   public               = true
+  template             = "go"
   copyright_start_year = 2021
 }
