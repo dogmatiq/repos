@@ -1,11 +1,3 @@
-module "repo_template_go" {
-  source      = "./modules/repo"
-  name        = "template-go"
-  description = "Repository template for Go modules."
-  public      = true
-  is_template = true
-}
-
 module "repo_dotgithub" {
   source               = "./modules/repo"
   name                 = ".github"
