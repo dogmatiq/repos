@@ -3,7 +3,6 @@ module "repo_aperture" {
   name        = "aperture"
   description = "🚧 An intensely minimal projection-only Dogma engine."
   languages   = ["go"]
-  workflow    = null
 
   copyright = {
     since = 2019

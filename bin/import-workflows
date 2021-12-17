@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+repos=$(bin/list-repos)
+
+for repo in $repos; do
+    terraform import "module.repo_$repo.github_repository_file.workflow_config[0]" "$repo/.github/workflows/ci.yml:main"
+    exit
+done
