@@ -5,12 +5,13 @@ jobs:
   go:
     name: Go with SQL services
     runs-on: ubuntu-latest
+    container: ubuntu:latest
 
     env:
-      DOGMATIQ_TEST_DSN_MYSQL_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ job.services.mysql.ports['3306'] }})/mysql"
-      DOGMATIQ_TEST_DSN_MARIADB_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql"
-      DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
-      DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@127.0.0.1:${{ job.services.postgres.ports['5432'] }}?sslmode=disable"
+      DOGMATIQ_TEST_DSN_MYSQL_MYSQL: "root:rootpass@tcp(mysql)/mysql"
+      DOGMATIQ_TEST_DSN_MARIADB_MYSQL: "root:rootpass@tcp(mariadb)/mysql"
+      DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=postgres"
+      DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@postgres?sslmode=disable"
 
     steps:
       - name: Set up Go
@@ -39,8 +40,6 @@ jobs:
           --health-interval 2s
           --health-timeout 10s
           --health-retries 10
-        ports:
-          - 3306/tcp
         env:
           MYSQL_ROOT_PASSWORD: rootpass
 
@@ -52,8 +51,6 @@ jobs:
           --health-interval 2s
           --health-timeout 10s
           --health-retries 10
-        ports:
-          - 3306/tcp
         env:
           MYSQL_ROOT_PASSWORD: rootpass
 
@@ -66,5 +63,3 @@ jobs:
           --health-retries 10
         env:
           POSTGRES_PASSWORD: rootpass
-        ports:
-          - 5432/tcp
