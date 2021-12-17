@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+terraform import "module.repo_$1.github_repository_file.workflow_config[0]" "$1/.github/workflows/ci.yml:main"

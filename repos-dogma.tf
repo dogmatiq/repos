@@ -204,7 +204,7 @@ module "repo_verity" {
   name        = "verity"
   description = "🚧 A scalable, event-sourced Dogma engine."
   languages   = ["go"]
-  workflow    = null
+  workflow    = "go+sql"
 
   copyright = {
     since = 2019
