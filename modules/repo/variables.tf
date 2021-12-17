@@ -19,12 +19,6 @@ variable "template" {
   default     = "template"
 }
 
-variable "is_template" {
-  description = "Indicates whether the repository is a template repository"
-  type        = bool
-  default     = false
-}
-
 variable "copyright_start_year" {
   description = "The start year for the copyright notice in the LICENSE file"
   type        = string

@@ -16,10 +16,8 @@ resource "github_repository" "this" {
 
   vulnerability_alerts = true
 
-  is_template = var.is_template
-
   dynamic "template" {
-    for_each = (var.is_template || var.template == null) ? [] : [null]
+    for_each = var.template == null ? [] : [null]
     content {
       owner      = "dogmatiq"
       repository = var.template
