@@ -17,6 +17,7 @@ resource "github_repository" "this" {
   allow_merge_commit     = true
   allow_squash_merge     = false
   allow_rebase_merge     = false
+  allow_auto_merge       = var.merge_dependabot_prs
 
   vulnerability_alerts = true
 
