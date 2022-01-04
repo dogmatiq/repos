@@ -18,7 +18,7 @@ variable "private" {
 }
 
 variable "languages" {
-  description = "The primary language used within the repository"
+  description = "The languages used within the repository"
   type        = list(string)
   nullable    = false
 }
