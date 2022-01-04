@@ -1,5 +1,7 @@
 locals {
-  template = var.template == "(default)" ? var.languages[0] : var.template
+  template                    = var.template == "(default)" ? var.languages[0] : var.template
+  enable_dependabot           = length(var.languages) > 0
+  enable_dependabot_automerge = local.enable_dependabot && var.merge_dependabot_prs && !var.private
 }
 
 resource "github_repository" "this" {
@@ -17,7 +19,7 @@ resource "github_repository" "this" {
   allow_merge_commit     = true
   allow_squash_merge     = false
   allow_rebase_merge     = false
-  allow_auto_merge       = var.merge_dependabot_prs
+  allow_auto_merge       = local.enable_dependabot_automerge
 
   vulnerability_alerts = true
 
@@ -29,3 +31,15 @@ resource "github_repository" "this" {
     }
   }
 }
+
+# resource "github_branch_protection" "default" {
+#   count = local.merge_dependabot_prs ? 1 : 0
+
+#   repository_id = github_repository.this.node_id
+#   pattern       = github_repository.this.default_branch
+
+#   required_status_checks {
+#     strict   = false
+#     contexts = ["xxx"]
+#   }
+# }

@@ -1,5 +1,5 @@
 resource "github_repository_file" "dependabot_config" {
-  count = length(var.languages) > 0 ? 1 : 0
+  count = local.enable_dependabot ? 1 : 0
 
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
@@ -20,7 +20,7 @@ resource "github_repository_file" "dependabot_config" {
 }
 
 resource "github_repository_file" "dependabot_workflow_config" {
-  count = length(var.languages) > 0 && var.merge_dependabot_prs ? 1 : 0
+  count = local.enable_dependabot_automerge ? 1 : 0
 
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch

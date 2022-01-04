@@ -38,7 +38,7 @@ variable "workflow" {
 }
 
 variable "merge_dependabot_prs" {
-  description = "Automatically merge (some) Dependabot PRs"
+  description = "Automatically merge (some) Dependabot PRs (does not work for private repositories)"
   type        = bool
   default     = false
   nullable    = false
