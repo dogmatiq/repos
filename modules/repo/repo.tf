@@ -1,7 +1,5 @@
 locals {
-  template                    = var.template == "(default)" ? var.languages[0] : var.template
-  enable_dependabot           = length(var.languages) > 0
-  enable_dependabot_automerge = local.enable_dependabot && var.merge_dependabot_prs && !var.private
+  template = var.template == "(default)" ? var.languages[0] : var.template
 }
 
 resource "github_repository" "this" {
