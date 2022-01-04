@@ -37,13 +37,6 @@ variable "workflow" {
   nullable    = true
 }
 
-variable "merge_dependabot_prs" {
-  description = "Automatically merge (some) Dependabot PRs (does not work for private repositories)"
-  type        = bool
-  default     = false
-  nullable    = false
-}
-
 variable "copyright" {
   description = "Information about the copyright notice to include in the LICENSE file"
   type = object({

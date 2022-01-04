@@ -1,6 +1,6 @@
 locals {
   enable_dependabot            = length(var.languages) > 0
-  enable_dependabot_auto_merge = local.enable_dependabot && var.merge_dependabot_prs && github_repository.this.allow_auto_merge
+  enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
 }
 
 resource "github_repository_file" "dependabot_config" {

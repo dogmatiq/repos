@@ -1,9 +1,8 @@
 module "repo_aperture" {
-  source               = "./modules/repo"
-  name                 = "aperture"
-  description          = "🚧 An intensely minimal projection-only Dogma engine."
-  languages            = ["go"]
-  merge_dependabot_prs = true
+  source      = "./modules/repo"
+  name        = "aperture"
+  description = "🚧 An intensely minimal projection-only Dogma engine."
+  languages   = ["go"]
 
   copyright = {
     since = 2019
