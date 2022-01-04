@@ -14,8 +14,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Auto-merge non-major Dogmatiq dependencies
+      - name: Auto-merge minor/patch updates to in-house dependencies
         run: gh pr comment "${{ github.event.pull_request.html_url }}" --body "@dependabot merge"
-        if: ${{ contains(steps.dependabot-metadata.outputs.dependency-names, 'dogmatiq') && steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
+        if: ${{ contains(steps.dependabot-metadata.outputs.dependency-names, 'github.com/dogmatiq') && steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

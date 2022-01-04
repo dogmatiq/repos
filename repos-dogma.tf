@@ -177,11 +177,12 @@ module "repo_testkit" {
 }
 
 module "repo_veracity" {
-  source      = "./modules/repo"
-  name        = "veracity"
-  description = "🚧 An event-sourced Dogma engine that uses an append-only journal for persistence."
-  private     = true
-  languages   = ["go"]
+  source               = "./modules/repo"
+  name                 = "veracity"
+  description          = "🚧 An event-sourced Dogma engine that uses an append-only journal for persistence."
+  private              = true
+  languages            = ["go"]
+  merge_dependabot_prs = true
 
   copyright = {
     since = 2021
