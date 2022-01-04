@@ -16,6 +16,6 @@ jobs:
 
       - name: Auto-merge minor/patch updates to in-house dependencies
         run: gh pr merge "${{ github.event.pull_request.html_url }}" --merge --auto
-        if: ${{ contains(steps.dependabot-metadata.outputs.dependency-names, 'github.com/dogmatiq') && steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
+        if: ${{ startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/dogmatiq/') && steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

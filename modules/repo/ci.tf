@@ -18,7 +18,6 @@ resource "github_repository_file" "workflow_config" {
   content             = local.workflow_ref_content
 }
 
-
 resource "github_branch_protection" "default_branch" {
   count = local.workflow == null || !local.enable_dependabot_automerge ? 0 : 1
 
