@@ -1,0 +1,20 @@
+on:
+  workflow_call:
+
+jobs:
+  dependabot:
+    name: Dependabot PRs
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' }}
+
+    steps:
+      - name: Load Dependabot meta-data
+        uses: dependabot/fetch-metadata@v1.1.1
+        id: dependabot-metadata
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto-merge non-major changes to Dogmatiq dependencies
+        run: gh pr comment "${{ github.event.pull_request.html_url }}" --body "@dependabot merge"
+        if: ${{ contains(steps.dependabot-metadata.outputs.dependency-names, 'dogmatiq') && steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
