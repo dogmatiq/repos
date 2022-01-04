@@ -11,8 +11,10 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ^1
+
       - name: Checkout
         uses: actions/checkout@v2.4.0
+
       - name: Make (with CGO)
         run: make ci
         env:
@@ -21,6 +23,7 @@ jobs:
           DOGMATIQ_TEST_DSN_MARIADB_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql"
           DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
           DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@127.0.0.1:${{ job.services.postgres.ports['5432'] }}?sslmode=disable"
+
       - name: Make (tests only, without CGO)
         run: make test
         env:
@@ -29,6 +32,7 @@ jobs:
           DOGMATIQ_TEST_DSN_MARIADB_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql"
           DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
           DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@127.0.0.1:${{ job.services.postgres.ports['5432'] }}?sslmode=disable"
+
       - name: Upload Coverage Reports
         uses: codecov/codecov-action@v2
 

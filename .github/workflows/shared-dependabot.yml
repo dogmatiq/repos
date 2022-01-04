@@ -13,7 +13,8 @@ jobs:
         id: dependabot-metadata
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Auto-merge non-major changes to Dogmatiq dependencies
+
+      - name: Auto-merge non-major Dogmatiq dependencies
         run: gh pr comment "${{ github.event.pull_request.html_url }}" --body "@dependabot merge"
         if: ${{ contains(steps.dependabot-metadata.outputs.dependency-names, 'dogmatiq') && steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major' }}
         env:
