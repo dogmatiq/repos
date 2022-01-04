@@ -5,6 +5,7 @@ locals {
     "${path.module}/../../templates/workflow-ci.yml.tftpl",
     { workflow = local.workflow }
   ) : null
+  enable_branch_protection = local.workflow != null && !var.private # not supported by private repos on free-tier
 }
 
 resource "github_repository_file" "workflow_config" {
@@ -19,7 +20,7 @@ resource "github_repository_file" "workflow_config" {
 }
 
 resource "github_branch_protection" "default_branch" {
-  count = local.workflow == null ? 0 : 1
+  count = local.enable_branch_protection ? 1 : 0
 
   repository_id = github_repository.this.node_id
   pattern       = github_repository.this.default_branch

@@ -19,7 +19,7 @@ resource "github_repository" "this" {
   allow_merge_commit     = true
   allow_squash_merge     = false
   allow_rebase_merge     = false
-  allow_auto_merge       = !var.private # Not supported by private repos on free-tier
+  allow_auto_merge       = !var.private # not supported by private repos on free-tier
 
   vulnerability_alerts = true
 
