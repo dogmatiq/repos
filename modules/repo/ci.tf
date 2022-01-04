@@ -19,7 +19,7 @@ resource "github_repository_file" "workflow_config" {
 }
 
 resource "github_branch_protection" "default_branch" {
-  count = local.workflow == null || !local.enable_dependabot_automerge ? 0 : 1
+  count = local.workflow == null ? 0 : 1
 
   repository_id = github_repository.this.node_id
   pattern       = github_repository.this.default_branch
