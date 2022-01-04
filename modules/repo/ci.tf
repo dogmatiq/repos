@@ -12,7 +12,7 @@ resource "github_repository_file" "workflow_config" {
   overwrite_on_create = true
 
   content = templatefile(
-    "${path.module}/../../templates/workflow.yml.tftpl",
+    "${path.module}/../../templates/workflow-ci.yml.tftpl",
     {
       workflow = local.workflow
     }
