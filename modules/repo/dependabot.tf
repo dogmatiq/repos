@@ -35,8 +35,6 @@ resource "github_repository_file" "dependabot_workflow_config" {
 
   content = templatefile(
     "${path.module}/../../templates/workflow-dependabot.yml.tftpl",
-    {
-      workflow = local.workflow
-    }
+    {}
   )
 }
