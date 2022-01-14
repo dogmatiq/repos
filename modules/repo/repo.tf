@@ -1,7 +1,3 @@
-locals {
-  template = var.template == "(default)" ? var.languages[0] : var.template
-}
-
 resource "github_repository" "this" {
   archive_on_destroy = true
 

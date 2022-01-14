@@ -1,11 +1,12 @@
 locals {
-  workflow         = var.workflow == "(default)" ? var.languages[0] : var.workflow
-  workflow_content = local.workflow != null ? file("${path.module}/../../.github/workflows/shared-${local.workflow}.yml") : null
+  workflow_content = local.workflow != null ? file(
+    "${path.module}/../../.github/workflows/shared-${local.workflow}.yml",
+  ) : null
+
   workflow_ref_content = local.workflow != null ? templatefile(
     "${path.module}/../../templates/workflow-ci.yml.tftpl",
     { workflow = local.workflow }
   ) : null
-  enable_branch_protection = local.workflow != null && !var.private # not supported by private repos on free-tier
 }
 
 resource "github_repository_file" "workflow_config" {

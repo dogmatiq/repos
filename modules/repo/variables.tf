@@ -30,6 +30,7 @@ variable "template" {
   nullable    = true
 }
 
+
 variable "workflow" {
   description = "Override the GitHub Actions workflow, otherwise it is determined based on the specified language"
   type        = string
@@ -45,4 +46,14 @@ variable "copyright" {
   })
   default  = { since : "2021" }
   nullable = false
+}
+
+locals {
+  primary_language = length(var.languages) == 0 ? null : var.languages[0]
+  template         = var.template == "(default)" ? local.primary_language : var.template
+  workflow         = var.workflow == "(default)" ? local.primary_language : var.workflow
+
+  enable_branch_protection     = local.workflow != null && !var.private # not supported by private repos on free-tier
+  enable_dependabot            = local.primary_language != null
+  enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
 }
