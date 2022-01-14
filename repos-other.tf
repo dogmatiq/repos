@@ -3,8 +3,6 @@ module "repo_dotgithub" {
   name        = ".github"
   description = "Dogmatiq community health files."
   languages   = []
-  template    = null
-  workflow    = null
 
   copyright = {
     since = 2019
