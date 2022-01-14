@@ -18,5 +18,5 @@ jobs:
       - name: Make
         run: make ci
 
-      - name: Upload Coverage Reports
+      - name: Upload coverage report
         uses: codecov/codecov-action@v2
