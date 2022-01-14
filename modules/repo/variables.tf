@@ -48,6 +48,13 @@ variable "copyright" {
   nullable = false
 }
 
+variable "publish_releases" {
+  description = "Automatically publish GitHub releases when a tag is pushed."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 locals {
   primary_language = length(var.languages) == 0 ? null : var.languages[0]
   template         = var.template == "(default)" ? local.primary_language : var.template
@@ -56,4 +63,6 @@ locals {
   enable_branch_protection     = local.workflow != null && !var.private # not supported by private repos on free-tier
   enable_dependabot            = local.primary_language != null
   enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
+
+  publish_releases = var.publish_releases # && local.primary_language != null
 }

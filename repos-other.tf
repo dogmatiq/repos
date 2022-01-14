@@ -34,3 +34,16 @@ resource "github_repository" "website" {
     }
   }
 }
+
+module "repo_test" {
+  source      = "./modules/repo"
+  name        = "test-release-publishing"
+  description = "Testing automated release publishing."
+  languages   = []
+
+  publish_releases = true
+
+  copyright = {
+    since = 2021
+  }
+}
