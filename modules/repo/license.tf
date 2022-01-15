@@ -1,10 +1,3 @@
-locals {
-  copyright = defaults(
-    var.copyright,
-    {},
-  )
-}
-
 resource "github_repository_file" "license" {
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch

@@ -44,7 +44,6 @@ variable "copyright" {
     since   = string,
     holders = optional(list(string))
   })
-  default  = { since : "2021" }
   nullable = false
 }
 
@@ -63,6 +62,8 @@ locals {
   enable_branch_protection     = local.workflow != null && !var.private # not supported by private repos on free-tier
   enable_dependabot            = local.primary_language != null
   enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
+
+  copyright = defaults(var.copyright, {})
 
   publish_releases = var.publish_releases # && local.primary_language != null
 }
