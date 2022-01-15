@@ -26,7 +26,7 @@ variable "languages" {
 variable "template" {
   description = "Override the template repository, otherwise it is determined based on the specified language"
   type        = string
-  default     = "(default)"
+  default     = "(default)" # sentinel used to detect absence of attribute
   nullable    = true
 }
 
@@ -34,7 +34,7 @@ variable "template" {
 variable "workflow" {
   description = "Override the GitHub Actions workflow, otherwise it is determined based on the specified language"
   type        = string
-  default     = "(default)"
+  default     = "(default)" # sentinel used to detect absence of attribute
   nullable    = true
 }
 
@@ -50,8 +50,7 @@ variable "copyright" {
 variable "publish_releases" {
   description = "Automatically publish GitHub releases when a tag is pushed."
   type        = bool
-  default     = false
-  nullable    = false
+  default     = null # sentinel used to detect absence of attribute
 }
 
 locals {
@@ -65,5 +64,5 @@ locals {
 
   copyright = defaults(var.copyright, {})
 
-  publish_releases = var.publish_releases # && local.primary_language != null
+  publish_releases = var.publish_releases == null ? local.workflow != null : var.publish_releases # by default, publish if there are other workflows
 }
