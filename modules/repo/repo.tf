@@ -17,6 +17,8 @@ resource "github_repository" "this" {
 
   vulnerability_alerts = true
 
+  auto_init = local.template == null # make sure there is always a default branch
+
   dynamic "template" {
     for_each = local.template == null ? [] : [null]
     content {
