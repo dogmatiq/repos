@@ -3,13 +3,12 @@ resource "github_repository_file" "license" {
   branch              = github_repository.this.default_branch
   file                = "LICENSE"
   overwrite_on_create = true
+  commit_message      = <<-EOT
+  Regenerate license from template.
 
-  commit_message = <<EOF
-Regenerate license from template.
-
-This file is managed by the Terraform configuration at https://github.com/dogmatiq/repos,
-do not edit it manually!
-EOF
+  This file is managed by the Terraform configuration at https://github.com/dogmatiq/repos,
+  do not edit it manually!
+  EOT
 
   content = templatefile(
     "${path.module}/../../templates/LICENSE.tftpl",
