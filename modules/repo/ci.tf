@@ -15,9 +15,15 @@ resource "github_repository_file" "workflow_config" {
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/ci.yml"
-  commit_message      = "Update GitHub Actions configuration based on Terraform configuration"
   overwrite_on_create = true
   content             = local.workflow_ref_content
+
+  commit_message = <<EOF
+Regenerate workflow configuration from template.
+
+This file is managed by the Terraform configuration at https://github.com/dogmatiq/repos,
+do not edit it manually!
+EOF
 }
 
 resource "github_branch_protection" "default_branch" {

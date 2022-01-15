@@ -2,8 +2,14 @@ resource "github_repository_file" "license" {
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = "LICENSE"
-  commit_message      = "Update license based on Terraform configuration"
   overwrite_on_create = true
+
+  commit_message = <<EOF
+Regenerate license from template.
+
+This file is managed by the Terraform configuration at https://github.com/dogmatiq/repos,
+do not edit it manually!
+EOF
 
   content = templatefile(
     "${path.module}/../../templates/LICENSE.tftpl",

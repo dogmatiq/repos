@@ -4,8 +4,14 @@ resource "github_repository_file" "dependabot_config" {
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/dependabot.yml"
-  commit_message      = "Update Dependabot configuration based on Terraform configuration"
   overwrite_on_create = true
+
+  commit_message = <<EOF
+Regenerate Dependabot configuration from template.
+
+This file is managed by the Terraform configuration at https://github.com/dogmatiq/repos,
+do not edit it manually!
+EOF
 
   content = templatefile(
     "${path.module}/../../templates/dependabot.yml.tftpl",
@@ -25,8 +31,14 @@ resource "github_repository_file" "dependabot_workflow_config" {
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/dependabot.yml"
-  commit_message      = "Update GitHub Actions configuration based on Terraform configuration"
   overwrite_on_create = true
+
+  commit_message = <<EOF
+Regenerate workflow configuration from template.
+
+This file is managed by the Terraform configuration at https://github.com/dogmatiq/repos,
+do not edit it manually!
+EOF
 
   content = templatefile(
     "${path.module}/../../templates/workflow-dependabot.yml.tftpl",
