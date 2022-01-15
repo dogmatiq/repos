@@ -5,12 +5,9 @@ resource "github_repository_file" "publish_release_workflow_config" {
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/publish-release.yml"
   overwrite_on_create = true
-  commit_message      = <<-EOT
-  Regenerate workflow configuration from template.
-
-  This file is managed by the Terraform configuration at https://github.com/dogmatiq/repos,
-  do not edit it manually!
-  EOT
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
+  commit_message      = "Regenerate workflow configuration from template."
 
   content = templatefile(
     "${path.module}/../../templates/workflow-publish-release.yml.tftpl",
