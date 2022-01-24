@@ -25,10 +25,10 @@ jobs:
               steps.dependabot-metadata.outputs.dependency-names,
               'github.com/dogmatiq/'
             )
-            || contains(fromJSON("[
-                'github.com/onsi/gomega',
-                'github.com/onsi/ginkgo',
-              ]"),
+            || contains(fromJSON('[
+                "github.com/onsi/gomega",
+                "github.com/onsi/ginkgo",
+              ]''),
               steps.dependabot-metadata.outputs.dependency-names
             )
           )
