@@ -24,14 +24,14 @@ jobs:
             && (
               startsWith(
                 steps.dependabot-metadata.outputs.dependency-names,
-                'github.com/dogmatiq/',
+                'github.com/dogmatiq/'
               )
               || contains(
                 [
-                'github.com/onsi/gomega',
-                'github.com/onsi/ginkgo',
+                  'github.com/onsi/gomega',
+                  'github.com/onsi/ginkgo',
                 ],
-                steps.dependabot-metadata.outputs.dependency-names,
+                steps.dependabot-metadata.outputs.dependency-names
               )
             )
           }}
