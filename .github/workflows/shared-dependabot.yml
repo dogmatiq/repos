@@ -5,7 +5,7 @@ jobs:
   dependabot:
     name: Merge PR
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: github.actor == 'dependabot[bot]'
 
     steps:
       - name: Load Dependabot meta-data
@@ -19,18 +19,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: >
-          ${{
-            steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
-            && (
-              startsWith(
-                steps.dependabot-metadata.outputs.dependency-names,
-                'github.com/dogmatiq/'
-              )
-              || contains(fromJSON("[
-                  'github.com/onsi/gomega',
-                  'github.com/onsi/ginkgo',
-                ]"),
-                steps.dependabot-metadata.outputs.dependency-names
-              )
+          steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
+          && (
+            startsWith(
+              steps.dependabot-metadata.outputs.dependency-names,
+              'github.com/dogmatiq/'
             )
-          }}
+            || contains(fromJSON("[
+                'github.com/onsi/gomega',
+                'github.com/onsi/ginkgo',
+              ]"),
+              steps.dependabot-metadata.outputs.dependency-names
+            )
+          )
