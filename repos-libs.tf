@@ -79,6 +79,19 @@ module "repo_iago" {
   }
 }
 
+module "repo_imbue" {
+  source      = "./modules/repo"
+  name        = "imbue"
+  description = "🚧 Yet another dependency injection container for Go."
+  private     = true
+  languages   = ["go"]
+
+  copyright = {
+    since = 2022
+  }
+}
+
+
 module "repo_kyu" {
   source      = "./modules/repo"
   name        = "kyu"
