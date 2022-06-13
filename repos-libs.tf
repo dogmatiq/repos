@@ -83,7 +83,6 @@ module "repo_imbue" {
   source      = "./modules/repo"
   name        = "imbue"
   description = "🚧 Yet another dependency injection container for Go."
-  private     = true
   languages   = ["go"]
 
   copyright = {
