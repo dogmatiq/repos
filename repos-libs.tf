@@ -82,7 +82,7 @@ module "repo_iago" {
 module "repo_imbue" {
   source      = "./modules/repo"
   name        = "imbue"
-  description = "🚧 Yet another dependency injection container for Go."
+  description = "🚧 A type-safe dependency injection container for Go."
   languages   = ["go"]
 
   copyright = {
