@@ -134,3 +134,15 @@ module "repo_protean" {
     since = 2021
   }
 }
+
+module "repo_sawbones" {
+  source      = "./modules/repo"
+  name        = "sawbones"
+  description = "🚧 A toolkit for building Kubernetes health probes for Go services."
+  private     = true
+  languages   = ["go"]
+
+  copyright = {
+    since = 2022
+  }
+}
