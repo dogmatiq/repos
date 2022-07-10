@@ -179,9 +179,10 @@ module "repo_testkit" {
 module "repo_veracity" {
   source      = "./modules/repo"
   name        = "veracity"
-  description = "🚧 An event-sourced Dogma engine that uses an append-only journal for persistence."
+  description = "🚧 An event-sourced Dogma engine with a focus on horizontal scalability."
   private     = true
   languages   = ["go"]
+  workflow    = "go+minio"
 
   copyright = {
     since = 2021
