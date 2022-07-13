@@ -1,12 +1,12 @@
-# This workflow is the standard Go workflow with the addition of the SQL-based
-# persistence mechanisms supported by Dogmatiq projects.
+# This workflow is the standard Go workflow with the addition of the persistence
+# mechanisms supported by Dogmatiq projects.
 
 on:
   workflow_call:
 
 jobs:
   go:
-    name: Go + SQL
+    name: Go + Persistence
     runs-on: ubuntu-latest
 
     steps:
@@ -27,6 +27,9 @@ jobs:
           DOGMATIQ_TEST_DSN_MARIADB_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql"
           DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
           DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@127.0.0.1:${{ job.services.postgres.ports['5432'] }}?sslmode=disable"
+          DOGMATIQ_TEST_MINIO_ACCESS_KEY: minio
+          DOGMATIQ_TEST_MINIO_SECRET_KEY: password
+          DOGMATIQ_TEST_MINIO_ENDPOINT: "http://localhost:${{ job.services.minio.ports['9000'] }}"
 
       - name: Make (tests only, without CGO)
         run: make test
@@ -36,13 +39,16 @@ jobs:
           DOGMATIQ_TEST_DSN_MARIADB_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql"
           DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
           DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@127.0.0.1:${{ job.services.postgres.ports['5432'] }}?sslmode=disable"
+          DOGMATIQ_TEST_MINIO_ACCESS_KEY: minio
+          DOGMATIQ_TEST_MINIO_SECRET_KEY: password
+          DOGMATIQ_TEST_MINIO_ENDPOINT: "http://localhost:${{ job.services.minio.ports['9000'] }}"
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3
 
     services:
       mysql:
-        image: mysql:8
+        image: mysql
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
@@ -55,7 +61,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: rootpass
 
       mariadb:
-        image: mariadb:10
+        image: mariadb
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
@@ -68,7 +74,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: rootpass
 
       postgres:
-        image: postgres:13
+        image: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 2s
@@ -78,3 +84,21 @@ jobs:
           - 5432/tcp
         env:
           POSTGRES_PASSWORD: rootpass
+
+      minio:
+        image: minio/minio:edge-cicd
+        options: >-
+          --health-cmd "curl -f http://localhost:9000/minio/health/live"
+          --health-interval 2s
+          --health-timeout 10s
+          --health-retries 10
+        ports:
+          - 9000/tcp
+        env:
+          MINIO_ACCESS_KEY: minio
+          MINIO_SECRET_KEY: password
+
+      dynamodb:
+        image: amazon/dynamodb-local
+        ports:
+          - 8000/tcp
