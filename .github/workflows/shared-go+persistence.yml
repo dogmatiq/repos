@@ -43,7 +43,7 @@ jobs:
           DOGMATIQ_TEST_MINIO_ACCESS_KEY: minio
           DOGMATIQ_TEST_MINIO_SECRET_KEY: password
           DOGMATIQ_TEST_MINIO_ENDPOINT: "http://localhost:${{ job.services.minio.ports['9000'] }}"
-          DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ job.services.minio.ports['8000'] }}"
+          DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ job.services.dynamodb.ports['8000'] }}"
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3
