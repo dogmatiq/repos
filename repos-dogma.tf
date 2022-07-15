@@ -182,7 +182,7 @@ module "repo_veracity" {
   description = "🚧 An event-sourced Dogma engine with a focus on horizontal scalability."
   private     = true
   languages   = ["go"]
-  workflow    = "go+minio"
+  workflow    = "go+persistence"
 
   copyright = {
     since = 2021
