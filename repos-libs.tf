@@ -55,6 +55,17 @@ module "repo_dosh" {
   }
 }
 
+module "repo_ferrite" {
+  source      = "./modules/repo"
+  name        = "ferrite"
+  description = "🚧 Declarative environment variable validation for Go."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2022
+  }
+}
+
 module "repo_harpy" {
   source      = "./modules/repo"
   name        = "harpy"
@@ -132,17 +143,5 @@ module "repo_protean" {
 
   copyright = {
     since = 2021
-  }
-}
-
-module "repo_sawbones" {
-  source      = "./modules/repo"
-  name        = "sawbones"
-  description = "🚧 A toolkit for building Kubernetes health probes for Go services."
-  private     = true
-  languages   = ["go"]
-
-  copyright = {
-    since = 2022
   }
 }
