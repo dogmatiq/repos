@@ -5,8 +5,8 @@ resource "github_repository_file" "dependabot_config" {
   branch              = github_repository.this.default_branch
   file                = ".github/dependabot.yml"
   overwrite_on_create = true
-  commit_author       = local.commit_author
-  commit_email        = local.commit_email
+  commit_author       = module.github.commit_author.name
+  commit_email        = module.github.commit_author.email
   commit_message      = "Regenerate Dependabot configuration from template."
 
   content = templatefile(
@@ -28,8 +28,8 @@ resource "github_repository_file" "dependabot_workflow_config" {
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/dependabot.yml"
   overwrite_on_create = true
-  commit_author       = local.commit_author
-  commit_email        = local.commit_email
+  commit_author       = module.github.commit_author.name
+  commit_email        = module.github.commit_author.email
   commit_message      = "Regenerate workflow configuration from template."
 
   content = templatefile(

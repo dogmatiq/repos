@@ -65,7 +65,4 @@ locals {
   copyright = defaults(var.copyright, {})
 
   publish_releases = var.publish_releases == null ? local.workflow != null : var.publish_releases # by default, publish if there are other workflows
-
-  commit_author = "dogmatiq-automation[bot]"
-  commit_email  = "97779210+dogmatiq-automation[bot]@users.noreply.github.com"
 }

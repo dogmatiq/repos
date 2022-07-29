@@ -6,8 +6,3 @@ terraform {
     }
   }
 }
-
-provider "github" {
-  owner = "dogmatiq"
-  app_auth {}
-}

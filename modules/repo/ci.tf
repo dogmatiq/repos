@@ -16,8 +16,8 @@ resource "github_repository_file" "workflow_config" {
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/ci.yml"
   overwrite_on_create = true
-  commit_author       = local.commit_author
-  commit_email        = local.commit_email
+  commit_author       = module.github.commit_author.name
+  commit_email        = module.github.commit_author.email
   commit_message      = "Regenerate workflow configuration from template."
   content             = local.workflow_ref_content
 }
