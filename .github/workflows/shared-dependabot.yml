@@ -26,6 +26,9 @@ jobs:
               'github.com/dogmatiq/'
             )
             || contains(fromJSON('[
+                "golang.org/x",
+                "github.com/aws/aws-sdk-go",
+                "google.golang.org/protobuf",
                 "github.com/onsi/gomega",
                 "github.com/onsi/ginkgo",
               ]'),
