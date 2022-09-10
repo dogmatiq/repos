@@ -180,7 +180,6 @@ module "repo_veracity" {
   source      = "./modules/repo"
   name        = "veracity"
   description = "🚧 An event-sourced Dogma engine with a focus on horizontal scalability."
-  private     = true
   languages   = ["go"]
   workflow    = "go+persistence"
 
