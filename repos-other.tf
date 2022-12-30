@@ -1,3 +1,14 @@
+module "repo_proclaim" {
+  source      = "./modules/repo"
+  name        = "proclaim"
+  description = "🚧 A Kubernetes controller and CRD that publishes DNS-SD records."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2022
+  }
+}
+
 module "repo_dotgithub" {
   source      = "./modules/repo"
   name        = ".github"
