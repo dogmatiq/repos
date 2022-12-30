@@ -10,9 +10,9 @@ resource "github_repository_file" "license" {
   content = templatefile(
     "${path.module}/../../templates/LICENSE.tftpl",
     {
-      start_year = local.copyright.since
+      start_year = var.copyright.since
       end_year   = "2022"
-      holders    = concat(["James Harris"], local.copyright.holders)
+      holders    = concat(["James Harris"], var.copyright.holders)
     }
   )
 }
