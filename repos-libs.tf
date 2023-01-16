@@ -55,6 +55,17 @@ module "repo_dosh" {
   }
 }
 
+module "repo_dyad" {
+  source      = "./modules/repo"
+  name        = "dyad"
+  description = "🚧 A type-safe deep-copy library for Go."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2022
+  }
+}
+
 module "repo_ferrite" {
   source      = "./modules/repo"
   name        = "ferrite"
