@@ -108,6 +108,7 @@ module "repo_example_ui" {
   name        = "example-ui"
   description = "🚧 A web based frontend for the example Bank application."
   private     = true
+  archived    = true
   languages   = ["go", "js"]
   template    = null
   workflow    = null
