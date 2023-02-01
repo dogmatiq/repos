@@ -17,6 +17,13 @@ variable "private" {
   nullable    = false
 }
 
+variable "archived" {
+  description = "Indicates whether the repository is archived"
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "languages" {
   description = "The languages used within the repository"
   type        = list(string)

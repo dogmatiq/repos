@@ -8,6 +8,7 @@ resource "github_repository" "this" {
   name        = var.name
   description = var.description
   visibility  = var.private ? "private" : "public"
+  archived    = var.archived
 
   has_issues   = true
   has_projects = false
