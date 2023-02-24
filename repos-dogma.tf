@@ -146,7 +146,7 @@ module "repo_projectionkit" {
   name        = "projectionkit"
   description = "Build Dogma projections using popular database systems."
   languages   = ["go"]
-  workflow    = "go+sql"
+  workflow    = "go+persistence"
 
   copyright = {
     since = 2019
