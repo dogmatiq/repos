@@ -35,7 +35,7 @@ module "repo_dissolve" {
 module "repo_dodeca" {
   source      = "./modules/repo"
   name        = "dodeca"
-  description = "Utilities for 12-Factor applications written in Go."
+  description = "🚫 Utilities for 12-Factor applications written in Go."
   languages   = ["go"]
   template    = null
 
