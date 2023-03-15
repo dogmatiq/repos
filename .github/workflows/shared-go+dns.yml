@@ -1,0 +1,28 @@
+on:
+  workflow_call:
+    secrets: inherit
+
+jobs:
+  go:
+    name: Go
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ^1
+          check-latest: true
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Make
+        run: make ci
+        env:
+          DOGMATIQ_TEST_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          DOGMATIQ_TEST_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          DOGMATIQ_TEST_DNSIMPLE_TOKEN: ${{ secrets.DNSIMPLE_TOKEN }}
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
