@@ -3,6 +3,7 @@ module "repo_proclaim" {
   name        = "proclaim"
   description = "🚧 A Kubernetes controller and CRD that publishes DNS-SD records."
   languages   = ["go"]
+  workflow    = "go+dns"
 
   copyright = {
     since = 2022
