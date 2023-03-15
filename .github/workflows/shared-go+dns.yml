@@ -2,11 +2,11 @@ on:
   workflow_call:
     secrets:
       AWS_ACCESS_KEY_ID:
-        required: false
+        required: true
       AWS_SECRET_ACCESS_KEY:
-        required: false
+        required: true
       DNSIMPLE_TOKEN:
-        required: false
+        required: true
 
 jobs:
   go:
