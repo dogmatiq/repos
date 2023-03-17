@@ -103,22 +103,6 @@ module "repo_example" {
   }
 }
 
-module "repo_example_ui" {
-  source      = "./modules/repo"
-  name        = "example-ui"
-  description = "🚧 A web based frontend for the example Bank application."
-  private     = true
-  archived    = true
-  languages   = ["go", "js"]
-  template    = null
-  workflow    = null
-
-  copyright = {
-    since   = 2021
-    holders = ["Erin Millard"]
-  }
-}
-
 module "repo_interopspec" {
   source      = "./modules/repo"
   name        = "interopspec"
