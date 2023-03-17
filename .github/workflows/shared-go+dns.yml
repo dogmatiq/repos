@@ -67,4 +67,4 @@ jobs:
       - name: Build and push image
         env:
           DOCKER_TAGS: ${{ github.ref_name }}
-        run: docker buildx create --use && make docker-push
+        run: make docker-push
