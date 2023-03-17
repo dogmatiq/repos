@@ -69,7 +69,7 @@ module "repo_dyad" {
 module "repo_ferrite" {
   source      = "./modules/repo"
   name        = "ferrite"
-  description = "🚧 Declarative environment variable validation for Go."
+  description = "Declarative environment variable validation for Go."
   languages   = ["go"]
 
   copyright = {
