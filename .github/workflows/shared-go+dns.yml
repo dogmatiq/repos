@@ -13,6 +13,9 @@ jobs:
     name: Go
     runs-on: ubuntu-latest
 
+    outputs:
+      has-dockerfile: ${{ steps.has-dockerfile.outputs.files_exists }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -35,3 +38,33 @@ jobs:
 
       - name: Upload coverage report
         uses: codecov/codecov-action@v3
+
+      - name: Detect Dockerfile
+        id: has-dockerfile
+        uses: andstor/file-existence-action@v2
+        with:
+          files: Dockerfile
+
+      - name: Build Docker image
+        if: steps.has-dockerfile.outputs.files_exists == 'true'
+        run: docker buildx create --use && make docker
+
+  docker:
+    name: Publish Docker image
+    needs: go
+    if: needs.go.outputs.has-dockerfile == 'true' && startsWith(github.ref , 'refs/tags/v')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+          check-latest: true
+
+      - name: Build and push image
+        env:
+          DOCKER_TAGS: ${{ github.ref_name }}
+        run: docker buildx create --use && make docker-push
