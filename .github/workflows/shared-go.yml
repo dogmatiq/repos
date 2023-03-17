@@ -6,23 +6,18 @@ jobs:
     name: Go
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        go-version: [stable, oldstable]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Go
+      - name: Set up Go (using version from go.mod)
         uses: actions/setup-go@v4
         with:
-          go-version: ${{ matrix.go-version }}
+          go-version-file: go.mod
           check-latest: true
 
       - name: Make
         run: make ci
 
       - name: Upload coverage report
-        if: matrix.go-version == 'stable'
         uses: codecov/codecov-action@v3
