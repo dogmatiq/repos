@@ -6,11 +6,15 @@ jobs:
     name: Go
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        go-version: [stable, oldstable]
+
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
-          go-version: ^1
+          go-version: ${{ matrix.go-version }}
           check-latest: true
 
       - name: Checkout
@@ -20,4 +24,5 @@ jobs:
         run: make ci
 
       - name: Upload coverage report
+        if: matrix.go-version == 'stable'
         uses: codecov/codecov-action@v3
