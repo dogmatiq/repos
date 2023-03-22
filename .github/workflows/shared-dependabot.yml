@@ -22,8 +22,10 @@ jobs:
           steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
           && (
                steps.dependabot-metadata.outputs.dependency-names == 'google.golang.org/protobuf'
+            || steps.dependabot-metadata.outputs.dependency-names == 'google.golang.org/grpc'
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/dogmatiq/')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/aws/aws-sdk-go')
+            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/aws/aws-sdk-go-v2')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/onsi/')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'golang.org/x/')
           )
