@@ -15,6 +15,7 @@ jobs:
 
     outputs:
       has-dockerfile: ${{ steps.has-dockerfile.outputs.files_exists }}
+      has-helm-chart: ${{ steps.has-helm-chart.outputs.files_exists }}
 
     steps:
       - name: Checkout
