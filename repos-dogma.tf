@@ -190,6 +190,7 @@ module "repo_vscode" {
   name        = "vscode"
   description = "🚧 A Visual Studio Code extension with rich support for Dogma applications."
   languages   = ["js"]
+  template    = null
   workflow    = null
 
   copyright = {
