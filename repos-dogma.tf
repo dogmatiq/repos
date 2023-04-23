@@ -184,3 +184,15 @@ module "repo_verity" {
     since = 2019
   }
 }
+
+module "repo_vscode" {
+  source      = "./modules/repo"
+  name        = "vscode"
+  description = "🚧 A Visual Studio Code extension with rich support for Dogma applications."
+  languages   = ["js"]
+  workflow    = null
+
+  copyright = {
+    since = 2023
+  }
+}
