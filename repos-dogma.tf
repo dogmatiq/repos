@@ -84,6 +84,7 @@ module "repo_dogmavet" {
   name        = "dogmavet"
   description = "🚧 A Go vet tool for checking Dogma application and handler implementations."
   languages   = ["go"]
+  archived    = true
 
   copyright = {
     since = 2020
