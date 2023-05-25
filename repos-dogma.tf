@@ -91,6 +91,17 @@ module "repo_dogmavet" {
   }
 }
 
+module "repo_enginekit" {
+  source      = "./modules/repo"
+  name        = "enginekit"
+  description = "🚧 Tools for developing Dogma engines."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2023
+  }
+}
+
 module "repo_example" {
   source      = "./modules/repo"
   name        = "example"
