@@ -1,7 +1,7 @@
 module "repo_cosyne" {
   source      = "./modules/repo"
   name        = "cosyne"
-  description = "Context-aware synchronization primitives for Go."
+  description = "🚫 Context-aware synchronization primitives for Go."
   languages   = ["go"]
 
   copyright = {
@@ -116,7 +116,7 @@ module "repo_imbue" {
 module "repo_kyu" {
   source      = "./modules/repo"
   name        = "kyu"
-  description = "🚧 Queue data-structures for Go."
+  description = "🚫 Queue data-structures for Go."
   languages   = ["go"]
 
   copyright = {
@@ -138,7 +138,7 @@ module "repo_linger" {
 module "repo_mobius" {
   source      = "./modules/repo"
   name        = "mobius"
-  description = "🚧 A weighted consistent-hashing implementation for Go."
+  description = "🚫 A weighted consistent-hashing implementation for Go."
   languages   = ["go"]
 
   copyright = {
