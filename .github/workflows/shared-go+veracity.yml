@@ -19,17 +19,9 @@ jobs:
           go-version-file: go.mod
           check-latest: true
 
-      - name: Make (with CGO)
+      - name: Make
         run: make ci
         env:
-          CGO_ENABLED: "1"
-          DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
-          DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ job.services.dynamodb.ports['8000'] }}"
-
-      - name: Make (tests only, without CGO)
-        run: make test
-        env:
-          CGO_ENABLED: "0"
           DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
           DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ job.services.dynamodb.ports['8000'] }}"
 
