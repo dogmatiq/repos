@@ -1,0 +1,60 @@
+# This workflow is the standard Go workflow with the addition of the persistence
+# mechanisms supported by Dogmatiq projects.
+
+on:
+  workflow_call:
+
+jobs:
+  go:
+    name: Go + Veracity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: go.mod
+          check-latest: true
+
+      - name: Make (with CGO)
+        run: make ci
+        env:
+          CGO_ENABLED: "1"
+          DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
+          DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ job.services.dynamodb.ports['8000'] }}"
+
+      - name: Make (tests only, without CGO)
+        run: make test
+        env:
+          CGO_ENABLED: "0"
+          DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}"
+          DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ job.services.dynamodb.ports['8000'] }}"
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+
+    services:
+      postgres:
+        image: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 2s
+          --health-timeout 10s
+          --health-retries 10
+        ports:
+          - 5432/tcp
+        env:
+          POSTGRES_PASSWORD: rootpass
+
+      dynamodb:
+        image: amazon/dynamodb-local
+        options: >-
+          --health-cmd "curl http://localhost:8000"
+          --health-interval 2s
+          --health-timeout 10s
+          --health-retries 10
+        ports:
+          - 8000/tcp
