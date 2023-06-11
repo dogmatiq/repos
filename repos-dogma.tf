@@ -176,7 +176,7 @@ module "repo_testkit" {
 module "repo_veracity" {
   source      = "./modules/repo"
   name        = "veracity"
-  description = "🚧 An event-sourced Dogma engine with a focus on horizontal scalability."
+  description = "🚧 A horizontally-scalable event-sourced Dogma engine."
   languages   = ["go"]
   workflow    = "go+veracity"
 
@@ -188,7 +188,7 @@ module "repo_veracity" {
 module "repo_verity" {
   source      = "./modules/repo"
   name        = "verity"
-  description = "🚧 A scalable, event-sourced Dogma engine."
+  description = "🚧 An event-sourced Dogma engine."
   languages   = ["go"]
   workflow    = "go+sql"
 
