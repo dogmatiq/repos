@@ -48,6 +48,7 @@ jobs:
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
           --health-interval 2s
           --health-timeout 10s
+          --health-start-period 30s
           --health-retries 10
         ports:
           - 3306/tcp
@@ -61,6 +62,7 @@ jobs:
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
           --health-interval 2s
           --health-timeout 10s
+          --health-start-period 30s
           --health-retries 10
         ports:
           - 3306/tcp
@@ -73,6 +75,7 @@ jobs:
           --health-cmd pg_isready
           --health-interval 2s
           --health-timeout 10s
+          --health-start-period 30s
           --health-retries 10
         ports:
           - 5432/tcp
