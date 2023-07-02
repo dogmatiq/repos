@@ -42,7 +42,7 @@ jobs:
 
     services:
       mysql:
-        image: mysql:8
+        image: mysql
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
@@ -56,10 +56,10 @@ jobs:
           MYSQL_ROOT_PASSWORD: rootpass
 
       mariadb:
-        image: mariadb:10
+        image: mariadb
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
-          --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
+          --health-cmd="healthcheck.sh --su-mysql --connect --innodb_initialized"
           --health-interval 2s
           --health-timeout 10s
           --health-start-period 30s
@@ -70,7 +70,7 @@ jobs:
           MARIADB_ROOT_PASSWORD: rootpass
 
       postgres:
-        image: postgres:13
+        image: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 2s
