@@ -68,9 +68,6 @@ jobs:
           - 3306/tcp
         env:
           MARIADB_ROOT_PASSWORD: rootpass
-          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: true
-          MARIADB_MYSQL_LOCALHOST_USER: 1
-          MARIADB_MYSQL_LOCALHOST_GRANTS: USAGE
 
       postgres:
         image: postgres
