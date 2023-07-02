@@ -64,7 +64,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: rootpass
 
       mariadb:
-        image: mariadb
+        image: mariadb:10
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
@@ -76,7 +76,6 @@ jobs:
           - 3306/tcp
         env:
           MARIADB_ROOT_PASSWORD: rootpass
-          MYSQL_INITDB_SKIP_TZINFO: 1 # https://github.com/MariaDB/mariadb-docker/issues/262
 
       postgres:
         image: postgres
