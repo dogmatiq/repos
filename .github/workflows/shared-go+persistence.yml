@@ -73,7 +73,7 @@ jobs:
         ports:
           - 3306/tcp
         env:
-          MYSQL_ROOT_PASSWORD: rootpass
+          MARIADB_ROOT_PASSWORD: rootpass
 
       postgres:
         image: postgres
