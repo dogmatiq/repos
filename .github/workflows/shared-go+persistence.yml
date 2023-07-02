@@ -64,7 +64,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: rootpass
 
       mariadb:
-        image: mariadb:10
+        image: mariadb:11.0
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
