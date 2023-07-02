@@ -76,6 +76,7 @@ jobs:
           - 3306/tcp
         env:
           MARIADB_ROOT_PASSWORD: rootpass
+          MYSQL_INITDB_SKIP_TZINFO: 1 # https://github.com/MariaDB/mariadb-docker/issues/262
 
       postgres:
         image: postgres
