@@ -148,7 +148,7 @@ module "repo_mobius" {
 
 module "repo_primo" {
   source      = "./modules/repo"
-  name        = "promo"
+  name        = "primo"
   description = "🚧 A Protocol Buffers plugin for Go that enhances one_of fields."
   languages   = ["go"]
   private     = true
