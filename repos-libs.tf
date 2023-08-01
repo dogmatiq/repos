@@ -146,6 +146,19 @@ module "repo_mobius" {
   }
 }
 
+module "repo_primo" {
+  source      = "./modules/repo"
+  name        = "promo"
+  description = "🚧 A Protocol Buffers plugin for Go that enhances one_of fields."
+  languages   = ["go"]
+  private     = true
+
+  copyright = {
+    since = 2023
+  }
+}
+
+
 module "repo_protean" {
   source      = "./modules/repo"
   name        = "protean"
