@@ -38,7 +38,7 @@ jobs:
           DOGMATIQ_TEST_DNSIMPLE_TOKEN: ${{ secrets.DNSIMPLE_TOKEN }}
 
       - name: Upload coverage report
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
 
       - name: Detect Dockerfile
         id: has-dockerfile

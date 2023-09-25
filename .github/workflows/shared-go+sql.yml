@@ -38,7 +38,7 @@ jobs:
           DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@127.0.0.1:${{ job.services.postgres.ports['5432'] }}?sslmode=disable"
 
       - name: Upload coverage report
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
 
     services:
       mysql:

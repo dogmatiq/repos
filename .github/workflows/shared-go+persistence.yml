@@ -46,7 +46,7 @@ jobs:
           DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ job.services.dynamodb.ports['8000'] }}"
 
       - name: Upload coverage report
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
 
     services:
       mysql:
