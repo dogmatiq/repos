@@ -137,6 +137,18 @@ module "repo_marshalkit" {
   }
 }
 
+module "repo_persistencekit" {
+  source      = "./modules/repo"
+  name        = "persistencekit"
+  description = "Abstract persistence primitives for use by Dogma engines, projections, etc."
+  languages   = ["go"]
+  workflow    = "go+persistence"
+
+  copyright = {
+    since = 2023
+  }
+}
+
 module "repo_projectionkit" {
   source      = "./modules/repo"
   name        = "projectionkit"
