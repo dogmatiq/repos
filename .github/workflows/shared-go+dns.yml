@@ -42,13 +42,13 @@ jobs:
 
       - name: Detect Dockerfile
         id: has-dockerfile
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: Dockerfile
 
       - name: Detect Helm chart
         id: has-helm-chart
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: charts/Chart.yaml
 
