@@ -1,3 +1,14 @@
+module "repo_aureus" {
+  source      = "./modules/repo"
+  name        = "aureus"
+  description = "🚧 A Markdown-based golden-file test runner for Go."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2024
+  }
+}
+
 module "repo_cosyne" {
   source      = "./modules/repo"
   name        = "cosyne"
