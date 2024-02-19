@@ -1,7 +1,7 @@
 module "repo_aureus" {
   source      = "./modules/repo"
   name        = "aureus"
-  description = "🚧 A Markdown-based golden-file test runner for Go."
+  description = "🚧 Markdown-based golden-file tests for Go."
   languages   = ["go"]
 
   copyright = {
