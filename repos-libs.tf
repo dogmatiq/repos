@@ -123,7 +123,6 @@ module "repo_imbue" {
   }
 }
 
-
 module "repo_kyu" {
   source      = "./modules/repo"
   name        = "kyu"
@@ -176,5 +175,16 @@ module "repo_protean" {
 
   copyright = {
     since = 2021
+  }
+}
+
+module "repo_spruce" {
+  source      = "./modules/repo"
+  name        = "spruce"
+  description = "🚧 A Go slog handler for rendering logs as pretty test output."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2024
   }
 }
