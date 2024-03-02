@@ -181,7 +181,7 @@ module "repo_protean" {
 module "repo_spruce" {
   source      = "./modules/repo"
   name        = "spruce"
-  description = "🚧 A Go slog handler for rendering logs as pretty test output."
+  description = "🚧 A pretty-printer for using Go structured logs as test output."
   languages   = ["go"]
 
   copyright = {
