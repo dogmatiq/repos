@@ -190,7 +190,6 @@ module "repo_veracity" {
   name        = "veracity"
   description = "🚧 A horizontally-scalable event-sourced Dogma engine."
   languages   = ["go"]
-  workflow    = "go+veracity"
 
   copyright = {
     since = 2021

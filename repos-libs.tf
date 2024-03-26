@@ -69,7 +69,7 @@ module "repo_dosh" {
 module "repo_dyad" {
   source      = "./modules/repo"
   name        = "dyad"
-  description = "🚧 A type-safe deep-copy library for Go."
+  description = "A type-safe deep-copy library for Go."
   languages   = ["go"]
 
   copyright = {
