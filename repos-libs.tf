@@ -49,7 +49,7 @@ module "repo_dodeca" {
   description = "🚫 Utilities for 12-Factor applications written in Go."
   languages   = ["go"]
   template    = null
-  archived    = true
+  # archived    = true
 
   copyright = {
     since = 2019
