@@ -49,6 +49,7 @@ variable "copyright" {
   description = "Information about the copyright notice to include in the LICENSE file"
   type = object({
     since   = string,
+    until   = optional(string),
     holders = optional(list(string), [])
   })
   nullable = false

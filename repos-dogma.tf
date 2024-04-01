@@ -3,9 +3,11 @@ module "repo_aperture" {
   name        = "aperture"
   description = "🚫 An intensely minimal projection-only Dogma engine."
   languages   = ["go"]
+  archived    = true
 
   copyright = {
     since = 2019
+    until = 2024
   }
 }
 
@@ -88,6 +90,7 @@ module "repo_dogmavet" {
 
   copyright = {
     since = 2020
+    until = 2023
   }
 }
 

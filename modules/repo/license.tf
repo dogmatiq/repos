@@ -11,7 +11,7 @@ resource "github_repository_file" "license" {
     "${path.module}/../../templates/LICENSE.tftpl",
     {
       start_year = var.copyright.since
-      end_year   = formatdate("YYYY", plantimestamp())
+      end_year   = coalesce(var.copyright.until, formatdate("YYYY", plantimestamp()))
       holders    = concat(["James Harris"], var.copyright.holders)
     }
   )
