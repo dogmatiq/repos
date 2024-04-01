@@ -1,7 +1,7 @@
 module "repo_aperture" {
   source      = "./modules/repo"
   name        = "aperture"
-  description = "🚧 An intensely minimal projection-only Dogma engine."
+  description = "🚫 An intensely minimal projection-only Dogma engine."
   languages   = ["go"]
 
   copyright = {
@@ -82,7 +82,7 @@ module "repo_dogmacli" {
 module "repo_dogmavet" {
   source      = "./modules/repo"
   name        = "dogmavet"
-  description = "🚧 A Go vet tool for checking Dogma application and handler implementations."
+  description = "🚫 A Go vet tool for checking Dogma application and handler implementations."
   languages   = ["go"]
   archived    = true
 
