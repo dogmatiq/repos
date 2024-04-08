@@ -190,6 +190,11 @@ module "repo_protean" {
   }
 }
 
+import {
+  to = module.repo_spruce.github_repository.this
+  id = "spruce"
+}
+
 module "repo_spruce" {
   source      = "./modules/repo"
   name        = "spruce"
