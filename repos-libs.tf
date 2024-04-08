@@ -189,3 +189,14 @@ module "repo_protean" {
     since = 2021
   }
 }
+
+module "repo_spruce" {
+  source      = "./modules/repo"
+  name        = "spruce"
+  description = "🚧 Pretty-print Go structured logs as test output."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2024
+  }
+}
