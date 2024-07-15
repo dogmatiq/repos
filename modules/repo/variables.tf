@@ -69,6 +69,7 @@ locals {
   enable_branch_protection     = local.workflow != null && !var.private # not supported by private repos on free-tier
   enable_dependabot            = local.primary_language != null
   enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
+  enable_codecov               = local.primary_language == "go"
 
   publish_releases = var.publish_releases == null ? local.workflow != null : var.publish_releases # by default, publish if there are other workflows
 }
