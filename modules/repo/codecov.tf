@@ -14,7 +14,8 @@ resource "github_repository_file" "codecov" {
     {
       ignore = [
         "**/fixtures",
-        "**/*_nocoverage.go"
+        "**/*_nocoverage.go",
+        "*_nocoverage.go",
       ],
     }
   )
