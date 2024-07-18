@@ -29,4 +29,5 @@ jobs:
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/onsi/')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'go.opentelemetry.io/')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'golang.org/x/')
+            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'k8s.io/')
           )
