@@ -193,7 +193,7 @@ module "repo_protean" {
 module "repo_spruce" {
   source      = "./modules/repo"
   name        = "spruce"
-  description = "🚧 Pretty-print Go structured logs as test output."
+  description = "🚧 Pretty-print Go structured logs for humans."
   languages   = ["go"]
 
   copyright = {
