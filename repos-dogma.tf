@@ -1,16 +1,3 @@
-module "repo_aperture" {
-  source      = "./modules/repo"
-  name        = "aperture"
-  description = "🚫 An intensely minimal projection-only Dogma engine."
-  languages   = ["go"]
-  archived    = true
-
-  copyright = {
-    since = 2019
-    until = 2024
-  }
-}
-
 module "repo_browser" {
   source      = "./modules/repo"
   name        = "browser"
@@ -31,18 +18,6 @@ module "repo_configkit" {
   copyright = {
     since   = 2019
     holders = ["Danil Petrov"]
-  }
-}
-
-module "repo_cloud" {
-  source      = "./modules/repo"
-  name        = "cloud"
-  description = "The easiest way to run Dogma applications in the cloud."
-  private     = true
-  languages   = ["go"]
-
-  copyright = {
-    since = 2021
   }
 }
 
@@ -78,19 +53,6 @@ module "repo_dogmacli" {
 
   copyright = {
     since = 2020
-  }
-}
-
-module "repo_dogmavet" {
-  source      = "./modules/repo"
-  name        = "dogmavet"
-  description = "🚫 A Go vet tool for checking Dogma application and handler implementations."
-  languages   = ["go"]
-  archived    = true
-
-  copyright = {
-    since = 2020
-    until = 2023
   }
 }
 
