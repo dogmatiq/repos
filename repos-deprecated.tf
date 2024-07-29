@@ -3,7 +3,7 @@ module "repo_aperture" {
   name        = "aperture"
   description = "🚫 An intensely minimal projection-only Dogma engine."
   languages   = ["go"]
-  archived    = true
+  archived    = false
 
   copyright = {
     since = 2019
@@ -27,7 +27,7 @@ module "repo_dogmavet" {
   name        = "dogmavet"
   description = "🚫 A Go vet tool for checking Dogma application and handler implementations."
   languages   = ["go"]
-  archived    = true
+  archived    = false
 
   copyright = {
     since = 2020
@@ -41,7 +41,7 @@ module "repo_dodeca" {
   description = "🚫 Utilities for 12-Factor applications written in Go."
   languages   = ["go"]
   template    = null
-  archived    = true
+  archived    = false
 
   copyright = {
     since = 2019
