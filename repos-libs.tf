@@ -122,6 +122,18 @@ module "repo_linger" {
   }
 }
 
+module "repo_minibus" {
+  source      = "./modules/repo"
+  name        = "minibus"
+  description = "A very small in-memory message bus for Go."
+  languages   = ["go"]
+  private     = true
+
+  copyright = {
+    since = 2024
+  }
+}
+
 module "repo_primo" {
   source      = "./modules/repo"
   name        = "primo"
