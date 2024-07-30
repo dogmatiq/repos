@@ -127,7 +127,6 @@ module "repo_minibus" {
   name        = "minibus"
   description = "A very small in-memory message bus for Go."
   languages   = ["go"]
-  private     = true
 
   copyright = {
     since = 2024
