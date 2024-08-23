@@ -1,3 +1,14 @@
+module "repo_akin" {
+  source      = "./modules/repo"
+  name        = "akin"
+  description = "🚧 Fuzzy comparison predicates for Go."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2024
+  }
+}
+
 module "repo_aureus" {
   source      = "./modules/repo"
   name        = "aureus"
