@@ -59,6 +59,17 @@ module "repo_kyu" {
   }
 }
 
+module "repo_marshalkit" {
+  source      = "./modules/repo"
+  name        = "marshalkit"
+  description = "🚫 Marshal and unmarshal Dogma messages and other types."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2019
+  }
+}
+
 module "repo_mobius" {
   source      = "./modules/repo"
   name        = "mobius"

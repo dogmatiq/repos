@@ -91,17 +91,6 @@ module "repo_interopspec" {
   }
 }
 
-module "repo_marshalkit" {
-  source      = "./modules/repo"
-  name        = "marshalkit"
-  description = "Marshal and unmarshal Dogma messages and other types."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2019
-  }
-}
-
 module "repo_persistencekit" {
   source      = "./modules/repo"
   name        = "persistencekit"
