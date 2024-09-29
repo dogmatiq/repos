@@ -51,6 +51,7 @@ module "repo_marshalkit" {
   name        = "marshalkit"
   description = "🚫 Marshal and unmarshal Dogma messages and other types."
   languages   = ["go"]
+  archived    = true
 
   copyright = {
     since = 2019
