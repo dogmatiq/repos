@@ -22,19 +22,6 @@ module "repo_cosyne" {
   }
 }
 
-module "repo_dogmavet" {
-  source      = "./modules/repo"
-  name        = "dogmavet"
-  description = "🚫 A Go vet tool for checking Dogma application and handler implementations."
-  languages   = ["go"]
-  archived    = true
-
-  copyright = {
-    since = 2020
-    until = 2023
-  }
-}
-
 module "repo_dodeca" {
   source      = "./modules/repo"
   name        = "dodeca"
