@@ -94,7 +94,7 @@ jobs:
           POSTGRES_PASSWORD: rootpass
 
       minio:
-        image: minio/minio:edge-cicd
+        image: minio/minio:latest
         options: >-
           --health-cmd "curl -f http://localhost:9000/minio/health/live"
           --health-interval 2s
