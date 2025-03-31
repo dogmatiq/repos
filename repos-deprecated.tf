@@ -7,7 +7,7 @@ module "repo_aperture" {
 
   copyright = {
     since = 2019
-    until = 2024
+    until = 2024 # archived
   }
 }
 
@@ -32,6 +32,7 @@ module "repo_dodeca" {
 
   copyright = {
     since = 2019
+    until = 2024 # archived
   }
 }
 
@@ -55,6 +56,7 @@ module "repo_marshalkit" {
 
   copyright = {
     since = 2019
+    until = 2024 # archived
   }
 }
 
