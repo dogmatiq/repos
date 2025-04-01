@@ -20,7 +20,7 @@ resource "github_repository" "this" {
   allow_rebase_merge     = false
   allow_auto_merge       = !var.private # not supported by private repos on free-tier
 
-  vulnerability_alerts = true
+  vulnerability_alerts = !var.archived
 
   auto_init = local.template == null # make sure there is always a default branch
 
