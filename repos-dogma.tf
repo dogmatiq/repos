@@ -98,7 +98,11 @@ module "repo_persistencekit" {
   languages   = ["go"]
 
   workflow = {
-    services = ["postgres", "dynamodb"]
+    services = [
+      "minio",
+      "dynamodb",
+      "postgres",
+    ]
   }
 
   copyright = {
