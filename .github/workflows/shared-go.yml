@@ -53,7 +53,7 @@ jobs:
 
     services:
       minio:
-        image: ${{ inputs.with_minio && 'minio/minio:latest' || '' }}
+        image: ${{ inputs.minio && 'minio/minio:latest' || '' }}
         options: >-
           --health-cmd "curl -f http://localhost:9000/minio/health/live"
           --health-interval 2s
@@ -67,7 +67,7 @@ jobs:
           MINIO_SECRET_KEY: password
 
       dynamodb:
-        image: ${{ inputs.with_dynamodb && 'amazon/dynamodb-local:latest' || '' }}
+        image: ${{ inputs.dynamodb && 'amazon/dynamodb-local:latest' || '' }}
         options: >-
           --health-cmd "curl http://localhost:8000"
           --health-interval 2s
@@ -78,7 +78,7 @@ jobs:
           - 8000/tcp
 
       mysql:
-        image: ${{ inputs.with_mysql && 'mysql:latest' || '' }}
+        image: ${{ inputs.mysql && 'mysql:latest' || '' }}
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
           --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
@@ -92,7 +92,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: rootpass
 
       mariadb:
-        image: ${{ inputs.with_mariadb && 'mariadb:latest' || '' }}
+        image: ${{ inputs.mariadb && 'mariadb:latest' || '' }}
         options: >-
           --mount type=tmpfs,destination=/var/lib/mysql
           --health-cmd="healthcheck.sh --su-mysql --connect --innodb_initialized"
@@ -106,7 +106,7 @@ jobs:
           MARIADB_ROOT_PASSWORD: rootpass
 
       postgres:
-        image: ${{ inputs.with_postgres && 'postgres:latest' || '' }}
+        image: ${{ inputs.postgres && 'postgres:latest' || '' }}
         options: >-
           --health-cmd pg_isready
           --health-interval 2s
