@@ -3,7 +3,10 @@ module "repo_proclaim" {
   name        = "proclaim"
   description = "🚧 A Kubernetes controller and CRD that publishes DNS-SD records."
   languages   = ["go"]
-  workflow    = "go+dns"
+
+  workflow = {
+    name = "go+dns"
+  }
 
   copyright = {
     since = 2022
@@ -14,7 +17,8 @@ module "repo_dotgithub" {
   source      = "./modules/repo"
   name        = ".github"
   description = "Dogmatiq community health files."
-  languages   = []
+
+  languages = []
 
   copyright = {
     since = 2019

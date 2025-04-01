@@ -40,9 +40,12 @@ variable "template" {
 
 variable "workflow" {
   description = "Override the GitHub Actions workflow, otherwise it is determined based on the specified language"
-  type        = string
-  default     = "(default)" # sentinel used to detect absence of attribute
-  nullable    = true
+  type = object({
+    name     = optional(string),
+    services = optional(set(string), [])
+  })
+  default  = {}
+  nullable = true
 }
 
 variable "copyright" {
@@ -55,21 +58,20 @@ variable "copyright" {
   nullable = false
 }
 
-variable "publish_releases" {
-  description = "Automatically publish GitHub releases when a tag is pushed."
-  type        = bool
-  default     = null # sentinel used to detect absence of attribute
-}
-
 locals {
   primary_language = length(var.languages) == 0 ? null : var.languages[0]
   template         = var.template == "(default)" ? local.primary_language : var.template
-  workflow         = var.workflow == "(default)" ? local.primary_language : var.workflow
 
-  enable_branch_protection     = local.workflow != null && !var.private # not supported by private repos on free-tier
+  has_workflow = var.workflow == null ? false : (var.workflow.name != null || local.primary_language != null)
+  workflow = {
+    name     = local.has_workflow ? coalesce(var.workflow.name, local.primary_language) : ""
+    services = local.has_workflow ? var.workflow.services : []
+  }
+
+  enable_branch_protection     = local.has_workflow && !var.private # not supported by private repos on free-tier
   enable_dependabot            = local.primary_language != null
   enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
   enable_codecov               = local.primary_language == "go"
 
-  publish_releases = var.publish_releases == null ? local.workflow != null : var.publish_releases # by default, publish if there are other workflows
+  publish_releases = local.has_workflow # publish releases for any repo that has a build process
 }

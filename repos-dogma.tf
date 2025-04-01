@@ -96,7 +96,11 @@ module "repo_persistencekit" {
   name        = "persistencekit"
   description = "Abstract persistence primitives for use by Dogma engines, projections, etc."
   languages   = ["go"]
-  workflow    = "go+persistence"
+
+  workflow = {
+    name = "go+persistence"
+    # services = ["postgres", "dynamodb"]
+  }
 
   copyright = {
     since = 2023
@@ -108,7 +112,10 @@ module "repo_projectionkit" {
   name        = "projectionkit"
   description = "Build Dogma projections using popular database systems."
   languages   = ["go"]
-  workflow    = "go+persistence"
+
+  workflow = {
+    name = "go+persistence"
+  }
 
   copyright = {
     since = 2019
@@ -120,7 +127,10 @@ module "repo_sqltest" {
   name        = "sqltest"
   description = "🚧 Internal utilities for testing Dogma projects that use SQL databases."
   languages   = ["go"]
-  workflow    = "go+sql"
+
+  workflow = {
+    name = "go+sql"
+  }
 
   copyright = {
     since = 2020
@@ -155,7 +165,10 @@ module "repo_verity" {
   name        = "verity"
   description = "🚧 An event-sourced Dogma engine."
   languages   = ["go"]
-  workflow    = "go+sql"
+
+  workflow = {
+    name = "go+sql"
+  }
 
   copyright = {
     since = 2019
@@ -168,7 +181,8 @@ module "repo_vscode" {
   description = "🚧 A Visual Studio Code extension with rich support for Dogma applications."
   languages   = ["js"]
   template    = null
-  workflow    = null
+
+  workflow = null
 
   copyright = {
     since = 2023

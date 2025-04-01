@@ -1,16 +1,16 @@
 locals {
-  workflow_content = local.workflow != null ? file(
-    "${path.module}/../../.github/workflows/shared-${local.workflow}.yml",
+  workflow_content = local.has_workflow ? file(
+    "${path.module}/../../.github/workflows/shared-${local.workflow.name}.yml",
   ) : null
 
-  workflow_ref_content = local.workflow != null ? templatefile(
+  workflow_ref_content = local.has_workflow ? templatefile(
     "${path.module}/../../templates/workflow-ci.yml.tftpl",
     { workflow = local.workflow }
   ) : null
 }
 
 resource "github_repository_file" "workflow_config" {
-  count = local.workflow == null ? 0 : 1
+  count = local.has_workflow ? 1 : 0
 
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch

@@ -1,5 +1,31 @@
 on:
   workflow_call:
+    inputs:
+      minio:
+        description: Run a MinIO service during the build.
+        type: boolean
+        required: false
+        default: false
+      dynamodb:
+        description: Run a DynamoDB service during the build.
+        type: boolean
+        required: false
+        default: false
+      postgres:
+        description: Run a PostgreSQL service during the build.
+        type: boolean
+        required: false
+        default: false
+      mariadb:
+        description: Run a MariaDB service during the build.
+        type: boolean
+        required: false
+        default: false
+      mysql:
+        description: Run a MySQL service during the build.
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   go:
@@ -24,3 +50,70 @@ jobs:
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
+
+    services:
+      minio:
+        image: ${{ inputs.with_minio && 'minio/minio:latest' || '' }}
+        options: >-
+          --health-cmd "curl -f http://localhost:9000/minio/health/live"
+          --health-interval 2s
+          --health-timeout 10s
+          --health-start-period 30s
+          --health-retries 10
+        ports:
+          - 9000/tcp
+        env:
+          MINIO_ACCESS_KEY: minio
+          MINIO_SECRET_KEY: password
+
+      dynamodb:
+        image: ${{ inputs.with_dynamodb && 'amazon/dynamodb-local:latest' || '' }}
+        options: >-
+          --health-cmd "curl http://localhost:8000"
+          --health-interval 2s
+          --health-timeout 10s
+          --health-start-period 30s
+          --health-retries 10
+        ports:
+          - 8000/tcp
+
+      mysql:
+        image: ${{ inputs.with_mysql && 'mysql:latest' || '' }}
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/mysql
+          --health-cmd="mysqladmin ping --host 127.0.0.1 --port 3306 --user root --password=rootpass"
+          --health-interval 2s
+          --health-timeout 10s
+          --health-start-period 30s
+          --health-retries 10
+        ports:
+          - 3306/tcp
+        env:
+          MYSQL_ROOT_PASSWORD: rootpass
+
+      mariadb:
+        image: ${{ inputs.with_mariadb && 'mariadb:latest' || '' }}
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/mysql
+          --health-cmd="healthcheck.sh --su-mysql --connect --innodb_initialized"
+          --health-interval 2s
+          --health-timeout 10s
+          --health-start-period 30s
+          --health-retries 10
+        ports:
+          - 3306/tcp
+        env:
+          MARIADB_ROOT_PASSWORD: rootpass
+
+      postgres:
+        image: ${{ inputs.with_postgres && 'postgres:latest' || '' }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 2s
+          --health-timeout 10s
+          --health-start-period 30s
+          --health-retries 10
+        ports:
+          - 5432/tcp
+        env:
+          POSTGRES_PASSWORD: rootpass

@@ -14,5 +14,11 @@ on:
 jobs:
   ci:
     name: Shared
-    uses: dogmatiq/repos/.github/workflows/shared-${workflow}.yml@main
+    uses: dogmatiq/repos/.github/workflows/shared-${workflow.name}.yml@main
     secrets: inherit
+    %{~ if length(workflow.services) != 0 ~}
+    with:
+      %{~ for service in workflow.services ~}
+      - "${service}": true
+      %{endfor}
+    %{~ endif ~}
