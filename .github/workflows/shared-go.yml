@@ -32,17 +32,32 @@ jobs:
     name: Go
     runs-on: ubuntu-latest
 
-    env:
-      DOGMATIQ_TEST_DSN_MYSQL_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ inputs.mysql && job.services.mysql.ports['3306'] || '(not-enabled)' }})/mysql"
-      DOGMATIQ_TEST_DSN_MARIADB_MYSQL: "root:rootpass@tcp(127.0.0.1:${{ inputs.mariadb && job.services.mariadb.ports['3306'] || '(not-enabled)' }})/mysql"
-      DOGMATIQ_TEST_DSN_POSTGRESQL_PGX: "user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ inputs.postgres && job.services.postgres.ports['5432'] || '(not-enabled)' }}"
-      DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES: "postgres://postgres:rootpass@127.0.0.1:${{ inputs.postgres && job.services.postgres.ports['5432'] || '(not-enabled)' }}?sslmode=disable"
-      DOGMATIQ_TEST_MINIO_ACCESS_KEY: minio
-      DOGMATIQ_TEST_MINIO_SECRET_KEY: password
-      DOGMATIQ_TEST_MINIO_ENDPOINT: "http://localhost:${{ inputs.minio && job.services.minio.ports['9000'] || '(not-enabled)' }}"
-      DOGMATIQ_TEST_DYNAMODB_ENDPOINT: "http://localhost:${{ inputs.dynamodb && job.services.dynamodb.ports['8000'] || '(not-enabled)'}}"
-
     steps:
+      - name: Setup service environment variables
+        run: |
+          if ${{ inputs.minio }}; then
+            echo "DOGMATIQ_TEST_MINIO_ENDPOINT=http://localhost:${{ job.services.minio.ports['9000'] }}" >> $GITHUB_ENV
+            echo "DOGMATIQ_TEST_MINIO_ACCESS_KEY=minio" >> $GITHUB_ENV
+            echo "DOGMATIQ_TEST_MINIO_SECRET_KEY=password" >> $GITHUB_ENV
+          fi
+
+          if ${{ inputs.dynamodb }}; then
+            echo "DOGMATIQ_TEST_DYNAMODB_ENDPOINT=http://localhost:${{ job.services.dynamodb.ports['8000'] }}" >> $GITHUB_ENV
+          fi
+
+          if ${{ inputs.postgres }}; then
+            echo "DOGMATIQ_TEST_DSN_POSTGRESQL_PGX='user=postgres password=rootpass sslmode=disable host=127.0.0.1 port=${{ job.services.postgres.ports['5432'] }}'" >> $GITHUB_ENV
+            echo "DOGMATIQ_TEST_DSN_POSTGRESQL_POSTGRES='postgres://postgres:rootpass@127.0.0.1:${{ job.services.postgres.ports['5432'] }}?sslmode=disable'" >> $GITHUB_ENV
+          fi
+
+          if ${{ inputs.mysql }}; then
+            echo "DOGMATIQ_TEST_DSN_MYSQL_MYSQL='root:rootpass@tcp(127.0.0.1:${{ job.services.mysql.ports['3306'] }})/mysql'" >> $GITHUB_ENV
+          fi
+
+          if ${{ inputs.mariadb }}; then
+            echo "DOGMATIQ_TEST_DSN_MARIADB_MYSQL='root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql'"
+          fi
+
       - name: Checkout
         uses: actions/checkout@v4
 
