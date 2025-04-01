@@ -98,8 +98,7 @@ module "repo_persistencekit" {
   languages   = ["go"]
 
   workflow = {
-    name = "go+persistence"
-    # services = ["postgres", "dynamodb"]
+    services = ["postgres", "dynamodb"]
   }
 
   copyright = {

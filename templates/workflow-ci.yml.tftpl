@@ -18,7 +18,7 @@ jobs:
     secrets: inherit
     %{~ if length(workflow.services) != 0 ~}
     with:
-      %{~ for service in workflow.services ~}
-      - "${service}": true
-      %{endfor}
-    %{~ endif ~}
+    %{~ for service in workflow.services ~}
+    - "${service}": true
+    %{~ endfor}
+    %{endif ~}
