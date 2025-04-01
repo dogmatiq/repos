@@ -58,9 +58,6 @@ jobs:
             echo "DOGMATIQ_TEST_DSN_MARIADB_MYSQL='root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql'" >> $GITHUB_ENV
           fi
 
-      - name: Print environment variables
-        run: printenv
-
       - name: Checkout
         uses: actions/checkout@v4
 
