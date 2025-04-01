@@ -19,6 +19,6 @@ jobs:
     %{~ if length(workflow.services) != 0 ~}
     with:
     %{~ for service in workflow.services ~}
-    - "${service}": true
+      "${service}": true
     %{~ endfor}
     %{endif ~}
