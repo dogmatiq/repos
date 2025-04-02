@@ -91,7 +91,11 @@ jobs:
           --health-start-period 30s
           --health-retries 10
         ports:
-          - 9000/tcp
+          # MinIO must be exposed on port 80, because the AWS S3 SDK does not
+          # include non-standard ports when signing request URLs.
+          #
+          # See https://github.com/minio/minio/discussions/14709.
+          - 80:9000/tcp
         env:
           MINIO_ACCESS_KEY: minio
           MINIO_SECRET_KEY: password
