@@ -36,7 +36,7 @@ jobs:
       - name: Setup service environment variables
         run: |
           if ${{ inputs.minio }}; then
-            echo "DOGMATIQ_TEST_MINIO_ENDPOINT=http://localhost" >> $GITHUB_ENV
+            echo "DOGMATIQ_TEST_MINIO_ENDPOINT=http://localhost:${{ job.services.minio.ports['9000'] }}" >> $GITHUB_ENV
             echo "DOGMATIQ_TEST_MINIO_ACCESS_KEY=minio" >> $GITHUB_ENV
             echo "DOGMATIQ_TEST_MINIO_SECRET_KEY=password" >> $GITHUB_ENV
           fi
@@ -91,11 +91,7 @@ jobs:
           --health-start-period 30s
           --health-retries 10
         ports:
-          # MinIO must be exposed on port 80, because the AWS S3 SDK does not
-          # include non-standard ports when signing request URLs.
-          #
-          # See https://github.com/minio/minio/discussions/14709.
-          - 80:9000/tcp
+          - 9000/tcp
         env:
           MINIO_ROOT_USER: minio
           MINIO_ROOT_PASSWORD: password
