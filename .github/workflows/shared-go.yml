@@ -36,7 +36,7 @@ jobs:
       - name: Setup service environment variables
         run: |
           if ${{ inputs.minio }}; then
-            echo "DOGMATIQ_TEST_MINIO_ENDPOINT=http://localhost:${{ job.services.minio.ports['9000'] }}" >> $GITHUB_ENV
+            echo "DOGMATIQ_TEST_MINIO_ENDPOINT=http://localhost" >> $GITHUB_ENV
             echo "DOGMATIQ_TEST_MINIO_ACCESS_KEY=minio" >> $GITHUB_ENV
             echo "DOGMATIQ_TEST_MINIO_SECRET_KEY=password" >> $GITHUB_ENV
           fi
