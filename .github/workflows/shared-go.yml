@@ -97,8 +97,8 @@ jobs:
           # See https://github.com/minio/minio/discussions/14709.
           - 80:9000/tcp
         env:
-          MINIO_ACCESS_KEY: minio
-          MINIO_SECRET_KEY: password
+          MINIO_ROOT_USER: root
+          MINIO_ROOT_PASSWORD: password
 
       dynamodb:
         image: ${{ inputs.dynamodb && 'amazon/dynamodb-local:latest' || '' }}
