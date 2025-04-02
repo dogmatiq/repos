@@ -138,7 +138,11 @@ module "repo_sqltest" {
   languages   = ["go"]
 
   workflow = {
-    name = "go+sql"
+    services = [
+      "postgres",
+      "mysql",
+      "mariadb",
+    ]
   }
 
   copyright = {
@@ -176,7 +180,11 @@ module "repo_verity" {
   languages   = ["go"]
 
   workflow = {
-    name = "go+sql"
+    services = [
+      "postgres",
+      "mysql",
+      "mariadb",
+    ]
   }
 
   copyright = {
