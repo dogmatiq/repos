@@ -117,7 +117,13 @@ module "repo_projectionkit" {
   languages   = ["go"]
 
   workflow = {
-    name = "go+persistence"
+    services = [
+      "minio",
+      "dynamodb",
+      "postgres",
+      "mysql",
+      "mariadb",
+    ]
   }
 
   copyright = {
