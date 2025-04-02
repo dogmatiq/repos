@@ -83,13 +83,14 @@ jobs:
 
     services:
       minio:
-        image: ${{ inputs.minio && 'minio/minio:latest' || '' }}
+        image: ${{ inputs.minio && 'bitnami/minio:latest' || '' }}
         options: >-
           --health-cmd "curl -f http://localhost:9000/minio/health/live"
           --health-interval 2s
           --health-timeout 10s
           --health-start-period 30s
           --health-retries 10
+          --entrypoint
         ports:
           - 9000/tcp
         env:
