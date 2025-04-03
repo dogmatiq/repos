@@ -52,24 +52,28 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Go module
-        continue-on-error: true
+        if: always()
         run: |
           [ -f go.mod ] && echo go=true >> $GITHUB_OUTPUT
 
       - name: Node.js package
-        continue-on-error: true
+        if: always()
         run: |
           [ -f package.json ] && echo node=true >> $GITHUB_OUTPUT
 
       - name: Dockerfile
-        continue-on-error: true
+        if: always()
         run: |
           [ -f Dockerfile ] && echo docker=true >> $GITHUB_OUTPUT
 
       - name: Helm chart
-        continue-on-error: true
+        if: always()
         run: |
           [ -f charts/Chart.yaml ] && echo helm=true >> $GITHUB_OUTPUT
+
+      - name: Print results
+        if: always()
+        run: cat $GITHUB_OUTPUT
 
   go:
     name: Go
