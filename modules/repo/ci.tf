@@ -38,8 +38,12 @@ resource "github_branch_protection" "default_branch" {
   required_status_checks {
     strict = true
     contexts = flatten(
-      [for key, ref in yamldecode(local.workflow_ref_content).jobs :
-        [for key, shared in yamldecode(local.workflow_content).jobs : "${ref.name} / ${shared.name}"]
+      [
+        for key, ref in yamldecode(local.workflow_ref_content).jobs :
+        [
+          for key, shared in yamldecode(local.workflow_content).jobs : "${ref.name} / ${shared.name}"
+          if try(shared.outputs.branch_protection, "false") == "true"
+        ]
       ]
     )
   }

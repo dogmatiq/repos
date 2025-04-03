@@ -43,9 +43,30 @@ env:
   DOGMATIQ_TEST_DNSIMPLE_TOKEN: ${{ secrets.DNSIMPLE_TOKEN }}
 
 jobs:
+  platforms:
+    name: Detect platforms
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect target platforms
+        id: platforms
+        run: |
+          if [ -f go.mod ]; then echo "go=true" >> "$GITHUB_OUTPUT"; fi
+          if [ -f package.json ]; then echo "nodejs=true" >> "$GITHUB_OUTPUT"; fi
+          if [ -f Dockerfile ]; then echo "docker=true" >> "$GITHUB_OUTPUT"; fi
+          if [ -f charts/Chart.yaml ]; then echo "helm=true" >> "$GITHUB_OUTPUT"; fi
+
   go:
     name: Go
     runs-on: ubuntu-latest
+    needs: platforms
+    if: needs.platforms.outputs.go == 'true'
+
+    outputs:
+      branch_protection: "true"
 
     steps:
       - name: Setup service environment variables
@@ -163,44 +184,13 @@ jobs:
         env:
           POSTGRES_PASSWORD: rootpass
 
-  detect:
-    name: Detect publication targets
-    runs-on: ubuntu-latest
-
-    outputs:
-      docker: ${{ steps.has-dockerfile.outputs.files_exists }}
-      helm: ${{ steps.has-helm-chart.outputs.files_exists }}
-
-    steps:
-      - name: Docker image
-        id: has-dockerfile
-        uses: andstor/file-existence-action@v3
-        with:
-          files: Dockerfile
-
-      - name: Helm chart
-        id: has-helm-chart
-        uses: andstor/file-existence-action@v3
-        with:
-          files: charts/Chart.yaml
-
   docker:
     name: Docker
     runs-on: ubuntu-latest
-    needs:
-      - detect
-      - go # ensure tests pass first
-    if: needs.detect.outputs.docker == 'true'
+    needs: platforms
+    if: needs.platforms.outputs.docker == 'true'
 
     steps:
-      - name: Login to GitHub Container Registry
-        if: startsWith(github.ref , 'refs/tags/v')
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -210,32 +200,28 @@ jobs:
           go-version-file: go.mod
           check-latest: true
 
-      - name: Build image
-        if: "!startsWith(github.ref , 'refs/tags/v')"
-        run: docker buildx create --use && make docker
-
-      - name: Build and push image
+      - name: Login to GitHub Container Registry
         if: startsWith(github.ref , 'refs/tags/v')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build image${{ startsWith(github.ref , 'refs/tags/v') && ' and push to registry' || '' }}
         env:
           DOCKER_TAGS: ${{ github.ref_name }}
-        run: docker buildx create --use && make docker-push
+        run: docker buildx create --use && make docker${{ startsWith(github.ref , 'refs/tags/v') && '-push' || '' }}
 
   helm:
     name: Helm
     runs-on: ubuntu-latest
     needs:
-      - detect
+      - platforms
       - docker # ensure docker image has been built and pushed first
-    if: needs.detect.outputs.helm == 'true' && startsWith(github.ref , 'refs/tags/v')
+    if: needs.platforms.outputs.helm == 'true'
 
     steps:
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -245,5 +231,17 @@ jobs:
           go-version-file: go.mod
           check-latest: true
 
-      - name: Build and push image
+      - name: Package chart
+        run: make helm-package
+
+      - name: Login to GitHub Container Registry
+        if: startsWith(github.ref , 'refs/tags/v')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push chart to registry
+        if: startsWith(github.ref , 'refs/tags/v')
         run: make helm-push
