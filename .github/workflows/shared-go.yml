@@ -60,13 +60,11 @@ jobs:
 
             if [ -f "$file" ]; then
               echo "${id}=true" >> $GITHUB_OUTPUT
-              echo "● ${description} detected<br />" >> $GITHUB_STEP_SUMMARY
+              echo "● ${description}" >> $GITHUB_STEP_SUMMARY
             else
-              echo "○ ${description} not detected<br />" >> $GITHUB_STEP_SUMMARY
+              echo "○ ${description}" >> $GITHUB_STEP_SUMMARY
             fi
           }
-
-          echo "# Platform detection" >> $GITHUB_STEP_SUMMARY
 
           check go     go.mod            "Go module"
           check nodejs package.json      "Node.js package"
