@@ -53,7 +53,7 @@ jobs:
 
       - name: Detect platforms
         run: |
-          func check() {
+          check() {
             local id=$1
             local file=$2
             local description=$3
