@@ -51,29 +51,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Go module
-        if: always()
+      - name: Detect platforms
         run: |
-          [ -f go.mod ] && echo go=true >> $GITHUB_OUTPUT
+          func check() {
+            local id=$1
+            local file=$2
+            local description=$3
 
-      - name: Node.js package
-        if: always()
-        run: |
-          [ -f package.json ] && echo node=true >> $GITHUB_OUTPUT
+            if [ -f "$file" ]; then
+              echo "$id=true" >> $GITHUB_OUTPUT
+              echo "- $description detected" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- $decription not detected" >> $GITHUB_STEP_SUMMARY
+            fi
+          }
 
-      - name: Dockerfile
-        if: always()
-        run: |
-          [ -f Dockerfile ] && echo docker=true >> $GITHUB_OUTPUT
+          echo "# Platform detection" >> $GITHUB_STEP_SUMMARY
 
-      - name: Helm chart
-        if: always()
-        run: |
-          [ -f charts/Chart.yaml ] && echo helm=true >> $GITHUB_OUTPUT
-
-      - name: Print results
-        if: always()
-        run: cat $GITHUB_OUTPUT
+          check go     go.mod            "Go module"
+          check nodejs package.json      "Node.js package"
+          check docker Dockerfile         "Docker image"
+          check helm   charts/Chart.yaml "Helm chart"
 
   go:
     name: Go
