@@ -59,10 +59,10 @@ jobs:
             local description=$3
 
             if [ -f "$file" ]; then
-              echo "$id=true" >> $GITHUB_OUTPUT
-              echo "- $description detected" >> $GITHUB_STEP_SUMMARY
+              echo "${id}=true" >> $GITHUB_OUTPUT
+              echo "● ${description} detected<br />" >> $GITHUB_STEP_SUMMARY
             else
-              echo "- $decription not detected" >> $GITHUB_STEP_SUMMARY
+              echo "○ ${description} not detected<br />" >> $GITHUB_STEP_SUMMARY
             fi
           }
 
