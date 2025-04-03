@@ -51,14 +51,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Detect target platforms
-        id: platforms
+      - name: Go module
+        continue-on-error: true
         run: |
-          if [ -f go.mod ]; then echo "go=true" >> "$GITHUB_OUTPUT"; fi
-          if [ -f package.json ]; then echo "nodejs=true" >> "$GITHUB_OUTPUT"; fi
-          if [ -f Dockerfile ]; then echo "docker=true" >> "$GITHUB_OUTPUT"; fi
-          if [ -f charts/Chart.yaml ]; then echo "helm=true" >> "$GITHUB_OUTPUT"; fi
-          cat $GITHUB_OUTPUT
+          [ -f go.mod ] && echo go=true >> $GITHUB_OUTPUT
+
+      - name: Node.js package
+        continue-on-error: true
+        run: |
+          [ -f package.json ] && echo node=true >> $GITHUB_OUTPUT
+
+      - name: Dockerfile
+        continue-on-error: true
+        run: |
+          [ -f Dockerfile ] && echo docker=true >> $GITHUB_OUTPUT
+
+      - name: Helm chart
+        continue-on-error: true
+        run: |
+          [ -f charts/Chart.yaml ] && echo helm=true >> $GITHUB_OUTPUT
 
   go:
     name: Go
