@@ -58,6 +58,7 @@ jobs:
           if [ -f package.json ]; then echo "nodejs=true" >> "$GITHUB_OUTPUT"; fi
           if [ -f Dockerfile ]; then echo "docker=true" >> "$GITHUB_OUTPUT"; fi
           if [ -f charts/Chart.yaml ]; then echo "helm=true" >> "$GITHUB_OUTPUT"; fi
+          cat $GITHUB_OUTPUT
 
   go:
     name: Go
