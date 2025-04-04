@@ -49,6 +49,7 @@ jobs:
 
     outputs:
       go: ${{ steps.check.outputs.go }}
+      go_version: ${{ steps.check.outputs.go_version }}
       nodejs: ${{ steps.check.outputs.nodejs }}
       docker: ${{ steps.check.outputs.docker }}
       helm: ${{ steps.check.outputs.helm }}
@@ -77,6 +78,10 @@ jobs:
           check nodejs package.json      "Node.js package"
           check docker Dockerfile         "Docker image"
           check helm   charts/Chart.yaml "Helm chart"
+
+          if [ -f go.mod ]; then
+            echo "go_version=$(sed -nE 's/^toolchain go([0-9.]+)/\1/p' go.mod)" >> $GITHUB_OUTPUT
+          fi
 
   go:
     name: Go
@@ -119,8 +124,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: go.mod
-          check-latest: true
+          go-version: ${{ needs.platforms.outputs.go_version }}
 
       - name: Make
         run: make ci
@@ -216,8 +220,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: go.mod
-          check-latest: true
+          go-version: ${{ needs.platforms.outputs.go_version }}
 
       - name: Login to GitHub Container Registry
         if: startsWith(github.ref , 'refs/tags/v')
@@ -247,8 +250,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: go.mod
-          check-latest: true
+          go-version: ${{ needs.platforms.outputs.go_version }}
 
       - name: Package chart
         run: make helm-package
