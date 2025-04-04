@@ -62,16 +62,16 @@ locals {
   primary_language = length(var.languages) == 0 ? null : var.languages[0]
   template         = var.template == "(default)" ? local.primary_language : var.template
 
-  has_workflow = var.workflow == null ? false : (var.workflow.name != null || local.primary_language != null)
+  has_workflow = var.workflow != null && !var.archived
   workflow = {
-    name     = local.has_workflow ? coalesce(var.workflow.name, local.primary_language) : ""
+    name     = local.has_workflow ? coalesce(var.workflow.name, "ci") : ""
     services = local.has_workflow ? var.workflow.services : []
   }
 
   enable_branch_protection     = local.has_workflow && !var.private # not supported by private repos on free-tier
-  enable_dependabot            = local.primary_language != null
+  enable_dependabot            = length(var.languages) != 0
   enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
-  enable_codecov               = local.primary_language == "go"
+  enable_codecov               = contains(var.languages, "go")
 
   publish_releases = local.has_workflow # publish releases for any repo that has a build process
 }

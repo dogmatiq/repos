@@ -8,7 +8,9 @@ resource "github_repository" "this" {
   name        = var.name
   description = var.description
   visibility  = var.private ? "private" : "public"
-  archived    = var.archived
+
+  archived             = var.archived
+  vulnerability_alerts = !var.archived # reported as disabled for archived repos, setting it explicitly to avoid useless diffs
 
   has_issues   = true
   has_projects = false
@@ -19,8 +21,6 @@ resource "github_repository" "this" {
   allow_squash_merge     = false
   allow_rebase_merge     = false
   allow_auto_merge       = !var.private # not supported by private repos on free-tier
-
-  vulnerability_alerts = !var.archived
 
   auto_init = local.template == null # make sure there is always a default branch
 
