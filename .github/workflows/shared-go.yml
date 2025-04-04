@@ -48,10 +48,10 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      go: ${{ steps.check.outputs.files_exists }}
-      nodejs: ${{ steps.check.outputs.files_exists }}
-      docker: ${{ steps.check.outputs.files_exists }}
-      helm: ${{ steps.check.outputs.files_exists }}
+      go: ${{ steps.check.outputs.go }}
+      nodejs: ${{ steps.check.outputs.nodejs }}
+      docker: ${{ steps.check.outputs.docker }}
+      helm: ${{ steps.check.outputs.helm }}
 
     steps:
       - name: Checkout
