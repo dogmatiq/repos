@@ -44,14 +44,21 @@ env:
 
 jobs:
   platforms:
-    name: Detect platforms
+    name: Platform detection
     runs-on: ubuntu-latest
+
+    outputs:
+      go: ${{ steps.check.outputs.files_exists }}
+      nodejs: ${{ steps.check.outputs.files_exists }}
+      docker: ${{ steps.check.outputs.files_exists }}
+      helm: ${{ steps.check.outputs.files_exists }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Detect platforms
+      - name: Check for platform-specific files
+        id: check
         run: |
           check() {
             local id=$1
@@ -60,9 +67,9 @@ jobs:
 
             if [ -f "$file" ]; then
               echo "${id}=true" >> $GITHUB_OUTPUT
-              echo "● ${description}" >> $GITHUB_STEP_SUMMARY
+              echo "● ${description} detected via `${file}`" >> $GITHUB_STEP_SUMMARY
             else
-              echo "○ ${description}" >> $GITHUB_STEP_SUMMARY
+              echo "○ ${description} not detected" >> $GITHUB_STEP_SUMMARY
             fi
           }
 
