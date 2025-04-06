@@ -17,11 +17,16 @@ variable "private" {
   nullable    = false
 }
 
-variable "archived" {
+variable "archive_status" {
   description = "Indicates whether the repository is archived"
-  type        = bool
-  default     = false
+  type        = string
+  default     = "unarchived"
   nullable    = false
+
+  validation {
+    condition     = contains(["unarchived", "archiving", "archived"], var.archive_status)
+    error_message = "The archive status must be one of 'unarchived', 'archiving', or 'archived'."
+  }
 }
 
 variable "languages" {
@@ -59,19 +64,20 @@ variable "copyright" {
 }
 
 locals {
+  unarchived       = var.archive_status == "unarchived"
   primary_language = length(var.languages) == 0 ? null : var.languages[0]
   template         = var.template == "(default)" ? local.primary_language : var.template
 
-  has_workflow = var.workflow != null && !var.archived
+  has_workflow = local.unarchived && var.workflow != null
   workflow = {
     name     = local.has_workflow ? coalesce(var.workflow.name, "ci") : ""
     services = local.has_workflow ? var.workflow.services : []
   }
 
-  enable_branch_protection     = local.has_workflow && !var.private # not supported by private repos on free-tier
-  enable_dependabot            = length(var.languages) != 0
-  enable_dependabot_auto_merge = local.enable_dependabot && github_repository.this.allow_auto_merge
-  enable_codecov               = contains(var.languages, "go")
+  enable_branch_protection     = local.unarchived && local.has_workflow && !var.private # not supported by private repos on free-tier
+  enable_dependabot            = local.unarchived && length(var.languages) != 0
+  enable_dependabot_auto_merge = local.unarchived && local.enable_dependabot && github_repository.this.allow_auto_merge
+  enable_codecov               = local.unarchived && contains(var.languages, "go")
 
-  publish_releases = local.has_workflow # publish releases for any repo that has a build process
+  publish_releases = local.unarchived && local.has_workflow # publish releases for any repo that has a build process
 }

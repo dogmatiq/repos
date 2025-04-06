@@ -9,8 +9,8 @@ resource "github_repository" "this" {
   description = var.description
   visibility  = var.private ? "private" : "public"
 
-  archived             = var.archived
-  vulnerability_alerts = !var.archived # reported as disabled for archived repos, setting it explicitly to avoid useless diffs
+  archived             = var.archive_status == "archived" # only mark if archived after "archiving" phase, as doing so prevents various changes via API
+  vulnerability_alerts = local.unarchived                 # reported as disabled for archived repos, setting it explicitly to avoid useless diffs
 
   has_issues   = true
   has_projects = false
