@@ -234,7 +234,7 @@ jobs:
 
       - name: Build image${{ startsWith(github.ref , 'refs/tags/v') && ' and push to registry' || '' }}
         env:
-          DOCKER_TAGS: ${{ github.ref_name }}
+          DOCKER_TAGS: ${{ startsWith(github.ref , 'refs/tags/v') && github.ref_name || '' }}
         run: docker buildx create --use && make docker${{ startsWith(github.ref , 'refs/tags/v') && '-push' || '' }}
 
   helm:
