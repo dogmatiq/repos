@@ -3,7 +3,7 @@ module "repo_aperture" {
   name           = "aperture"
   description    = "🚫 An intensely minimal projection-only Dogma engine."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2019
@@ -27,7 +27,7 @@ module "repo_dodeca" {
   description    = "🚫 Utilities for 12-Factor applications written in Go."
   languages      = ["go"]
   template       = null
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2019
@@ -50,7 +50,7 @@ module "repo_marshalkit" {
   name           = "marshalkit"
   description    = "🚫 Marshal and unmarshal Dogma messages and other types."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2019
