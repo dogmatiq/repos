@@ -155,6 +155,7 @@ jobs:
         env:
           MINIO_ROOT_USER: minio
           MINIO_ROOT_PASSWORD: password
+          BITNAMI_DEBUG: "true"
 
       dynamodb:
         image: ${{ inputs.dynamodb && 'amazon/dynamodb-local:latest' || '' }}
