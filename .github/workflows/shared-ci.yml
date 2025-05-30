@@ -95,13 +95,13 @@ jobs:
       - name: Setup service environment variables
         run: |
           if ${{ inputs.minio }}; then
-            echo "DOGMATIQ_TEST_MINIO_ENDPOINT=http://localhost:${{ job.services.minio.ports['9000'] }}" >> $GITHUB_ENV
+            echo "DOGMATIQ_TEST_MINIO_ENDPOINT=http://127.0.0.1:${{ job.services.minio.ports['9000'] }}" >> $GITHUB_ENV
             echo "DOGMATIQ_TEST_MINIO_ACCESS_KEY=minio" >> $GITHUB_ENV
             echo "DOGMATIQ_TEST_MINIO_SECRET_KEY=password" >> $GITHUB_ENV
           fi
 
           if ${{ inputs.dynamodb }}; then
-            echo "DOGMATIQ_TEST_DYNAMODB_ENDPOINT=http://localhost:${{ job.services.dynamodb.ports['8000'] }}" >> $GITHUB_ENV
+            echo "DOGMATIQ_TEST_DYNAMODB_ENDPOINT=http://127.0.0.1:${{ job.services.dynamodb.ports['8000'] }}" >> $GITHUB_ENV
           fi
 
           if ${{ inputs.postgres }}; then
@@ -145,7 +145,7 @@ jobs:
       minio:
         image: ${{ inputs.minio && 'bitnami/minio:latest' || '' }}
         options: >-
-          --health-cmd "curl -f http://localhost:9000/minio/health/ready"
+          --health-cmd "curl -f http://127.0.0.1:9000/minio/health/ready"
           --health-interval 2s
           --health-timeout 10s
           --health-start-period 30s
@@ -160,7 +160,7 @@ jobs:
       dynamodb:
         image: ${{ inputs.dynamodb && 'amazon/dynamodb-local:latest' || '' }}
         options: >-
-          --health-cmd "curl http://localhost:8000"
+          --health-cmd "curl http://127.0.0.1:8000"
           --health-interval 2s
           --health-timeout 10s
           --health-start-period 30s
