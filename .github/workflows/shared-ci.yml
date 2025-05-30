@@ -145,7 +145,7 @@ jobs:
       minio:
         image: ${{ inputs.minio && 'bitnami/minio:latest' || '' }}
         options: >-
-          --health-cmd "curl -f http://localhost:9000/minio/health/live"
+          --health-cmd "curl -f http://localhost:9000/minio/health/ready"
           --health-interval 2s
           --health-timeout 10s
           --health-start-period 30s
