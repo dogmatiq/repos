@@ -53,6 +53,7 @@ jobs:
       nodejs: ${{ steps.check.outputs.nodejs }}
       docker: ${{ steps.check.outputs.docker }}
       helm: ${{ steps.check.outputs.helm }}
+      adrs: ${{ steps.check.outputs.adrs }}
 
     steps:
       - name: Checkout
@@ -74,10 +75,11 @@ jobs:
             fi
           }
 
-          check go     go.mod            "Go module"
-          check nodejs package.json      "Node.js package"
-          check docker Dockerfile         "Docker image"
-          check helm   charts/Chart.yaml "Helm chart"
+          check go     go.mod             "Go module"
+          check nodejs package.json       "Node.js package"
+          check docker Dockerfile          "Docker image"
+          check helm   charts/Chart.yaml  "Helm chart"
+          check adrs   docs/adr/README.md "Architecture Decision Records"
 
           if [ -f go.mod ]; then
             echo "go_version=$(sed -nE 's/^toolchain go([0-9.]+)/\1/p' go.mod)" >> $GITHUB_OUTPUT
@@ -116,6 +118,13 @@ jobs:
           if ${{ inputs.mariadb }}; then
             echo "DOGMATIQ_TEST_DSN_MARIADB_MYSQL=root:rootpass@tcp(127.0.0.1:${{ job.services.mariadb.ports['3306'] }})/mysql" >> $GITHUB_ENV
           fi
+
+      - name: Install ADR tools
+        if: needs.prepare.outputs.adrs == 'true'
+        run: |
+          cd $(mktemp -d)
+          git clone https://github.com/npryce/adr-tools
+          sudo cp adr-tools/src/* /usr/local/bin
 
       - name: Checkout
         uses: actions/checkout@v4
