@@ -79,7 +79,7 @@ jobs:
           check nodejs package.json       "Node.js package"
           check docker Dockerfile          "Docker image"
           check helm   charts/Chart.yaml  "Helm chart"
-          check adrs   docs/adr/README.md "Architecture Decision Records"
+          check adrs   .adr-dir            "Architecture Decision Records"
 
           if [ -f go.mod ]; then
             echo "go_version=$(sed -nE 's/^toolchain go([0-9.]+)/\1/p' go.mod)" >> $GITHUB_OUTPUT
