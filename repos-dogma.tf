@@ -35,7 +35,7 @@ module "repo_discoverkit" {
 module "repo_dogma" {
   source      = "./modules/repo"
   name        = "dogma"
-  description = "A specification and API for building message-based applications in Go."
+  description = "Build robust message-driven applications in Go."
   languages   = ["go"]
   template    = null
 
