@@ -15,6 +15,7 @@ module "repo_dotgithub" {
   description = "Dogmatiq community health files."
 
   languages = []
+  workflow  = null
 
   copyright = {
     since = 2019
