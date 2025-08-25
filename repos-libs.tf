@@ -156,10 +156,11 @@ module "repo_primo" {
 }
 
 module "repo_protean" {
-  source      = "./modules/repo"
-  name        = "protean"
-  description = "🚧 A Protocol Buffers RPC framework for Go, consumable from the browser using standard APIs."
-  languages   = ["go"]
+  source         = "./modules/repo"
+  name           = "protean"
+  description    = "🚧 A Protocol Buffers RPC framework for Go, consumable from the browser using standard APIs."
+  languages      = ["go"]
+  archive_status = "archiving"
 
   copyright = {
     since = 2021
