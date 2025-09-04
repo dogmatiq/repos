@@ -11,6 +11,6 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Create GitHub release from tag commit message
-        uses: ghalactic/github-release-from-tag@v5
+        uses: ghalactic/github-release-from-tag@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
