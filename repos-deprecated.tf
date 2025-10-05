@@ -15,7 +15,7 @@ module "repo_browser" {
   name           = "browser"
   description    = "🚫 A web-based documentation server for inspecting Dogma applications."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2021
@@ -51,7 +51,7 @@ module "repo_dogmacli" {
   name           = "dogmacli"
   description    = "🚫 Command line tools for Dogma applications."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2020
@@ -98,7 +98,7 @@ module "repo_vscode" {
   description    = "🚫 A Visual Studio Code extension with rich support for Dogma applications."
   languages      = ["js"]
   template       = null
-  archive_status = "archiving"
+  archive_status = "archived"
 
   workflow = null
 
