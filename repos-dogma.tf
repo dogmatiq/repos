@@ -97,14 +97,6 @@ module "repo_persistencekit" {
   description = "Abstract persistence primitives for use by Dogma engines, projections, etc."
   languages   = ["go"]
 
-  workflow = {
-    services = [
-      "minio",
-      "dynamodb",
-      "postgres",
-    ]
-  }
-
   copyright = {
     since = 2023
   }
