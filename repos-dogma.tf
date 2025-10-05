@@ -1,14 +1,3 @@
-module "repo_browser" {
-  source      = "./modules/repo"
-  name        = "browser"
-  description = "🚧 A web-based documentation server for inspecting Dogma applications."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2021
-  }
-}
-
 module "repo_configkit" {
   source      = "./modules/repo"
   name        = "configkit"
@@ -42,17 +31,6 @@ module "repo_dogma" {
   copyright = {
     since   = 2018
     holders = ["Kevin Millar", "Danil Petrov"]
-  }
-}
-
-module "repo_dogmacli" {
-  source      = "./modules/repo"
-  name        = "dogmacli"
-  description = "🚧 Command line tools for Dogma applications."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2020
   }
 }
 
@@ -181,19 +159,5 @@ module "repo_verity" {
 
   copyright = {
     since = 2019
-  }
-}
-
-module "repo_vscode" {
-  source      = "./modules/repo"
-  name        = "vscode"
-  description = "🚧 A Visual Studio Code extension with rich support for Dogma applications."
-  languages   = ["js"]
-  template    = null
-
-  workflow = null
-
-  copyright = {
-    since = 2023
   }
 }
