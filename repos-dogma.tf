@@ -88,7 +88,6 @@ module "repo_projectionkit" {
 
   workflow = {
     services = [
-      "minio",
       "dynamodb",
       "postgres",
       "mysql",
