@@ -1,26 +1,3 @@
-module "repo_configkit" {
-  source      = "./modules/repo"
-  name        = "configkit"
-  description = "Inspect, validate and visualize Dogma application configurations."
-  languages   = ["go"]
-
-  copyright = {
-    since   = 2019
-    holders = ["Danil Petrov"]
-  }
-}
-
-module "repo_discoverkit" {
-  source      = "./modules/repo"
-  name        = "discoverkit"
-  description = "Discover running Dogma applications on the network."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2019
-  }
-}
-
 module "repo_dogma" {
   source      = "./modules/repo"
   name        = "dogma"
@@ -34,49 +11,26 @@ module "repo_dogma" {
   }
 }
 
-module "repo_enginekit" {
+module "repo_runkit" {
   source      = "./modules/repo"
-  name        = "enginekit"
-  description = "🚧 Tools for developing Dogma engines."
+  name        = "runkit"
+  description = "🚧 Run Dogma applications in production."
   languages   = ["go"]
 
   copyright = {
-    since = 2023
+    since = 2025
   }
 }
 
-module "repo_example" {
+module "repo_testkit" {
   source      = "./modules/repo"
-  name        = "example"
-  description = "An example Dogma application with the features of a simple bank."
+  name        = "testkit"
+  description = "Write blackbox tests for Dogma applications."
   languages   = ["go"]
   template    = null
 
   copyright = {
-    since   = 2019
-    holders = ["Kevin Millar"]
-  }
-}
-
-module "repo_interopspec" {
-  source      = "./modules/repo"
-  name        = "interopspec"
-  description = "🚧 Protocol Buffers and gRPC definitions for improving engine interoperability."
-  languages   = ["go"]
-
-  copyright = {
     since = 2019
-  }
-}
-
-module "repo_persistencekit" {
-  source      = "./modules/repo"
-  name        = "persistencekit"
-  description = "Abstract persistence primitives for use by Dogma engines, projections, etc."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2023
   }
 }
 
@@ -100,6 +54,79 @@ module "repo_projectionkit" {
   }
 }
 
+module "repo_persistencekit" {
+  source      = "./modules/repo"
+  name        = "persistencekit"
+  description = "Abstract persistence primitives for use by Dogma engines, projections, etc."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2023
+  }
+}
+
+module "repo_example" {
+  source      = "./modules/repo"
+  name        = "example"
+  description = "An example Dogma application with the features of a simple bank."
+  languages   = ["go"]
+  template    = null
+
+  copyright = {
+    since   = 2019
+    holders = ["Kevin Millar"]
+  }
+}
+
+#
+# Repos below this line are to be deprecated / archived in the future.
+#
+
+module "repo_configkit" {
+  source      = "./modules/repo"
+  name        = "configkit"
+  description = "Inspect, validate and visualize Dogma application configurations."
+  languages   = ["go"]
+
+  copyright = {
+    since   = 2019
+    holders = ["Danil Petrov"]
+  }
+}
+
+module "repo_discoverkit" {
+  source      = "./modules/repo"
+  name        = "discoverkit"
+  description = "Discover running Dogma applications on the network."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2019
+  }
+}
+
+module "repo_enginekit" {
+  source      = "./modules/repo"
+  name        = "enginekit"
+  description = "🚧 Tools for developing Dogma engines."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2023
+  }
+}
+
+module "repo_interopspec" {
+  source      = "./modules/repo"
+  name        = "interopspec"
+  description = "🚧 Protocol Buffers and gRPC definitions for improving engine interoperability."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2019
+  }
+}
+
 module "repo_sqltest" {
   source      = "./modules/repo"
   name        = "sqltest"
@@ -116,18 +143,6 @@ module "repo_sqltest" {
 
   copyright = {
     since = 2020
-  }
-}
-
-module "repo_testkit" {
-  source      = "./modules/repo"
-  name        = "testkit"
-  description = "Write blackbox tests for Dogma applications."
-  languages   = ["go"]
-  template    = null
-
-  copyright = {
-    since = 2019
   }
 }
 
