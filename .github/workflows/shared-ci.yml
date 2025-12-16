@@ -82,7 +82,15 @@ jobs:
           check adrs   .adr-dir            "Architecture Decision Records"
 
           if [ -f go.mod ]; then
-            echo "go_version=$(sed -nE 's/^toolchain go([0-9.]+)/\1/p' go.mod)" >> $GITHUB_OUTPUT
+            # Use the 'toolchain' directive to find the Go version.
+            go_version=$(sed -nE 's/^toolchain go([0-9.]+)/\1/p' go.mod)
+
+            # If not found, fall back to 'go' directive.
+            if [ -z "$go_version" ]; then
+              go_version=$(sed -nE 's/^go ([0-9.]+)/\1/p' go.mod)
+            fi
+
+            echo "go_version=$go_version" >> $GITHUB_OUTPUT
           fi
 
   build:
