@@ -92,6 +92,18 @@ module "repo_mobius" {
   }
 }
 
+module "repo_veracity" {
+  source         = "./modules/repo"
+  name           = "veracity"
+  description    = "🚫 A horizontally-scalable event-sourced Dogma engine."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+  copyright = {
+    since = 2021
+  }
+}
+
 module "repo_vscode" {
   source         = "./modules/repo"
   name           = "vscode"

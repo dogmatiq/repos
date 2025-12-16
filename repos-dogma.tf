@@ -146,17 +146,6 @@ module "repo_sqltest" {
   }
 }
 
-module "repo_veracity" {
-  source      = "./modules/repo"
-  name        = "veracity"
-  description = "🚧 A horizontally-scalable event-sourced Dogma engine."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2021
-  }
-}
-
 module "repo_verity" {
   source      = "./modules/repo"
   name        = "verity"
