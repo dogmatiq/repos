@@ -97,7 +97,7 @@ module "repo_veracity" {
   name           = "veracity"
   description    = "🚫 A horizontally-scalable event-sourced Dogma engine."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2021
