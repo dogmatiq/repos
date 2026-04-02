@@ -58,6 +58,7 @@ module "repo_projectionkit_js" {
   source      = "./modules/repo"
   name        = "projectionkit-js"
   description = "Build Dogma projections in JavaScript or TypeScript using popular database systems."
+  template    = null
   languages   = ["js"]
 
   workflow = {
