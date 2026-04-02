@@ -54,6 +54,26 @@ module "repo_projectionkit" {
   }
 }
 
+module "repo_projectionkit_js" {
+  source      = "./modules/repo"
+  name        = "projectionkit-js"
+  description = "Build Dogma projections in JavaScript or TypeScript using popular database systems."
+  languages   = ["js"]
+
+  workflow = {
+    services = [
+      "dynamodb",
+      "postgres",
+      "mysql",
+      "mariadb",
+    ]
+  }
+
+  copyright = {
+    since = 2026
+  }
+}
+
 module "repo_persistencekit" {
   source      = "./modules/repo"
   name        = "persistencekit"
