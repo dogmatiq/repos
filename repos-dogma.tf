@@ -190,6 +190,7 @@ module "repo_stories" {
   source      = "./modules/repo"
   name        = "stories"
   description = "🚧 Read the story your Dogma applications are telling."
+  private     = true
   languages   = []
 
   copyright = {
