@@ -9,6 +9,18 @@ module "repo_proclaim" {
   }
 }
 
+module "repo_postgres_crd_controller" {
+  source      = "./modules/repo"
+  name        = "postgres-crd-controller"
+  description = "🚧 A Kubernetes controller and CRD that manages PostgreSQL databases."
+  languages   = ["go"]
+  private     = true
+
+  copyright = {
+    since = 2026
+  }
+}
+
 module "repo_dotgithub" {
   source      = "./modules/repo"
   name        = ".github"
