@@ -111,18 +111,6 @@ module "repo_example" {
   }
 }
 
-module "repo_reference_engine" {
-  source      = "./modules/repo"
-  name        = "reference-engine"
-  description = "An reference implementation of a Dogma engine."
-  languages   = ["go"]
-  private     = true
-
-  copyright = {
-    since = 2026
-  }
-}
-
 #
 # Repos below this line are to be deprecated / archived in the future.
 #

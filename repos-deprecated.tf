@@ -92,6 +92,19 @@ module "repo_mobius" {
   }
 }
 
+module "repo_reference_engine" {
+  source         = "./modules/repo"
+  name           = "reference-engine"
+  description    = "An reference implementation of a Dogma engine."
+  languages      = ["go"]
+  private        = true
+  archive_status = "archiving"
+
+  copyright = {
+    since = 2026
+  }
+}
+
 module "repo_verity" {
   source         = "./modules/repo"
   name           = "verity"
