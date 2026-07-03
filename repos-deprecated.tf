@@ -97,7 +97,7 @@ module "repo_verity" {
   name           = "verity"
   description    = "🚫 An event-sourced Dogma engine."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   workflow = {
     services = [
