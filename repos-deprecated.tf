@@ -98,7 +98,7 @@ module "repo_reference_engine" {
   description    = "An reference implementation of a Dogma engine."
   languages      = ["go"]
   private        = true
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2026
