@@ -179,25 +179,6 @@ module "repo_sqltest" {
   }
 }
 
-module "repo_verity" {
-  source      = "./modules/repo"
-  name        = "verity"
-  description = "🚧 An event-sourced Dogma engine."
-  languages   = ["go"]
-
-  workflow = {
-    services = [
-      "postgres",
-      "mysql",
-      "mariadb",
-    ]
-  }
-
-  copyright = {
-    since = 2019
-  }
-}
-
 module "repo_stories" {
   source      = "./modules/repo"
   name        = "stories"

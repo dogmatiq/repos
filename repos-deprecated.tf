@@ -92,6 +92,26 @@ module "repo_mobius" {
   }
 }
 
+module "repo_verity" {
+  source         = "./modules/repo"
+  name           = "verity"
+  description    = "🚫 An event-sourced Dogma engine."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+  workflow = {
+    services = [
+      "postgres",
+      "mysql",
+      "mariadb",
+    ]
+  }
+
+  copyright = {
+    since = 2019
+  }
+}
+
 module "repo_veracity" {
   source         = "./modules/repo"
   name           = "veracity"
