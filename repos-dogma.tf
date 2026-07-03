@@ -14,8 +14,20 @@ module "repo_dogma" {
 module "repo_runkit" {
   source      = "./modules/repo"
   name        = "runkit"
+  description = "🚧 A reference Dogma engine implementation."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2026
+  }
+}
+
+module "repo_runkit_cluster" {
+  source      = "./modules/repo"
+  name        = "runkit-cluster"
   description = "🚧 Run Dogma applications in production."
   languages   = ["go"]
+  private     = true
 
   copyright = {
     since = 2025
