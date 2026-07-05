@@ -95,7 +95,7 @@ module "repo_mobius" {
 module "repo_reference_engine" {
   source         = "./modules/repo"
   name           = "reference-engine"
-  description    = "An reference implementation of a Dogma engine."
+  description    = "🚫 A reference implementation of a Dogma engine."
   languages      = ["go"]
   private        = true
   archive_status = "archived"
@@ -104,6 +104,27 @@ module "repo_reference_engine" {
     since = 2026
   }
 }
+
+module "repo_sqltest" {
+  source         = "./modules/repo"
+  name           = "sqltest"
+  description    = "🚫 Internal utilities for testing Dogma projects that use SQL databases."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+  workflow = {
+    services = [
+      "postgres",
+      "mysql",
+      "mariadb",
+    ]
+  }
+
+  copyright = {
+    since = 2020
+  }
+}
+
 
 module "repo_verity" {
   source         = "./modules/repo"

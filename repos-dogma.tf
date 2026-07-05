@@ -160,25 +160,6 @@ module "repo_interopspec" {
   }
 }
 
-module "repo_sqltest" {
-  source      = "./modules/repo"
-  name        = "sqltest"
-  description = "🚧 Internal utilities for testing Dogma projects that use SQL databases."
-  languages   = ["go"]
-
-  workflow = {
-    services = [
-      "postgres",
-      "mysql",
-      "mariadb",
-    ]
-  }
-
-  copyright = {
-    since = 2020
-  }
-}
-
 module "repo_stories" {
   source      = "./modules/repo"
   name        = "stories"
