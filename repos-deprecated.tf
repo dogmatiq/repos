@@ -110,7 +110,7 @@ module "repo_sqltest" {
   name           = "sqltest"
   description    = "🚫 Internal utilities for testing Dogma projects that use SQL databases."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   workflow = {
     services = [
@@ -124,7 +124,6 @@ module "repo_sqltest" {
     since = 2020
   }
 }
-
 
 module "repo_verity" {
   source         = "./modules/repo"
