@@ -152,6 +152,10 @@ jobs:
         env:
           CGO_ENABLED: "1"
 
+      - name: Dump docker logs on failure
+        if: failure()
+        uses: jwalton/gh-docker-logs@v2
+
       - name: Upload coverage report
         uses: codecov/codecov-action@v7
         with:
