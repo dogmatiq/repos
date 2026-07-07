@@ -152,7 +152,7 @@ jobs:
         env:
           CGO_ENABLED: "1"
 
-      - name: Dump docker logs on failure
+      - name: Docker logs
         if: failure()
         uses: jwalton/gh-docker-logs@v2
 
