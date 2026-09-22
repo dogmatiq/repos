@@ -69,7 +69,7 @@ module "repo_projectionkit" {
 module "repo_projectionkit_js" {
   source      = "./modules/repo"
   name        = "projectionkit-js"
-  description = "Build Dogma projections in JavaScript or TypeScript using popular database systems."
+  description = "🚧 Build Dogma projections in JavaScript or TypeScript using popular database systems."
   template    = null
   languages   = ["js"]
 
@@ -118,7 +118,7 @@ module "repo_example" {
 module "repo_configkit" {
   source      = "./modules/repo"
   name        = "configkit"
-  description = "Inspect, validate and visualize Dogma application configurations."
+  description = "🚫 Inspect, validate and visualize Dogma application configurations."
   languages   = ["go"]
 
   copyright = {
@@ -130,7 +130,7 @@ module "repo_configkit" {
 module "repo_discoverkit" {
   source      = "./modules/repo"
   name        = "discoverkit"
-  description = "Discover running Dogma applications on the network."
+  description = "🚫 Discover running Dogma applications on the network."
   languages   = ["go"]
 
   copyright = {
@@ -152,7 +152,7 @@ module "repo_enginekit" {
 module "repo_interopspec" {
   source      = "./modules/repo"
   name        = "interopspec"
-  description = "🚧 Protocol Buffers and gRPC definitions for improving engine interoperability."
+  description = "🚫 Protocol Buffers and gRPC definitions for improving engine interoperability."
   languages   = ["go"]
 
   copyright = {
