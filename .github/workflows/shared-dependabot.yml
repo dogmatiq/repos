@@ -26,8 +26,7 @@ jobs:
             || steps.dependabot-metadata.outputs.dependency-names == 'github.com/mattn/go-sqlite3'
             || steps.dependabot-metadata.outputs.dependency-names == 'go.etcd.io/bbolt'
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/dogmatiq/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/aws/aws-sdk-go')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/aws/aws-sdk-go-v2')
+            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/aws/')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/onsi/')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/testcontainers/')
             || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'go.opentelemetry.io/')
