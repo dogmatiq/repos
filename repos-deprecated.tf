@@ -3,7 +3,7 @@ module "repo_akin" {
   name           = "akin"
   description    = "🚫 Fuzzy comparison predicates for Go."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2024
@@ -39,7 +39,7 @@ module "repo_configkit" {
   name           = "configkit"
   description    = "🚫 Inspect, validate and visualize Dogma application configurations."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since   = 2019
@@ -52,7 +52,7 @@ module "repo_cosyne" {
   name           = "cosyne"
   description    = "🚫 Context-aware synchronization primitives for Go."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2020
@@ -64,7 +64,7 @@ module "repo_discoverkit" {
   name           = "discoverkit"
   description    = "🚫 Discover running Dogma applications on the network."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2019
@@ -101,7 +101,7 @@ module "repo_dosh" {
   name           = "dosh"
   description    = "🚫 A Go library for representing monetary values in-process and on-the-wire."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
 
   copyright = {
@@ -114,7 +114,7 @@ module "repo_interopspec" {
   name           = "interopspec"
   description    = "🚫 Protocol Buffers and gRPC definitions for improving engine interoperability."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2019
@@ -126,7 +126,7 @@ module "repo_kyu" {
   name           = "kyu"
   description    = "🚫 Queue data-structures for Go."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2020
@@ -150,7 +150,7 @@ module "repo_mobius" {
   name           = "mobius"
   description    = "🚫 A weighted consistent-hashing implementation for Go."
   languages      = ["go"]
-  archive_status = "archiving"
+  archive_status = "archived"
 
   copyright = {
     since = 2019
