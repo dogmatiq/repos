@@ -109,6 +109,18 @@ module "repo_dosh" {
   }
 }
 
+module "repo_iago" {
+  source      = "./modules/repo"
+  name        = "iago"
+  description = "🚫 IO utilities for Go."
+  languages   = ["go"]
+  template    = null
+
+  copyright = {
+    since = 2019
+  }
+}
+
 module "repo_interopspec" {
   source         = "./modules/repo"
   name           = "interopspec"
