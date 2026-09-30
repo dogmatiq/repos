@@ -1,3 +1,15 @@
+module "repo_akin" {
+  source         = "./modules/repo"
+  name           = "akin"
+  description    = "🚫 Fuzzy comparison predicates for Go."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+  copyright = {
+    since = 2024
+  }
+}
+
 module "repo_aperture" {
   source         = "./modules/repo"
   name           = "aperture"
@@ -22,14 +34,40 @@ module "repo_browser" {
   }
 }
 
+module "repo_configkit" {
+  source         = "./modules/repo"
+  name           = "configkit"
+  description    = "🚫 Inspect, validate and visualize Dogma application configurations."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+  copyright = {
+    since   = 2019
+    holders = ["Danil Petrov"]
+  }
+}
+
 module "repo_cosyne" {
-  source      = "./modules/repo"
-  name        = "cosyne"
-  description = "🚫 Context-aware synchronization primitives for Go."
-  languages   = ["go"]
+  source         = "./modules/repo"
+  name           = "cosyne"
+  description    = "🚫 Context-aware synchronization primitives for Go."
+  languages      = ["go"]
+  archive_status = "archiving"
 
   copyright = {
     since = 2020
+  }
+}
+
+module "repo_discoverkit" {
+  source         = "./modules/repo"
+  name           = "discoverkit"
+  description    = "🚫 Discover running Dogma applications on the network."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+  copyright = {
+    since = 2019
   }
 }
 
@@ -58,11 +96,37 @@ module "repo_dogmacli" {
   }
 }
 
+module "repo_dosh" {
+  source         = "./modules/repo"
+  name           = "dosh"
+  description    = "🚫 A Go library for representing monetary values in-process and on-the-wire."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+
+  copyright = {
+    since = 2021
+  }
+}
+
+module "repo_interopspec" {
+  source         = "./modules/repo"
+  name           = "interopspec"
+  description    = "🚫 Protocol Buffers and gRPC definitions for improving engine interoperability."
+  languages      = ["go"]
+  archive_status = "archiving"
+
+  copyright = {
+    since = 2019
+  }
+}
+
 module "repo_kyu" {
-  source      = "./modules/repo"
-  name        = "kyu"
-  description = "🚫 Queue data-structures for Go."
-  languages   = ["go"]
+  source         = "./modules/repo"
+  name           = "kyu"
+  description    = "🚫 Queue data-structures for Go."
+  languages      = ["go"]
+  archive_status = "archiving"
 
   copyright = {
     since = 2020
@@ -82,13 +146,26 @@ module "repo_marshalkit" {
 }
 
 module "repo_mobius" {
-  source      = "./modules/repo"
-  name        = "mobius"
-  description = "🚫 A weighted consistent-hashing implementation for Go."
-  languages   = ["go"]
+  source         = "./modules/repo"
+  name           = "mobius"
+  description    = "🚫 A weighted consistent-hashing implementation for Go."
+  languages      = ["go"]
+  archive_status = "archiving"
 
   copyright = {
     since = 2019
+  }
+}
+
+module "repo_protean" {
+  source         = "./modules/repo"
+  name           = "protean"
+  description    = "🚫 A Protocol Buffers RPC framework for Go, consumable from the browser using standard APIs."
+  languages      = ["go"]
+  archive_status = "archived"
+
+  copyright = {
+    since = 2021
   }
 }
 

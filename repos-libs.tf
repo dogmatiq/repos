@@ -1,14 +1,3 @@
-module "repo_akin" {
-  source      = "./modules/repo"
-  name        = "akin"
-  description = "🚧 Fuzzy comparison predicates for Go."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2024
-  }
-}
-
 module "repo_aureus" {
   source      = "./modules/repo"
   name        = "aureus"
@@ -40,17 +29,6 @@ module "repo_dissolve" {
 
   copyright = {
     since = 2019
-  }
-}
-
-module "repo_dosh" {
-  source      = "./modules/repo"
-  name        = "dosh"
-  description = "🚧 A Go library for representing monetary values in-process and on-the-wire."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2021
   }
 }
 
@@ -152,18 +130,6 @@ module "repo_primo" {
 
   copyright = {
     since = 2023
-  }
-}
-
-module "repo_protean" {
-  source         = "./modules/repo"
-  name           = "protean"
-  description    = "🚧 A Protocol Buffers RPC framework for Go, consumable from the browser using standard APIs."
-  languages      = ["go"]
-  archive_status = "archived"
-
-  copyright = {
-    since = 2021
   }
 }
 

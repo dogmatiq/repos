@@ -11,6 +11,30 @@ module "repo_dogma" {
   }
 }
 
+module "repo_enginekit" {
+  source      = "./modules/repo"
+  name        = "enginekit"
+  description = "🚧 Tools for developing Dogma engines."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2023
+  }
+}
+
+module "repo_example" {
+  source      = "./modules/repo"
+  name        = "example"
+  description = "An example Dogma application with the features of a simple bank."
+  languages   = ["go"]
+  template    = null
+
+  copyright = {
+    since   = 2019
+    holders = ["Kevin Millar"]
+  }
+}
+
 module "repo_runkit" {
   source      = "./modules/repo"
   name        = "runkit"
@@ -95,68 +119,6 @@ module "repo_persistencekit" {
 
   copyright = {
     since = 2023
-  }
-}
-
-module "repo_example" {
-  source      = "./modules/repo"
-  name        = "example"
-  description = "An example Dogma application with the features of a simple bank."
-  languages   = ["go"]
-  template    = null
-
-  copyright = {
-    since   = 2019
-    holders = ["Kevin Millar"]
-  }
-}
-
-#
-# Repos below this line are to be deprecated / archived in the future.
-#
-
-module "repo_configkit" {
-  source      = "./modules/repo"
-  name        = "configkit"
-  description = "🚫 Inspect, validate and visualize Dogma application configurations."
-  languages   = ["go"]
-
-  copyright = {
-    since   = 2019
-    holders = ["Danil Petrov"]
-  }
-}
-
-module "repo_discoverkit" {
-  source      = "./modules/repo"
-  name        = "discoverkit"
-  description = "🚫 Discover running Dogma applications on the network."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2019
-  }
-}
-
-module "repo_enginekit" {
-  source      = "./modules/repo"
-  name        = "enginekit"
-  description = "🚧 Tools for developing Dogma engines."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2023
-  }
-}
-
-module "repo_interopspec" {
-  source      = "./modules/repo"
-  name        = "interopspec"
-  description = "🚫 Protocol Buffers and gRPC definitions for improving engine interoperability."
-  languages   = ["go"]
-
-  copyright = {
-    since = 2019
   }
 }
 
