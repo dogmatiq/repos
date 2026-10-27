@@ -22,6 +22,17 @@ module "repo_enginekit" {
   }
 }
 
+module "repo_protobuf" {
+  source      = "./modules/repo"
+  name        = "protobuf"
+  description = "🚧 Protocol Buffers and gRPC definitions for Dogma, with generated code for Go and TypeScript."
+  languages   = ["go", "js"]
+
+  copyright = {
+    since = 2026
+  }
+}
+
 module "repo_example" {
   source      = "./modules/repo"
   name        = "example"
