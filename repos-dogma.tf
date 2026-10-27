@@ -35,38 +35,14 @@ module "repo_example" {
   }
 }
 
-module "repo_runkit" {
+module "repo_persistencekit" {
   source      = "./modules/repo"
-  name        = "runkit"
-  description = "🚧 A reference Dogma engine implementation."
+  name        = "persistencekit"
+  description = "Abstract persistence primitives for use by Dogma engines, projections, etc."
   languages   = ["go"]
 
   copyright = {
-    since = 2026
-  }
-}
-
-module "repo_runkit_cluster" {
-  source      = "./modules/repo"
-  name        = "runkit-cluster"
-  description = "🚧 Run Dogma applications in production."
-  languages   = ["go"]
-  private     = true
-
-  copyright = {
-    since = 2025
-  }
-}
-
-module "repo_testkit" {
-  source      = "./modules/repo"
-  name        = "testkit"
-  description = "Write blackbox tests for Dogma applications."
-  languages   = ["go"]
-  template    = null
-
-  copyright = {
-    since = 2019
+    since = 2023
   }
 }
 
@@ -111,14 +87,37 @@ module "repo_projectionkit_js" {
   }
 }
 
-module "repo_persistencekit" {
+module "repo_protobuf" {
   source      = "./modules/repo"
-  name        = "persistencekit"
-  description = "Abstract persistence primitives for use by Dogma engines, projections, etc."
+  name        = "protobuf"
+  description = "🚧 Protocol Buffers and gRPC definitions for Dogma, with generated code for Go and TypeScript."
+  languages   = ["go", "js"]
+
+  copyright = {
+    since = 2026
+  }
+}
+
+module "repo_runkit" {
+  source      = "./modules/repo"
+  name        = "runkit"
+  description = "🚧 A reference Dogma engine implementation."
   languages   = ["go"]
 
   copyright = {
-    since = 2023
+    since = 2026
+  }
+}
+
+module "repo_runkit_cluster" {
+  source      = "./modules/repo"
+  name        = "runkit-cluster"
+  description = "🚧 Run Dogma applications in production."
+  languages   = ["go"]
+  private     = true
+
+  copyright = {
+    since = 2025
   }
 }
 
@@ -131,5 +130,17 @@ module "repo_stories" {
 
   copyright = {
     since = 2026
+  }
+}
+
+module "repo_testkit" {
+  source      = "./modules/repo"
+  name        = "testkit"
+  description = "Write blackbox tests for Dogma applications."
+  languages   = ["go"]
+  template    = null
+
+  copyright = {
+    since = 2019
   }
 }
