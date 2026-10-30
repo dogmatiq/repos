@@ -131,3 +131,14 @@ module "repo_spruce" {
     since = 2024
   }
 }
+
+module "repo_zoltar" {
+  source      = "./modules/repo"
+  name        = "zoltar"
+  description = "🚧 A static analyzer that predicts the values in a Go program without running it."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2026
+  }
+}
