@@ -51,6 +51,8 @@ jobs:
       go: ${{ steps.check.outputs.go }}
       go_version: ${{ steps.check.outputs.go_version }}
       nodejs: ${{ steps.check.outputs.nodejs }}
+      nodejs_version_file: ${{ steps.check.outputs.nodejs_version_file }}
+      pnpm: ${{ steps.check.outputs.pnpm }}
       docker: ${{ steps.check.outputs.docker }}
       helm: ${{ steps.check.outputs.helm }}
       adrs: ${{ steps.check.outputs.adrs }}
@@ -77,6 +79,7 @@ jobs:
 
           check go     go.mod             "Go module"
           check nodejs package.json       "Node.js package"
+          check pnpm   pnpm-lock.yaml     "pnpm lockfile"
           check docker Dockerfile          "Docker image"
           check helm   charts/Chart.yaml  "Helm chart"
           check adrs   .adr-dir            "Architecture Decision Records"
@@ -91,6 +94,10 @@ jobs:
             fi
 
             echo "go_version=$go_version" >> $GITHUB_OUTPUT
+          fi
+
+          if [ -f .nvmrc ]; then
+            echo "nodejs_version_file=.nvmrc" >> $GITHUB_OUTPUT
           fi
 
   build:
@@ -142,6 +149,23 @@ jobs:
         uses: actions/setup-go@v7
         with:
           go-version: ${{ needs.prepare.outputs.go_version }}
+
+      # pnpm must be set up before Node.js, so that setup-node can cache its
+      # package store. The pnpm version is read from the "packageManager" field
+      # in package.json.
+      - name: Set up pnpm
+        if: needs.prepare.outputs.pnpm == 'true'
+        uses: pnpm/action-setup@v6
+
+      # The Node.js version is read from .nvmrc if it's present, otherwise the
+      # latest LTS release is used. Dependencies are installed by "make ci".
+      - name: Set up Node.js
+        if: needs.prepare.outputs.nodejs == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ${{ needs.prepare.outputs.nodejs_version_file }}
+          node-version: ${{ needs.prepare.outputs.nodejs_version_file == '' && 'lts/*' || '' }}
+          cache: ${{ needs.prepare.outputs.pnpm == 'true' && 'pnpm' || '' }}
 
       - name: Make
         run: make ci
