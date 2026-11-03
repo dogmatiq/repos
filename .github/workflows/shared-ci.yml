@@ -52,7 +52,6 @@ jobs:
       go_version: ${{ steps.check.outputs.go_version }}
       nodejs: ${{ steps.check.outputs.nodejs }}
       nodejs_version_file: ${{ steps.check.outputs.nodejs_version_file }}
-      pnpm: ${{ steps.check.outputs.pnpm }}
       mise: ${{ steps.check.outputs.mise }}
       docker: ${{ steps.check.outputs.docker }}
       helm: ${{ steps.check.outputs.helm }}
@@ -80,7 +79,6 @@ jobs:
 
           check go     go.mod             "Go module"
           check nodejs package.json       "Node.js package"
-          check pnpm   pnpm-lock.yaml     "pnpm lockfile"
           check mise   mise.toml          "mise tools"
           check docker Dockerfile          "Docker image"
           check helm   charts/Chart.yaml  "Helm chart"
@@ -167,7 +165,7 @@ jobs:
         with:
           node-version-file: ${{ needs.prepare.outputs.nodejs_version_file }}
           node-version: ${{ needs.prepare.outputs.nodejs_version_file == '' && 'lts/*' || '' }}
-          cache: ${{ needs.prepare.outputs.pnpm == 'true' && 'pnpm' || '' }}
+          cache: ${{ hashFiles('pnpm-lock.yaml') != '' && 'pnpm' || '' }}
 
       - name: Make
         run: make ci
