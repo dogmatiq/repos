@@ -152,16 +152,12 @@ jobs:
         with:
           go-version: ${{ needs.prepare.outputs.go_version }}
 
-      # Tools declared in mise.toml, such as protoc, are installed by mise and
-      # run at those versions by the makefiles. mise also installs pnpm, at the
-      # version in the "packageManager" field of package.json. This must happen
-      # before Node.js is set up, so that setup-node can cache pnpm's package
-      # store.
+      # Tools declared in mise.toml, such as protoc and pnpm, are installed by
+      # mise and run at those versions by the makefiles. This must happen before
+      # Node.js is set up, so that setup-node can cache pnpm's package store.
       - name: Set up mise
-        if: needs.prepare.outputs.mise == 'true' || needs.prepare.outputs.pnpm == 'true'
+        if: needs.prepare.outputs.mise == 'true'
         uses: jdx/mise-action@v5
-        env:
-          MISE_IDIOMATIC_VERSION_FILE_ENABLE_TOOLS: pnpm
 
       # The Node.js version is read from .nvmrc if it's present, otherwise the
       # latest LTS release is used. Dependencies are installed by "make ci".
