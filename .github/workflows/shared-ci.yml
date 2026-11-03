@@ -52,7 +52,6 @@ jobs:
       go_version: ${{ steps.check.outputs.go_version }}
       nodejs: ${{ steps.check.outputs.nodejs }}
       nodejs_version_file: ${{ steps.check.outputs.nodejs_version_file }}
-      pnpm: ${{ steps.check.outputs.pnpm }}
       mise: ${{ steps.check.outputs.mise }}
       docker: ${{ steps.check.outputs.docker }}
       helm: ${{ steps.check.outputs.helm }}
@@ -80,7 +79,6 @@ jobs:
 
           check go     go.mod             "Go module"
           check nodejs package.json       "Node.js package"
-          check pnpm   pnpm-lock.yaml     "pnpm lockfile"
           check mise   mise.toml          "mise tools"
           check docker Dockerfile          "Docker image"
           check helm   charts/Chart.yaml  "Helm chart"
@@ -152,12 +150,12 @@ jobs:
         with:
           go-version: ${{ needs.prepare.outputs.go_version }}
 
-      # pnpm must be set up before Node.js, so that setup-node can cache its
-      # package store. The pnpm version is read from the "packageManager" field
-      # in package.json.
-      - name: Set up pnpm
-        if: needs.prepare.outputs.pnpm == 'true'
-        uses: pnpm/action-setup@v6
+      # Tools declared in mise.toml, such as protoc and pnpm, are installed by
+      # mise and run at those versions by the makefiles. This must happen before
+      # Node.js is set up, so that setup-node can cache pnpm's package store.
+      - name: Set up mise
+        if: needs.prepare.outputs.mise == 'true'
+        uses: jdx/mise-action@v5
 
       # The Node.js version is read from .nvmrc if it's present, otherwise the
       # latest LTS release is used. Dependencies are installed by "make ci".
@@ -167,13 +165,7 @@ jobs:
         with:
           node-version-file: ${{ needs.prepare.outputs.nodejs_version_file }}
           node-version: ${{ needs.prepare.outputs.nodejs_version_file == '' && 'lts/*' || '' }}
-          cache: ${{ needs.prepare.outputs.pnpm == 'true' && 'pnpm' || '' }}
-
-      # Tools declared in mise.toml, such as protoc, are installed by mise and
-      # run at those versions by the makefiles.
-      - name: Set up mise
-        if: needs.prepare.outputs.mise == 'true'
-        uses: jdx/mise-action@v5
+          cache: ${{ hashFiles('pnpm-lock.yaml') != '' && 'pnpm' || '' }}
 
       - name: Make
         run: make ci
