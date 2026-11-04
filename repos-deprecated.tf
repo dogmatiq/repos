@@ -47,18 +47,6 @@ module "repo_configkit" {
   }
 }
 
-module "repo_cosyne" {
-  source         = "./modules/repo"
-  name           = "cosyne"
-  description    = "🚫 Context-aware synchronization primitives for Go."
-  languages      = ["go"]
-  archive_status = "archived"
-
-  copyright = {
-    since = 2020
-  }
-}
-
 module "repo_discoverkit" {
   source         = "./modules/repo"
   name           = "discoverkit"
