@@ -53,7 +53,6 @@ jobs:
       nodejs: ${{ steps.check.outputs.nodejs }}
       nodejs_version_file: ${{ steps.check.outputs.nodejs_version_file }}
       mise: ${{ steps.check.outputs.mise }}
-      apm: ${{ steps.check.outputs.apm }}
       docker: ${{ steps.check.outputs.docker }}
       helm: ${{ steps.check.outputs.helm }}
       adrs: ${{ steps.check.outputs.adrs }}
@@ -81,7 +80,6 @@ jobs:
           check go     go.mod             "Go module"
           check nodejs package.json       "Node.js package"
           check mise   mise.toml          "mise tools"
-          check apm    apm.yml            "APM packages"
           check docker Dockerfile          "Docker image"
           check helm   charts/Chart.yaml  "Helm chart"
           check adrs   .adr-dir            "Architecture Decision Records"
@@ -142,13 +140,6 @@ jobs:
           cd $(mktemp -d)
           git clone https://github.com/npryce/adr-tools
           sudo cp adr-tools/src/* /usr/local/bin
-
-      # apm is used by "make ci" to check that no agent configuration is
-      # committed, even though CI doesn't deploy any. Projects that declare their
-      # tools in mise.toml must declare apm there instead.
-      - name: Install APM
-        if: needs.prepare.outputs.apm == 'true' && needs.prepare.outputs.mise != 'true'
-        run: pipx install apm-cli==0.35.0
 
       - name: Checkout
         uses: actions/checkout@v7
