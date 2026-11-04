@@ -9,6 +9,17 @@ module "repo_aureus" {
   }
 }
 
+module "repo_cosyne" {
+  source      = "./modules/repo"
+  name        = "cosyne"
+  description = "🚧 Context-aware synchronization primitives for Go."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2020
+  }
+}
+
 module "repo_dapper" {
   source      = "./modules/repo"
   name        = "dapper"
