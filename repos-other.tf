@@ -34,6 +34,19 @@ module "repo_dotgithub" {
   }
 }
 
+module "repo_agent_config" {
+  source      = "./modules/repo"
+  name        = "agent-config"
+  description = "AI agent skills and configuration for Dogmatiq projects, packaged for APM."
+
+  languages = []
+  workflow  = null
+
+  copyright = {
+    since = 2026
+  }
+}
+
 resource "github_repository" "website" {
   archive_on_destroy = true
 
