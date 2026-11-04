@@ -63,6 +63,13 @@ variable "copyright" {
   nullable = false
 }
 
+variable "apm_dependencies" {
+  description = "Additional APM packages to add to the repository's apm.yml, such as \"dogmatiq/agent-config#^1.0.0\""
+  type        = list(string)
+  default     = []
+  nullable    = false
+}
+
 locals {
   unarchived       = var.archive_status == "unarchived"
   primary_language = length(var.languages) == 0 ? null : var.languages[0]
@@ -78,6 +85,7 @@ locals {
   enable_dependabot            = local.unarchived && length(var.languages) != 0
   enable_dependabot_auto_merge = local.unarchived && local.enable_dependabot && github_repository.this.allow_auto_merge
   enable_codecov               = local.unarchived && contains(var.languages, "go")
+  enable_apm                   = local.unarchived && length(var.languages) != 0
 
   publish_releases = local.unarchived && local.has_workflow # publish releases for any repo that has a build process
 }
