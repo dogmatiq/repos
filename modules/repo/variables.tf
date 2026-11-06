@@ -64,7 +64,7 @@ variable "copyright" {
 }
 
 variable "apm_dependencies" {
-  description = "Additional APM packages to add to the repository's apm.yml, such as \"dogmatiq/agent-config#^1.0.0\""
+  description = "Additional APM packages to add to the repository's apm.yml, pinned to a release tag that Dependabot can bump, such as \"dogmatiq/agent-config#v1.1.0\""
   type        = list(string)
   default     = []
   nullable    = false
