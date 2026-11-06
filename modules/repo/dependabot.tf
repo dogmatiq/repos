@@ -16,6 +16,7 @@ resource "github_repository_file" "dependabot_config" {
         "github-actions",
         contains(var.languages, "go") ? "gomod" : "",
         contains(var.languages, "js") ? "npm" : "",
+        local.enable_apm ? "apm" : "",
       ])
     }
   )
