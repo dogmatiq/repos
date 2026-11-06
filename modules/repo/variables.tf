@@ -63,13 +63,6 @@ variable "copyright" {
   nullable = false
 }
 
-variable "apm_dependencies" {
-  description = "Additional APM packages to add to the repository's apm.yml, pinned to a release tag that Dependabot can bump, such as \"dogmatiq/agent-config#v1.1.0\". Only used when apm.yml is created; after that, edit the repository's apm.yml instead."
-  type        = list(string)
-  default     = []
-  nullable    = false
-}
-
 locals {
   unarchived       = var.archive_status == "unarchived"
   primary_language = length(var.languages) == 0 ? null : var.languages[0]
