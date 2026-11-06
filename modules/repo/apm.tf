@@ -1,10 +1,7 @@
 locals {
   # The dogmatiq/agent-config release in each repository's apm.yml. Dependabot
   # bumps it to newer releases, using the "apm" ecosystem in dependabot.yml.
-  #
-  # TODO: Remove the pilot override for dapper, which starts on an older release
-  # so that Dependabot has a newer one to bump to.
-  apm_agent_config_ref = var.name == "dapper" ? "v1.0.0" : "v1.1.0"
+  apm_agent_config_ref = "v1.1.0"
 }
 
 resource "github_repository_file" "apm_config" {
