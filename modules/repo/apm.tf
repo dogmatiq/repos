@@ -1,6 +1,8 @@
 locals {
-  # The dogmatiq/agent-config release in each repository's apm.yml. Dependabot
-  # bumps it to newer releases, using the "apm" ecosystem in dependabot.yml.
+  # The dogmatiq/agent-config release that a new repository's apm.yml starts on.
+  # After that, Dependabot bumps it, using the "apm" ecosystem in
+  # dependabot.yml. Update it when releasing, so new repositories start on the
+  # latest release.
   apm_agent_config_ref = "v1.1.0"
 }
 
@@ -25,4 +27,10 @@ resource "github_repository_file" "apm_config" {
       )
     }
   )
+
+  # Dependabot bumps the release tags in apm.yml, so Terraform only writes the
+  # file when it creates it. Otherwise each apply would revert those bumps.
+  lifecycle {
+    ignore_changes = [content]
+  }
 }
