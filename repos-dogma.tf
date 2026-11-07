@@ -101,7 +101,7 @@ module "repo_protobuf" {
 module "repo_runkit" {
   source      = "./modules/repo"
   name        = "runkit"
-  description = "🚧 A reference Dogma engine implementation."
+  description = "🚧 Run Dogma applications with PostgreSQL."
   languages   = ["go"]
 
   copyright = {
