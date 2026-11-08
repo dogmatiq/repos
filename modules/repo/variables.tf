@@ -53,6 +53,13 @@ variable "workflow" {
   nullable = true
 }
 
+variable "publish_releases" {
+  description = "Override whether to publish a GitHub release for each tag, otherwise releases are published for any repository that has a workflow"
+  type        = bool
+  default     = null
+  nullable    = true
+}
+
 variable "copyright" {
   description = "Information about the copyright notice to include in the LICENSE file"
   type = object({
@@ -80,5 +87,5 @@ locals {
   enable_codecov               = local.unarchived && contains(var.languages, "go")
   enable_apm                   = local.unarchived && length(var.languages) != 0
 
-  publish_releases = local.unarchived && local.has_workflow # publish releases for any repo that has a build process
+  publish_releases = local.unarchived && (var.publish_releases == null ? local.has_workflow : var.publish_releases) # by default, publish releases for any repo that has a build process
 }

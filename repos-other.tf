@@ -39,8 +39,9 @@ module "repo_agent_config" {
   name        = "agent-config"
   description = "AI agent skills and configuration for Dogmatiq projects, packaged for APM."
 
-  languages = []
-  workflow  = null
+  languages        = []
+  workflow         = null
+  publish_releases = true # there is no build process, but each tag is a release
 
   copyright = {
     since = 2026
