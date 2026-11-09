@@ -1,3 +1,14 @@
+locals {
+  # Dependabot waits 3 days before proposing a new release of a dependency (its
+  # "cooldown"). There is nothing to wait out for our own packages, so these
+  # patterns exempt them, per ecosystem.
+  dependabot_cooldown_exclusions = {
+    apm   = ["dogmatiq/*"]
+    gomod = ["github.com/dogmatiq/*"]
+    npm   = ["@dogmatiq/*"]
+  }
+}
+
 resource "github_repository_file" "dependabot_config" {
   count = local.enable_dependabot ? 1 : 0
 
@@ -12,6 +23,7 @@ resource "github_repository_file" "dependabot_config" {
   content = templatefile(
     "${path.module}/../../templates/dependabot.yml.tftpl",
     {
+      cooldown_exclusions = local.dependabot_cooldown_exclusions
       ecosystems = compact([
         "github-actions",
         contains(var.languages, "go") ? "gomod" : "",
