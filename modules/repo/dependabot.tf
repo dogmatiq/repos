@@ -8,31 +8,30 @@ locals {
     npm   = ["@dogmatiq/*"]
   }
 
-  # Minor and patch updates to these dependencies are merged automatically by
-  # the shared Dependabot workflow. They are grouped into a single
-  # "pre-approved" pull request per ecosystem, so that related updates (e.g. the
-  # various golang.org/x/* modules) land together instead of as a flurry of
-  # separate pull requests.
+  # Minor and patch updates to these dependencies are grouped into a single
+  # "pre-approved" pull request per ecosystem, which the shared Dependabot
+  # workflow merges automatically. Security updates get their own
+  # "pre-approved-security" group, since a Dependabot group applies to either
+  # version updates or security updates, but not both.
   #
-  # Keep this list in sync with the conditions in
-  # .github/workflows/shared-dependabot.yml, which still matches these names
-  # individually for pull requests that are not part of the group, such as
-  # security updates.
+  # This is the only place the list is defined; the workflow only checks the
+  # name of the group.
   dependabot_pre_approved_patterns = {
     apm = ["dogmatiq/*"]
     gomod = [
       "github.com/aws/*",
       "github.com/dogmatiq/*",
+      "github.com/jackc/pgx/*",
       "github.com/mattn/go-sqlite3",
       "github.com/onsi/*",
       "github.com/testcontainers/*",
-      "go.etcd.io/bbolt",
+      "go.etcd.io/*",
       "go.opentelemetry.io/*",
       "golang.org/x/*",
-      "google.golang.org/grpc",
-      "google.golang.org/protobuf",
+      "google.golang.org/*",
       "k8s.io/*",
     ]
+    npm = ["@dogmatiq/*"]
   }
 }
 

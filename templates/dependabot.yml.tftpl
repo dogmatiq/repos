@@ -28,9 +28,12 @@ updates:
     %{~ endif ~}
     %{~ if contains(keys(pre_approved_patterns), ecosystem) ~}
     # Minor and patch updates to pre-approved dependencies are grouped into a
-    # single pull request, which is merged automatically.
+    # single pull request (one for version updates, one for security updates),
+    # which is merged automatically.
     groups:
-      pre-approved:
+      %{~ for group, applies_to in { "pre-approved" = "version-updates", "pre-approved-security" = "security-updates" } ~}
+      ${group}:
+        applies-to: ${applies_to}
         update-types:
           - minor
           - patch
@@ -38,5 +41,6 @@ updates:
           %{~ for pattern in pre_approved_patterns[ecosystem] ~}
           - "${pattern}"
           %{~ endfor ~}
+      %{~ endfor ~}
     %{~ endif ~}
   %{~ endfor ~}
