@@ -7,6 +7,33 @@ locals {
     gomod = ["github.com/dogmatiq/*"]
     npm   = ["@dogmatiq/*"]
   }
+
+  # Minor and patch updates to these dependencies are merged automatically by
+  # the shared Dependabot workflow. They are grouped into a single
+  # "pre-approved" pull request per ecosystem, so that related updates (e.g. the
+  # various golang.org/x/* modules) land together instead of as a flurry of
+  # separate pull requests.
+  #
+  # Keep this list in sync with the conditions in
+  # .github/workflows/shared-dependabot.yml, which still matches these names
+  # individually for pull requests that are not part of the group, such as
+  # security updates.
+  dependabot_pre_approved_patterns = {
+    apm = ["dogmatiq/*"]
+    gomod = [
+      "github.com/aws/*",
+      "github.com/dogmatiq/*",
+      "github.com/mattn/go-sqlite3",
+      "github.com/onsi/*",
+      "github.com/testcontainers/*",
+      "go.etcd.io/bbolt",
+      "go.opentelemetry.io/*",
+      "golang.org/x/*",
+      "google.golang.org/grpc",
+      "google.golang.org/protobuf",
+      "k8s.io/*",
+    ]
+  }
 }
 
 resource "github_repository_file" "dependabot_config" {
@@ -23,7 +50,8 @@ resource "github_repository_file" "dependabot_config" {
   content = templatefile(
     "${path.module}/../../templates/dependabot.yml.tftpl",
     {
-      cooldown_exclusions = local.dependabot_cooldown_exclusions
+      cooldown_exclusions   = local.dependabot_cooldown_exclusions
+      pre_approved_patterns = local.dependabot_pre_approved_patterns
       ecosystems = compact([
         "github-actions",
         contains(var.languages, "go") ? "gomod" : "",

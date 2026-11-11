@@ -26,4 +26,17 @@ updates:
         - "${pattern}"
         %{~ endfor ~}
     %{~ endif ~}
+    %{~ if contains(keys(pre_approved_patterns), ecosystem) ~}
+    # Minor and patch updates to pre-approved dependencies are grouped into a
+    # single pull request, which is merged automatically.
+    groups:
+      pre-approved:
+        update-types:
+          - minor
+          - patch
+        patterns:
+          %{~ for pattern in pre_approved_patterns[ecosystem] ~}
+          - "${pattern}"
+          %{~ endfor ~}
+    %{~ endif ~}
   %{~ endfor ~}

@@ -21,7 +21,8 @@ jobs:
         if: >
           steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
           && (
-               steps.dependabot-metadata.outputs.dependency-names == 'google.golang.org/protobuf'
+               steps.dependabot-metadata.outputs.dependency-group == 'pre-approved'
+            || steps.dependabot-metadata.outputs.dependency-names == 'google.golang.org/protobuf'
             || steps.dependabot-metadata.outputs.dependency-names == 'google.golang.org/grpc'
             || steps.dependabot-metadata.outputs.dependency-names == 'github.com/mattn/go-sqlite3'
             || steps.dependabot-metadata.outputs.dependency-names == 'go.etcd.io/bbolt'
