@@ -14,23 +14,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Auto-merge minor/patch updates to approved dependencies
+      # The pre-approved dependencies are defined by the "pre-approved" groups in
+      # each repository's .github/dependabot.yml, which is generated from
+      # modules/repo/dependabot.tf.
+      - name: Auto-merge minor/patch updates to pre-approved dependencies
         run: gh pr merge "${{ github.event.pull_request.html_url }}" --merge --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: >
           steps.dependabot-metadata.outputs.update-type != 'version-update:semver-major'
           && (
-               steps.dependabot-metadata.outputs.dependency-names == 'google.golang.org/protobuf'
-            || steps.dependabot-metadata.outputs.dependency-names == 'google.golang.org/grpc'
-            || steps.dependabot-metadata.outputs.dependency-names == 'github.com/mattn/go-sqlite3'
-            || steps.dependabot-metadata.outputs.dependency-names == 'go.etcd.io/bbolt'
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/dogmatiq/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'dogmatiq/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/aws/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/onsi/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'github.com/testcontainers/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'go.opentelemetry.io/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'golang.org/x/')
-            || startsWith(steps.dependabot-metadata.outputs.dependency-names, 'k8s.io/')
+               steps.dependabot-metadata.outputs.dependency-group == 'pre-approved'
+            || steps.dependabot-metadata.outputs.dependency-group == 'pre-approved-security'
           )
