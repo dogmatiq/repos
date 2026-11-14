@@ -35,6 +35,19 @@ module "repo_example" {
   }
 }
 
+module "repo_observatory" {
+  source      = "./modules/repo"
+  name        = "observatory"
+  description = "🚧 See what your Dogma applications are doing."
+  languages   = ["js", "go"]
+  template    = null
+  private     = true
+
+  copyright = {
+    since = 2026
+  }
+}
+
 module "repo_persistencekit" {
   source      = "./modules/repo"
   name        = "persistencekit"
