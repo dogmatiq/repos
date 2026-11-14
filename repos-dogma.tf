@@ -41,7 +41,6 @@ module "repo_observatory" {
   description = "🚧 See what your Dogma applications are doing."
   languages   = ["js", "go"]
   template    = null
-  private     = true
 
   copyright = {
     since = 2026
