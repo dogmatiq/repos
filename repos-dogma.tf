@@ -38,7 +38,7 @@ module "repo_example" {
 module "repo_observatory" {
   source      = "./modules/repo"
   name        = "observatory"
-  description = "🚧 See what your Dogma applications are doing across clusters and sites."
+  description = "🚧 See what your Dogma applications are doing."
   languages   = ["js", "go"]
   template    = null
   private     = true
