@@ -84,7 +84,7 @@ locals {
   enable_branch_protection     = local.unarchived && local.has_workflow && !var.private # not supported by private repos on free-tier
   enable_dependabot            = local.unarchived && length(var.languages) != 0
   enable_dependabot_auto_merge = local.unarchived && local.enable_dependabot && github_repository.this.allow_auto_merge
-  enable_codecov               = local.unarchived && contains(var.languages, "go")
+  enable_codecov               = local.unarchived && contains(var.languages, "go") && !var.private # not supported by private repos on free-tier
   enable_apm                   = local.unarchived && length(var.languages) != 0
 
   publish_releases = local.unarchived && (var.publish_releases == null ? local.has_workflow : var.publish_releases) # by default, publish releases for any repo that has a build process

@@ -180,7 +180,9 @@ jobs:
         if: failure()
         uses: jwalton/gh-docker-logs@v2
 
+      # Codecov requires a paid plan for private repositories.
       - name: Upload coverage report
+        if: ${{ !github.event.repository.private }}
         uses: codecov/codecov-action@v7
         with:
           fail_ci_if_error: true
