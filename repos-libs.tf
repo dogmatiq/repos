@@ -143,6 +143,17 @@ module "repo_spruce" {
   }
 }
 
+module "repo_tenet" {
+  source      = "./modules/repo"
+  name        = "tenet"
+  description = "🚧 Reverse tunnels over WebSockets for Go."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2026
+  }
+}
+
 module "repo_zoltar" {
   source      = "./modules/repo"
   name        = "zoltar"
