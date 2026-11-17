@@ -12,6 +12,33 @@ on:
   schedule:
     - cron: 0 14 * * 0
 
+# Each group starts with the workflow name.
+#
+# Run                              Example group suffix      Shares a group with
+# PR update                        refs/pull/42/merge        Other updates to PR #42
+# Push to a feature branch         refs/heads/feature/foo    Other pushes to feature/foo
+# Default-branch push or tag       run-123-1                 Only this run attempt
+# Scheduled or manual run         run-124-1                 Only this run attempt
+# Rerun                           run-123-2                 Only this run attempt
+concurrency:
+  group: >-
+    $${{ github.workflow }}-$${{
+      (
+        github.run_attempt == 1 &&
+        (
+          github.event_name == 'pull_request' ||
+          (
+            github.event_name == 'push' &&
+            github.ref_type == 'branch' &&
+            github.ref_name != github.event.repository.default_branch
+          )
+        ) &&
+        github.ref
+      ) ||
+      format('run-{0}-{1}', github.run_id, github.run_attempt)
+    }}
+  cancel-in-progress: true
+
 jobs:
   ci:
     name: Shared
