@@ -143,6 +143,17 @@ module "repo_spruce" {
   }
 }
 
+module "repo_tenet" {
+  source      = "./modules/repo"
+  name        = "tenet"
+  description = "🚧 Reverse connections over a WebSocket, so a server that can only dial out can accept connections."
+  languages   = ["go"]
+
+  copyright = {
+    since = 2026
+  }
+}
+
 module "repo_zoltar" {
   source      = "./modules/repo"
   name        = "zoltar"
