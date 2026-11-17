@@ -12,23 +12,28 @@ this repository.**
 Each repository can optionally have its own Railway project. This configuration
 manages the project and publishes its manually supplied production deployment
 token as a GitHub Actions secret. The application's `.railway/railway.ts` owns
-the services and resources within that project.
+the services, databases, and custom domains within that project, including each
+domain's target port. For example, the example application's configuration must
+retain `example.dogmatiq.io` on port `8080`.
 
 Enable a project in the repository's module declaration:
 
 ```hcl
 railway_project = {
-  name  = "Dogma Example"
-  token = lookup(var.railway_deployment_tokens, "example", null)
+  workspace_id = var.railway_workspace_id
+  token        = lookup(var.railway_deployment_tokens, "example", null)
 }
 ```
 
-Omitting `railway_project` disables Railway for the repository. Set it to `{}` to
-create a project named after the repository, or supply `name` to override that
-name. Projects are not shared between repositories. Supply the project's
-production token as `token` to create the repository's `RAILWAY_TOKEN` Actions
-secret. No project-name variable is needed: the Railway CLI resolves the project
-and environment from the token.
+Omitting `railway_project` disables Railway for the repository. Supply
+`workspace_id` to create a project named after the repository. Projects are not
+shared between repositories. Supply the project's production token as `token` to
+create the repository's `RAILWAY_TOKEN` Actions secret. No project-name variable
+is needed: the Railway CLI resolves the project and environment from the token.
+
+Add the module's `railway_token_setup_required` output to the list in `railway.tf`
+when enabling another repository, so its setup instructions appear in the root
+Terraform output.
 
 ### Terraform Cloud variables
 
@@ -38,6 +43,7 @@ workspace, with these **Terraform** variables:
 | Variable | Sensitive | Value |
 |----------|-----------|-------|
 | `railway_api_token` | Yes | A Railway account or workspace API token authorized to manage projects in the configured workspace. |
+| `railway_workspace_id` | No | The ID of the Railway workspace that owns the projects. |
 | `railway_deployment_tokens` | Yes | An HCL map of repository names to tokens for their projects' production environments. Enable the **HCL** option. |
 
 Create the provider API token in Railway's account/workspace token settings. This
@@ -49,17 +55,19 @@ For example, the deployment-token variable has this shape:
 
 ```hcl
 {
-  example = "<Dogma Example production token>"
-  stories = "<Dogma Stories production token>"
+  example = "<example production token>"
+  stories = "<stories production token>"
 }
 ```
 
-The deployment-token map defaults to empty. This lets Terraform create a new
-project before its token exists. Add the token to the variable set and apply
-again to distribute it. Removing a map entry removes the corresponding GitHub
-Actions secrets. Secret values are stored in Terraform state; keep them out of
-the repository. The GitHub App used by Terraform needs repository **Secrets**
-write permission.
+The deployment-token map defaults to empty. For a new project, first apply with
+its token absent to create the project. The `railway_token_setup_required` output
+lists repositories that still need tokens, with a link to each project's token
+settings. Create the production token, add it to the variable set, and apply
+again to distribute it. The repository then disappears from that output.
+Removing a map entry removes the corresponding GitHub Actions secret. Secret
+values are stored in Terraform state; keep them out of the repository. The GitHub
+App used by Terraform needs repository **Secrets** write permission.
 
 ### Importing the existing projects
 
@@ -73,9 +81,13 @@ terraform import 'module.repo_stories.railway_project.this[0]' d7aaf0f0-1ea5-46f
 terraform plan
 ```
 
+The imported projects will be renamed to `example` and `stories` to match their
+repository names.
+
 CLI imports require the provider credentials locally as well as access to the
-Terraform Cloud workspace. Supply `TF_VAR_railway_api_token` securely; remote
-workspace variables are not automatically available to local import operations.
+Terraform Cloud workspace. Supply `TF_VAR_railway_api_token` securely and set
+`TF_VAR_railway_workspace_id`; remote workspace variables are not automatically
+available to local import operations.
 Review the plan before applying. Existing services, volumes, and databases are
 outside this Terraform configuration. Project deletion is blocked by
 `prevent_destroy` while its resource declaration remains in place.
