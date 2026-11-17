@@ -20,10 +20,10 @@ concurrency:
   # cancel-in-progress enabled, a new run cancels older queued or running
   # runs in the same group.
   #
-  # Group automatic runs for the same pull request or pushes to the same
-  # non-default branch. Pushing to a branch with an open PR can start both a
-  # branch check and a check of what would be merged. Those checks use separate
-  # groups.
+  # We group runs triggered by the same pull request. We do the same for runs
+  # triggered by pushes to the same non-default branch. Pushing to a branch
+  # with an open PR can start both a branch check and a check of what would be
+  # merged. Those checks use separate groups.
   #
   # Give default-branch pushes, tag pushes, scheduled runs, and runs you start
   # manually their own groups so they can finish independently.
