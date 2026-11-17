@@ -29,7 +29,10 @@ module "repo_example" {
   languages   = ["go"]
   template    = null
 
-  railway_project = local.railway_projects.example
+  railway_project = {
+    name  = "Dogma Example"
+    token = lookup(var.railway_deployment_tokens, "example", null)
+  }
 
   copyright = {
     since   = 2019
@@ -153,7 +156,10 @@ module "repo_stories" {
   private     = true
   languages   = []
 
-  railway_project = local.railway_projects.stories
+  railway_project = {
+    name  = "Dogma Stories"
+    token = lookup(var.railway_deployment_tokens, "stories", null)
+  }
 
   copyright = {
     since = 2026

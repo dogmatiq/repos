@@ -9,21 +9,26 @@ this repository.**
 
 ## Railway
 
-This configuration manages Railway projects and distributes their production
-deployment tokens to repositories. Each application's `.railway/railway.ts` owns
-the services and resources within its project.
+Each repository can optionally have its own Railway project. This configuration
+manages the project and publishes its manually supplied production deployment
+token as a GitHub Actions secret. The application's `.railway/railway.ts` owns
+the services and resources within that project.
 
-Projects are defined in `railway.tf`. Associate a repository with a project in its
-module declaration:
+Enable a project in the repository's module declaration:
 
 ```hcl
-railway_project = local.railway_projects.example
+railway_project = {
+  name  = "Dogma Example"
+  token = lookup(var.railway_deployment_tokens, "example", null)
+}
 ```
 
-Repositories associated with the same project receive the same `RAILWAY_TOKEN`
-GitHub Actions secret. No project-name variable is needed: the Railway CLI resolves
-the project and environment from the token. Repositories sharing a project must
-each declare a unique named partial in their `railway.ts` file.
+Omitting `railway_project` disables Railway for the repository. Set it to `{}` to
+create a project named after the repository, or supply `name` to override that
+name. Projects are not shared between repositories. Supply the project's
+production token as `token` to create the repository's `RAILWAY_TOKEN` Actions
+secret. No project-name variable is needed: the Railway CLI resolves the project
+and environment from the token.
 
 ### Terraform Cloud variables
 
@@ -33,7 +38,7 @@ workspace, with these **Terraform** variables:
 | Variable | Sensitive | Value |
 |----------|-----------|-------|
 | `railway_api_token` | Yes | A Railway account or workspace API token authorized to manage projects in the configured workspace. |
-| `railway_deployment_tokens` | Yes | An HCL map of project keys to production environment-scoped project tokens. Enable the **HCL** option. |
+| `railway_deployment_tokens` | Yes | An HCL map of repository names to tokens for their projects' production environments. Enable the **HCL** option. |
 
 Create the provider API token in Railway's account/workspace token settings. This
 is a different credential from a project's deployment token. The Terraform
@@ -63,8 +68,8 @@ so Terraform adopts them instead of creating duplicates:
 
 ```sh
 terraform init
-terraform import 'railway_project.this["example"]' 03ab8cc0-2454-4d2f-bb22-98460d3df7bc
-terraform import 'railway_project.this["stories"]' d7aaf0f0-1ea5-46fc-81f1-6fc6fd1d6288
+terraform import 'module.repo_example.railway_project.this[0]' 03ab8cc0-2454-4d2f-bb22-98460d3df7bc
+terraform import 'module.repo_stories.railway_project.this[0]' d7aaf0f0-1ea5-46fc-81f1-6fc6fd1d6288
 terraform plan
 ```
 

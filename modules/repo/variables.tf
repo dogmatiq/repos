@@ -61,9 +61,9 @@ variable "publish_releases" {
 }
 
 variable "railway_project" {
-  description = "The Railway project whose deployment token is available to this repository"
+  description = "Configuration for this repository's own Railway project, or null to disable; the project name defaults to the repository name"
   type = object({
-    name  = string,
+    name  = optional(string),
     token = optional(string),
   })
   sensitive = true
