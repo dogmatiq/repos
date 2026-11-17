@@ -16,10 +16,14 @@ on:
 concurrency:
   cancel-in-progress: true
 
-  # Group automatic PR runs by pull request and pushes to non-default branches
-  # by branch. A new run cancels older queued or running runs in its group.
-  # Pushing to a branch with an open PR can start both a branch check and a
-  # check of what would be merged. Those checks use separate groups.
+  # Concurrency groups control which CI runs can cancel each other. With
+  # cancel-in-progress enabled, a new run cancels older queued or running
+  # runs in the same group.
+  #
+  # Group automatic runs for the same pull request or pushes to the same
+  # non-default branch. Pushing to a branch with an open PR can start both a
+  # branch check and a check of what would be merged. Those checks use separate
+  # groups.
   #
   # Give default-branch pushes, tag pushes, scheduled runs, and runs you start
   # manually their own groups so they can finish independently.
