@@ -12,19 +12,20 @@ on:
   schedule:
     - cron: 0 14 * * 0
 
-# Update a pull request or push to a non-default branch and the new automatic
-# run cancels older automatic runs that are queued or running for that same
-# PR or branch. Pushes to the default branch, tag pushes, scheduled runs, and
-# runs you start manually can all finish independently.
+# Cancel older CI runs when a new run's results will take precedence.
 concurrency:
-  # A push to a non-default branch with an open PR can start two runs. One
-  # checks the branch commit and the other checks what would be merged. Each
-  # can cancel older runs of its own kind, leaving both checks for the latest
-  # push free to finish.
+  cancel-in-progress: true
+
+  # Group automatic PR runs by pull request and pushes to non-default branches
+  # by branch. A new run cancels older queued or running runs in its group.
+  # Pushing to a branch with an open PR can start both a branch check and a
+  # check of what would be merged. Those checks use separate groups.
   #
-  # Use "Re-run jobs" to retry the same commit. GitHub counts that as another
-  # attempt at the original run. The retry and CI for newer changes can run
-  # alongside each other.
+  # Give default-branch pushes, tag pushes, scheduled runs, and runs you start
+  # manually their own groups so they can finish independently.
+  #
+  # "Re-run jobs" retries the original commit. The run ID and attempt number
+  # give each retry its own group so it can finish alongside newer CI runs.
   group: >-
     $${{ github.workflow }}-$${{
       (
@@ -41,7 +42,6 @@ concurrency:
       ) ||
       format('run-{0}-{1}', github.run_id, github.run_attempt)
     }}
-  cancel-in-progress: true
 
 jobs:
   ci:
