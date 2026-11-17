@@ -60,6 +60,16 @@ variable "publish_releases" {
   nullable    = true
 }
 
+variable "railway_project" {
+  description = "The Railway project whose deployment token is available to this repository"
+  type = object({
+    name  = string,
+    token = optional(string),
+  })
+  sensitive = true
+  default   = null
+}
+
 variable "copyright" {
   description = "Information about the copyright notice to include in the LICENSE file"
   type = object({
