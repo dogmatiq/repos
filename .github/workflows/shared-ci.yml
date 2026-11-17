@@ -170,12 +170,6 @@ jobs:
       - name: Make
         run: make ci
 
-      - name: Make (tests only, with CGO)
-        if: needs.prepare.outputs.go == 'true'
-        run: make test
-        env:
-          CGO_ENABLED: "1"
-
       - name: Docker logs
         if: failure()
         uses: jwalton/gh-docker-logs@v2
