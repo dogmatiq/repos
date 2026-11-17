@@ -12,21 +12,23 @@ on:
   schedule:
     - cron: 0 14 * * 0
 
-# By default, each run attempt gets its own group from its run ID and attempt
-# number. This lets default-branch pushes, tag pushes, scheduled runs, manual
-# runs, and reruns proceed independently. A shared group can replace a pending
-# run even when cancel-in-progress is false.
-#
-# First attempts for a pull request share its merge ref. First attempts for
-# pushes to a non-default branch share the branch ref. A new run in either
-# group cancels older pending and in-progress runs in that group. The two refs
-# keep push and PR runs independent, and the workflow name scopes each group
-# to this workflow.
-#
-# GitHub starts a new run at attempt 1. Rerunning jobs keeps the original event,
-# commit, and run ID and increments the attempt number. Giving reruns their own
-# group lets an old commit be retried alongside CI for a newer commit.
+# Let CI runs proceed independently by default. For pull requests and pushes
+# to non-default branches, a new first attempt cancels older pending or
+# running first attempts for the same PR or branch.
 concurrency:
+  # First attempts for a PR share its merge ref. First attempts for pushes
+  # to a non-default branch share the branch ref. These refs keep push and PR
+  # runs independent, and the workflow name scopes each group to this workflow.
+  #
+  # All other attempts get a group based on the run ID and attempt number.
+  # This lets default-branch pushes, tag pushes, scheduled runs, and manual
+  # runs proceed independently. A shared group can replace a pending run even
+  # when cancel-in-progress is false.
+  #
+  # GitHub starts a new run at attempt 1. Rerunning jobs keeps the original
+  # event, commit, and run ID and increments the attempt number. Giving
+  # reruns their own group lets an old commit be retried alongside CI for a
+  # newer commit.
   group: >-
     $${{ github.workflow }}-$${{
       (
