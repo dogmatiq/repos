@@ -12,14 +12,12 @@ on:
   schedule:
     - cron: 0 14 * * 0
 
-# Each group starts with the workflow name.
+# By default, each run attempt can proceed independently. This includes pushes
+# to the default branch, tag pushes, scheduled runs, manual runs, and reruns.
 #
-# Run                              Example group suffix      Shares a group with
-# PR update                        refs/pull/42/merge        Other updates to PR #42
-# Push to a feature branch         refs/heads/feature/foo    Other pushes to feature/foo
-# Default-branch push or tag       run-123-1                 Only this run attempt
-# Scheduled or manual run         run-124-1                 Only this run attempt
-# Rerun                           run-123-2                 Only this run attempt
+# First attempts for the same pull request share a group, so a new run can
+# cancel an older one. First attempts for pushes to the same non-default branch
+# work the same way. Push runs and pull request runs use separate groups.
 concurrency:
   group: >-
     $${{ github.workflow }}-$${{
