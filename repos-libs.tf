@@ -146,7 +146,7 @@ module "repo_spruce" {
 module "repo_tenet" {
   source      = "./modules/repo"
   name        = "tenet"
-  description = "🚧 Inverted network tunnels over WebSockets for Go."
+  description = "🚧 Reverse tunnels over WebSockets for Go."
   languages   = ["go"]
 
   copyright = {
