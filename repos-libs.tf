@@ -146,7 +146,7 @@ module "repo_spruce" {
 module "repo_tenet" {
   source      = "./modules/repo"
   name        = "tenet"
-  description = "🚧 Reverse connections over a WebSocket, so a server that can only dial out can accept connections."
+  description = "🚧 Inverted network tunnels over WebSockets for Go."
   languages   = ["go"]
 
   copyright = {
