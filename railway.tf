@@ -1,9 +1,3 @@
-variable "railway_workspace_id" {
-  description = "The Railway workspace in which repository projects are managed"
-  type        = string
-  nullable    = false
-}
-
 variable "railway_deployment_tokens" {
   description = "Railway project tokens for each repository's production environment, keyed by repository name"
   type        = map(string)

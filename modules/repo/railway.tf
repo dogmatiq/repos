@@ -1,8 +1,10 @@
 resource "railway_project" "this" {
   count = var.railway_project == null ? 0 : 1
 
-  name         = var.name
-  workspace_id = var.railway_project.workspace_id
+  name = var.name
+
+  # Railway workspace "James Harris's Projects".
+  workspace_id = "e25b5f75-d6f2-442c-8717-cbc7644c7220"
 
   default_environment = {
     name = "production"

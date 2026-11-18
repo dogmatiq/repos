@@ -30,8 +30,7 @@ module "repo_example" {
   template    = null
 
   railway_project = {
-    workspace_id = var.railway_workspace_id
-    token        = lookup(var.railway_deployment_tokens, "example", null)
+    token = lookup(var.railway_deployment_tokens, "example", null)
   }
 
   copyright = {
@@ -157,8 +156,7 @@ module "repo_stories" {
   languages   = []
 
   railway_project = {
-    workspace_id = var.railway_workspace_id
-    token        = lookup(var.railway_deployment_tokens, "stories", null)
+    token = lookup(var.railway_deployment_tokens, "stories", null)
   }
 
   copyright = {
