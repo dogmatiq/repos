@@ -3,7 +3,7 @@ resource "railway_project" "this" {
 
   name = var.name
 
-  # Railway workspace "James Harris's Projects".
+  # Railway workspace "Dogmatiq".
   workspace_id = "e25b5f75-d6f2-442c-8717-cbc7644c7220"
 
   default_environment = {
