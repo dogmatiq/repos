@@ -7,10 +7,6 @@ resource "railway_project" "this" {
   default_environment = {
     name = "production"
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 locals {

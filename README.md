@@ -25,11 +25,16 @@ railway_project = {
 }
 ```
 
-Omitting `railway_project` disables Railway for the repository. Supply
-`workspace_id` to create a project named after the repository. Projects are not
-shared between repositories. Supply the project's production token as `token` to
-create the repository's `RAILWAY_TOKEN` Actions secret. No project-name variable
-is needed: the Railway CLI resolves the project and environment from the token.
+Omitting `railway_project` disables Railway for the repository. Removing it from
+an existing configuration plans deletion of the project, its services and
+databases, and the repository's deployment secret. Review that destruction in
+the Terraform plan before applying.
+
+Supply `workspace_id` to create a project named after the repository. Projects
+are not shared between repositories. Supply the project's production token as
+`token` to create the repository's `RAILWAY_TOKEN` Actions secret. No project-name
+variable is needed: the Railway CLI resolves the project and environment from
+the token.
 
 Add the module's `railway_token_setup_required` output to the list in `railway.tf`
 when enabling another repository, so its setup instructions appear in the root
@@ -89,5 +94,5 @@ Terraform Cloud workspace. Supply `TF_VAR_railway_api_token` securely and set
 `TF_VAR_railway_workspace_id`; remote workspace variables are not automatically
 available to local import operations.
 Review the plan before applying. Existing services, volumes, and databases are
-outside this Terraform configuration. Project deletion is blocked by
-`prevent_destroy` while its resource declaration remains in place.
+not managed individually by this Terraform configuration, but deleting their
+project also deletes them.
