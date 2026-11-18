@@ -29,9 +29,7 @@ module "repo_example" {
   languages   = ["go"]
   template    = null
 
-  railway_project = {
-    token = lookup(var.railway_deployment_tokens, "example", null)
-  }
+  railway_project = true
 
   copyright = {
     since   = 2019
@@ -155,9 +153,7 @@ module "repo_stories" {
   private     = true
   languages   = []
 
-  railway_project = {
-    token = lookup(var.railway_deployment_tokens, "stories", null)
-  }
+  railway_project = true
 
   copyright = {
     since = 2026

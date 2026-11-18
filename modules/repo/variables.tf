@@ -61,12 +61,10 @@ variable "publish_releases" {
 }
 
 variable "railway_project" {
-  description = "Configuration for this repository's own Railway project, named after the repository, or null to disable"
-  type = object({
-    token = optional(string),
-  })
-  sensitive = true
-  default   = null
+  description = "Whether to create this repository's own Railway project, named after the repository"
+  type        = bool
+  default     = false
+  nullable    = false
 }
 
 variable "copyright" {

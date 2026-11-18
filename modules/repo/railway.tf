@@ -1,5 +1,5 @@
 resource "railway_project" "this" {
-  count = var.railway_project == null ? 0 : 1
+  count = var.railway_project ? 1 : 0
 
   name = var.name
 
@@ -11,26 +11,18 @@ resource "railway_project" "this" {
   }
 }
 
-locals {
-  # Only token presence is public; the token value remains sensitive.
-  has_railway_token = var.railway_project == null ? false : nonsensitive(var.railway_project.token != null)
+resource "railway_project_token" "ci" {
+  count = local.unarchived && var.railway_project ? 1 : 0
+
+  name           = "GitHub Actions"
+  project_id     = railway_project.this[0].id
+  environment_id = railway_project.this[0].default_environment.id
 }
 
 resource "github_actions_secret" "railway_token" {
-  count = local.unarchived && local.has_railway_token ? 1 : 0
+  count = local.unarchived && var.railway_project ? 1 : 0
 
   repository      = github_repository.this.name
   secret_name     = "RAILWAY_TOKEN"
-  plaintext_value = var.railway_project.token
-}
-
-check "railway_deployment_token" {
-  assert {
-    condition     = var.railway_project == null ? true : local.has_railway_token
-    error_message = <<-EOT
-      Repository "${var.name}" needs a Railway project token for its production environment.
-      ${join("\n", [for project in railway_project.this : "Create it at https://railway.com/project/${project.id}/settings/tokens."])}
-      Add it as railway_deployment_tokens["${var.name}"] in the Railway Terraform Cloud variable set, then apply again.
-    EOT
-  }
+  plaintext_value = railway_project_token.ci[0].token
 }
