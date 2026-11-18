@@ -24,11 +24,13 @@ resource "github_actions_secret" "railway_token" {
   plaintext_value = var.railway_project.token
 }
 
-output "railway_token_setup_required" {
-  description = "Instructions for configuring this repository's missing Railway deployment token"
-  value = var.railway_project != null && !local.has_railway_token ? {
-    repository  = var.name
-    instruction = "Create a project token for the production environment, add it as railway_deployment_tokens[\"${var.name}\"] in the Railway Terraform Cloud variable set, and apply again."
-    url         = "https://railway.com/project/${railway_project.this[0].id}/settings/tokens"
-  } : null
+check "railway_deployment_token" {
+  assert {
+    condition     = var.railway_project == null ? true : local.has_railway_token
+    error_message = <<-EOT
+      Repository "${var.name}" needs a Railway project token for its production environment.
+      ${join("\n", [for project in railway_project.this : "Create it at https://railway.com/project/${project.id}/settings/tokens."])}
+      Add it as railway_deployment_tokens["${var.name}"] in the Railway Terraform Cloud variable set, then apply again.
+    EOT
+  }
 }
