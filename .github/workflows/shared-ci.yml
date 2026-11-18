@@ -272,6 +272,15 @@ jobs:
         if: needs.prepare.outputs.mise == 'true'
         uses: jdx/mise-action@v5
 
+      # Docker prerequisites and optional image checks may use Node tooling too.
+      - name: Set up Node.js
+        if: needs.prepare.outputs.nodejs == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ${{ needs.prepare.outputs.nodejs_version_file }}
+          node-version: ${{ needs.prepare.outputs.nodejs_version_file == '' && 'lts/*' || '' }}
+          cache: ${{ hashFiles('pnpm-lock.yaml') != '' && 'pnpm' || '' }}
+
       - name: Login to GitHub Container Registry
         if: startsWith(github.ref , 'refs/tags/v')
         uses: docker/login-action@v4
@@ -282,8 +291,16 @@ jobs:
 
       - name: Build image${{ startsWith(github.ref , 'refs/tags/v') && ' and push to registry' || '' }}
         env:
-          DOCKER_TAGS: ${{ startsWith(github.ref , 'refs/tags/v') && github.ref_name || '' }}
+          DOCKER_TAGS: ${{ startsWith(github.ref , 'refs/tags/v') && github.ref_name || 'dev' }}
         run: docker buildx create --use && make docker${{ startsWith(github.ref , 'refs/tags/v') && '-push' || '' }}
+
+      # A double-colon default keeps this optional for every existing consumer.
+      # Repositories extend ci-docker:: to test the image just built/pushed,
+      # using their ordinary Makefile dependencies and Docker variables.
+      - name: Check image
+        env:
+          DOCKER_TAGS: ${{ startsWith(github.ref , 'refs/tags/v') && github.ref_name || 'dev' }}
+        run: make --eval='ci-docker::' ci-docker
 
   helm:
     name: Helm
