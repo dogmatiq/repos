@@ -12,6 +12,41 @@ on:
   schedule:
     - cron: 0 14 * * 0
 
+# Cancel older CI runs when a new run's results will take precedence.
+concurrency:
+  cancel-in-progress: true
+
+  # Concurrency groups control which CI runs can cancel each other. With
+  # cancel-in-progress enabled, a new run cancels older queued or running
+  # runs in the same group.
+  #
+  # We group runs triggered by the same pull request. We do the same for runs
+  # triggered by pushes to the same non-default branch. Pushing to a branch
+  # with an open PR can start both a branch check and a check of what would be
+  # merged. Those checks use separate groups.
+  #
+  # Runs triggered by default-branch pushes, tag pushes, schedules, or manual
+  # requests each get their own group and can finish independently.
+  #
+  # "Re-run jobs" retries the original commit. The run ID and attempt number
+  # give each retry its own group so it can finish alongside newer CI runs.
+  group: >-
+    $${{ github.workflow }}-$${{
+      (
+        github.run_attempt == 1 &&
+        (
+          github.event_name == 'pull_request' ||
+          (
+            github.event_name == 'push' &&
+            github.ref_type == 'branch' &&
+            github.ref_name != github.event.repository.default_branch
+          )
+        ) &&
+        github.ref
+      ) ||
+      format('run-{0}-{1}', github.run_id, github.run_attempt)
+    }}
+
 jobs:
   ci:
     name: Shared
