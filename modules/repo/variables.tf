@@ -60,6 +60,13 @@ variable "publish_releases" {
   nullable    = true
 }
 
+variable "railway_project" {
+  description = "Whether to create this repository's own Railway project, named after the repository"
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
 variable "copyright" {
   description = "Information about the copyright notice to include in the LICENSE file"
   type = object({

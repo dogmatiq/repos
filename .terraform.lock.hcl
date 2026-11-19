@@ -1,10 +1,19 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/jmalloc/railway" {
+  version     = "0.6.3-dogmatiq.2"
+  constraints = "0.6.3-dogmatiq.2"
+  hashes = [
+    "h1:VRb2d1mtyViBSwnqxspOWaL5EVOeIdSMnKouI+2yAuE=",
+  ]
+}
+
 provider "registry.terraform.io/integrations/github" {
   version     = "4.18.2"
   constraints = "~> 4.0"
   hashes = [
+    "h1:7qumrrxL9L9zpwmvNrJhq9GICMgOLIWJeWFu84iK7kU=",
     "h1:GHjVyBMXMSRwlA3BmS33CxSfkz1Uh8dxRzA58Wh5G8w=",
     "zh:0905624d48ee1493f0e23942aad742151f3778c5511f6ddd5acb89fe48a35179",
     "zh:19f5ecedbba6dfecd8af625d41da45390936e9684d99d4330d1e415c1aa61064",
