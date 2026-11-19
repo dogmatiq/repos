@@ -1,7 +1,8 @@
 resource "railway_project" "this" {
   count = var.railway_project ? 1 : 0
 
-  name = var.name
+  name        = var.name
+  description = var.description
 
   # Railway workspace "Dogmatiq".
   workspace_id = "e25b5f75-d6f2-442c-8717-cbc7644c7220"
