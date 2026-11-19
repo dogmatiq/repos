@@ -10,7 +10,7 @@ terraform {
     # Bundled in terraform.d/plugins until upstream supports project tokens.
     railway = {
       source  = "dogmatiq/railway"
-      version = "= 0.6.3-dogmatiq.1"
+      version = "= 0.6.3-dogmatiq.2"
     }
   }
 }

@@ -2,10 +2,10 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/dogmatiq/railway" {
-  version     = "0.6.3-dogmatiq.1"
-  constraints = "0.6.3-dogmatiq.1"
+  version     = "0.6.3-dogmatiq.2"
+  constraints = "0.6.3-dogmatiq.2"
   hashes = [
-    "h1:4EWfDY6ALPX3LC7IAvZwgDrEAkuZTMjwwmOUnOHtrPo=",
+    "h1:VRb2d1mtyViBSwnqxspOWaL5EVOeIdSMnKouI+2yAuE=",
   ]
 }
 

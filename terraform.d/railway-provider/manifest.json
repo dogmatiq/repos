@@ -1,15 +1,16 @@
 {
   "provider_address": "registry.terraform.io/dogmatiq/railway",
-  "version": "0.6.3-dogmatiq.1",
+  "version": "0.6.3-dogmatiq.2",
   "upstream_repository": "https://github.com/terraform-community-providers/terraform-provider-railway",
   "upstream_commit": "5681181e2bd954b5cdd9a28b02b76795fd1618fd",
   "upstream_version": "0.6.3",
-  "source_patch": "project-token.patch",
   "license": "MPL-2.0",
   "go_version": "go1.27.4",
   "platform": "linux_amd64",
   "rebuild_command": "./terraform.d/railway-provider/build.sh",
-  "binary": "terraform.d/plugins/registry.terraform.io/dogmatiq/railway/0.6.3-dogmatiq.1/linux_amd64/terraform-provider-railway_v0.6.3-dogmatiq.1",
-  "binary_sha256": "75311c8d8e0336fdccd03511246156cae9257308bd1a35bb9f200d2c0c1857c9",
-  "patch_sha256": "e4a50ecf4d439061f030cfa37bfe587753901f8f77b0ee047e1ff466a8a42ad1"
+  "binary": "terraform.d/plugins/registry.terraform.io/dogmatiq/railway/0.6.3-dogmatiq.2/linux_amd64/terraform-provider-railway_v0.6.3-dogmatiq.2",
+  "binary_sha256": "5ce22466fb62ae9d1d89455946c72d2e4df0a2cfb6f35d8fb1c58f9dd85f3fd9",
+  "source_repository": "https://github.com/jmalloc/terraform-provider-railway",
+  "source_submodule": "terraform.d/railway-provider/source",
+  "source_commit": "520c67c0b1da0cf0019ac1f47c75572486b5d5cc"
 }

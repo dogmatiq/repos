@@ -6,7 +6,7 @@ terraform {
     }
     railway = {
       source  = "dogmatiq/railway"
-      version = "= 0.6.3-dogmatiq.1"
+      version = "= 0.6.3-dogmatiq.2"
     }
   }
 }
