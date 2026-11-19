@@ -6,7 +6,7 @@ set -euo pipefail
 bundle_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 repo_dir=$(cd -- "$bundle_dir/../.." && pwd)
 provider_version=0.6.3-dogmatiq.2
-provider_address=registry.terraform.io/dogmatiq/railway
+provider_address=registry.terraform.io/jmalloc/railway
 source_path=terraform.d/railway-provider/source
 source_dir="$repo_dir/$source_path"
 output_dir="$repo_dir/terraform.d/plugins/$provider_address/$provider_version/linux_amd64"

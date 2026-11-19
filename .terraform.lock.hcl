@@ -1,7 +1,7 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
-provider "registry.terraform.io/dogmatiq/railway" {
+provider "registry.terraform.io/jmalloc/railway" {
   version     = "0.6.3-dogmatiq.2"
   constraints = "0.6.3-dogmatiq.2"
   hashes = [
