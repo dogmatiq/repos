@@ -350,6 +350,32 @@ jobs:
           railway config plan --out "$RUNNER_TEMP/railway-plan.json"
           railway config apply --plan "$RUNNER_TEMP/railway-plan.json" --yes
 
+      - name: Wait for deployments
+        if: startsWith(github.ref, 'refs/tags/v')
+        timeout-minutes: 10
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          for attempt in {1..60}; do
+            railway service list --json > "$RUNNER_TEMP/railway-services.json"
+            jq -r '.[] | "\(.name): \(.latestDeployment.status // "not deployed")"' "$RUNNER_TEMP/railway-services.json"
+
+            # A failed rollout can leave an older replica serving successfully.
+            if jq -e 'any(.[]; .latestDeployment.status == "FAILED" or .latestDeployment.status == "CRASHED")' "$RUNNER_TEMP/railway-services.json" > /dev/null; then
+              echo "::error::A Railway deployment failed."
+              exit 1
+            fi
+
+            if jq -e 'length > 0 and all(.[]; .latestDeployment.status == "SUCCESS" or .latestDeployment.status == "SLEEPING")' "$RUNNER_TEMP/railway-services.json" > /dev/null; then
+              exit 0
+            fi
+
+            sleep 10
+          done
+
+          echo "::error::Timed out waiting for Railway deployments."
+          exit 1
+
   helm:
     name: Helm
     runs-on: ubuntu-latest
