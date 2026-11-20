@@ -347,8 +347,65 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_IMAGE_TAG: ${{ github.ref_name }}
         run: |
-          railway config plan --out "$RUNNER_TEMP/railway-plan.json"
-          railway config apply --plan "$RUNNER_TEMP/railway-plan.json" --yes
+          node --input-type=module <<'NODE'
+          import { spawnSync } from 'node:child_process';
+          import { rmSync } from 'node:fs';
+          import { join } from 'node:path';
+
+          process.umask(0o077);
+          const plan = join(process.env.RUNNER_TEMP, 'railway-plan.json');
+          const env = { ...process.env };
+          delete env.RAILWAY_GITHUB_TOKEN;
+          const query = (document, variables = {}) => {
+            try {
+              const result = spawnSync('railway', ['api', document, '--variables', JSON.stringify(variables), '--compact'], {
+                env, encoding: 'utf8', timeout: 30_000,
+                stdio: ['ignore', 'pipe', 'pipe'],
+              });
+              if (result.error || result.status !== 0) throw new Error();
+              const response = JSON.parse(result.stdout);
+              if (response.errors || !response.data) throw new Error();
+              return response.data;
+            } catch {
+              throw new Error('Unable to read Railway deployment context or shared credentials.');
+            }
+          };
+
+          try {
+            // This works before any service exists. Context comes from the token.
+            const context = query('query { projectToken { project { id } environment { id } } }').projectToken;
+            if (!context?.project?.id || !context?.environment?.id) {
+              throw new Error('An environment-scoped Railway token is required.');
+            }
+            const shared = query('query($projectId: String!, $environmentId: String!) { variables(projectId: $projectId, environmentId: $environmentId, unrendered: true) }', {
+              projectId: context.project.id, environmentId: context.environment.id,
+            }).variables;
+            const token = shared?.GITHUB_TOKEN;
+            if (token != null) {
+              if (typeof token !== 'string' || !token.trim() || /[\r\n]/.test(token)) {
+                throw new Error('Railway shared GITHUB_TOKEN must be a non-empty single-line credential.');
+              }
+              const masked = token.replaceAll('%', '%25');
+              process.stdout.write(`::add-mask::${masked}\n`);
+              env.RAILWAY_GITHUB_TOKEN = token;
+            }
+            // The PAT lives only in child environments and the private pinned plan.
+            // Never replace Actions' own GITHUB_TOKEN or upload this plan as an artifact.
+            for (const args of [['config', 'plan', '--out', plan], ['config', 'apply', '--plan', plan, '--yes']]) {
+              const result = spawnSync('railway', args, { env, stdio: 'inherit' });
+              if (result.error) throw new Error('Unable to run Railway configuration command.');
+              if (result.status !== 0) {
+                process.exitCode = result.status ?? 1;
+                break;
+              }
+            }
+          } catch (error) {
+            console.error(error.message);
+            process.exitCode = 1;
+          } finally {
+            rmSync(plan, { force: true });
+          }
+          NODE
 
       - name: Wait for deployments
         if: startsWith(github.ref, 'refs/tags/v')
