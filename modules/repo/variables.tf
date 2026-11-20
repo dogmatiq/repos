@@ -67,6 +67,13 @@ variable "railway_project" {
   nullable    = false
 }
 
+variable "railway_github_pat" {
+  description = "GitHub Packages pull credential required for an unarchived private Railway project"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
 variable "copyright" {
   description = "Information about the copyright notice to include in the LICENSE file"
   type = object({

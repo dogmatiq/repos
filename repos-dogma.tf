@@ -153,7 +153,8 @@ module "repo_stories" {
   private     = true
   languages   = []
 
-  railway_project = true
+  railway_project    = true
+  railway_github_pat = var.railway_github_pat
 
   copyright = {
     since = 2026
