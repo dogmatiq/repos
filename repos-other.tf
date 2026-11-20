@@ -48,6 +48,20 @@ module "repo_agent_config" {
   }
 }
 
+module "repo_branding" {
+  source      = "./modules/repo"
+  name        = "branding"
+  description = "Dogmatiq logos, brand guidelines and other brand assets."
+  private     = true
+
+  languages = []
+  workflow  = null
+
+  copyright = {
+    since = 2026
+  }
+}
+
 resource "github_repository" "website" {
   archive_on_destroy = true
 
