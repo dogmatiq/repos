@@ -1,5 +1,5 @@
 resource "railway_project" "this" {
-  count = var.railway_project ? 1 : 0
+  count = local.has_railway ? 1 : 0
 
   name        = var.name
   description = var.description
@@ -13,7 +13,7 @@ resource "railway_project" "this" {
 }
 
 resource "railway_project_token" "ci" {
-  count = local.unarchived && var.railway_project ? 1 : 0
+  count = local.unarchived && local.has_railway ? 1 : 0
 
   name           = "GitHub Actions"
   project_id     = railway_project.this[0].id
@@ -21,7 +21,7 @@ resource "railway_project_token" "ci" {
 }
 
 resource "github_actions_secret" "railway_token" {
-  count = local.unarchived && var.railway_project ? 1 : 0
+  count = local.unarchived && local.has_railway ? 1 : 0
 
   repository      = github_repository.this.name
   secret_name     = "RAILWAY_TOKEN"
@@ -29,17 +29,17 @@ resource "github_actions_secret" "railway_token" {
 }
 
 resource "railway_shared_variable" "github_token" {
-  count = local.unarchived && var.railway_project && var.private ? 1 : 0
+  count = local.unarchived && local.has_railway && var.private ? 1 : 0
 
   project_id     = railway_project.this[0].id
   environment_id = railway_project.this[0].default_environment.id
   name           = "GITHUB_TOKEN"
-  value          = var.railway_github_pat
+  value          = var.railway.github_pat
 
   lifecycle {
     precondition {
-      condition     = var.railway_github_pat != null ? trimspace(var.railway_github_pat) != "" : false
-      error_message = "Private Railway projects require railway_github_pat."
+      condition     = var.railway.github_pat != null ? trimspace(var.railway.github_pat) != "" : false
+      error_message = "Private Railway projects require railway.github_pat."
     }
   }
 }

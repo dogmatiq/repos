@@ -32,18 +32,3 @@ Run the same hook locally after building the image:
 make docker
 make --eval='ci-docker::' ci-docker
 ```
-
-## Railway private image credential
-
-Set the sensitive Terraform workspace variable `railway_github_pat` to a classic
-GitHub PAT with only `read:packages`. Pass it to private repositories that enable
-`railway_project`; Stories currently uses it. Terraform stores it as the
-production Railway shared variable `GITHUB_TOKEN`. Public repositories and
-repositories without Railway projects receive no copy. Archiving removes the
-credential along with the CI deployment token, while retaining the project.
-
-This Railway variable is separate from GitHub Actions' built-in `GITHUB_TOKEN`.
-It is not automatically injected into application containers or configured as
-an image-pull credential; deployment code must explicitly consume it for that
-purpose. Terraform state contains the sensitive value; do not commit it or
-expose it through outputs.
