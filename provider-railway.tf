@@ -5,6 +5,13 @@ variable "railway_api_token" {
   nullable    = false
 }
 
+variable "railway_github_pat" {
+  description = "Read-only GitHub Packages PAT stored in private repositories' Railway projects"
+  type        = string
+  sensitive   = true
+  nullable    = false
+}
+
 provider "railway" {
   token = var.railway_api_token
 }

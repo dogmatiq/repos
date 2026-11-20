@@ -60,11 +60,14 @@ variable "publish_releases" {
   nullable    = true
 }
 
-variable "railway_project" {
-  description = "Whether to create this repository's own Railway project, named after the repository"
-  type        = bool
-  default     = false
-  nullable    = false
+variable "railway" {
+  description = "Railway project configuration; null disables Railway, and private projects require a GitHub Packages pull credential"
+  type = object({
+    github_pat = optional(string)
+  })
+  sensitive = true
+  default   = null
+  nullable  = true
 }
 
 variable "copyright" {
@@ -83,6 +86,7 @@ locals {
   template         = var.template == "(default)" ? local.primary_language : var.template
 
   has_workflow = local.unarchived && var.workflow != null
+  has_railway  = nonsensitive(var.railway != null) # Only configuration presence is public.
   workflow = {
     name     = local.has_workflow ? coalesce(var.workflow.name, "ci") : ""
     services = local.has_workflow ? var.workflow.services : []

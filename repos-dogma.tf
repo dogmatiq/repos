@@ -29,7 +29,7 @@ module "repo_example" {
   languages   = ["go"]
   template    = null
 
-  railway_project = true
+  railway = {}
 
   copyright = {
     since   = 2019
@@ -153,7 +153,9 @@ module "repo_stories" {
   private     = true
   languages   = []
 
-  railway_project = true
+  railway = {
+    github_pat = var.railway_github_pat
+  }
 
   copyright = {
     since = 2026
