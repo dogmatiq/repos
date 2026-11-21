@@ -28,13 +28,12 @@ resource "github_actions_secret" "railway_token" {
   plaintext_value = railway_project_token.ci[0].token
 }
 
-resource "railway_shared_variable" "github_token" {
+resource "github_actions_secret" "railway_github_token" {
   count = local.unarchived && local.has_railway && var.private ? 1 : 0
 
-  project_id     = railway_project.this[0].id
-  environment_id = railway_project.this[0].default_environment.id
-  name           = "GITHUB_TOKEN"
-  value          = var.railway.github_pat
+  repository      = github_repository.this.name
+  secret_name     = "RAILWAY_GITHUB_TOKEN"
+  plaintext_value = var.railway.github_pat
 
   lifecycle {
     precondition {

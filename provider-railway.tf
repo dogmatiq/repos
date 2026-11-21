@@ -6,7 +6,7 @@ variable "railway_api_token" {
 }
 
 variable "railway_github_pat" {
-  description = "Read-only GitHub Packages PAT stored in private repositories' Railway projects"
+  description = "Read-only GitHub Packages PAT supplied as an Actions secret to private Railway-enabled repositories"
   type        = string
   sensitive   = true
   nullable    = false

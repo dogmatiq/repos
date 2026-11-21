@@ -38,3 +38,9 @@ after applying configuration and before waiting for healthy deployments. It
 receives `RAILWAY_TOKEN` and `RAILWAY_IMAGE_TAG`. Use it for operations the Railway
 configuration cannot perform, such as creating custom-domain attachments. The
 injected no-op default keeps the hook optional; a failing hook fails the job.
+
+Terraform supplies private Railway-enabled repositories with the Actions secret
+`RAILWAY_GITHUB_TOKEN` from their `railway.github_pat` setting. The shared workflow
+passes it to configuration plan/apply for private image-pull credentials, keeping
+Actions' own `GITHUB_TOKEN` separate. The temporary plan is private and removed
+when the step exits.
