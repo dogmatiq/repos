@@ -62,6 +62,20 @@ module "repo_branding" {
   }
 }
 
+module "repo_infra" {
+  source      = "./modules/repo"
+  name        = "infra"
+  description = "Terraform configuration for Dogmatiq infrastructure."
+  private     = true
+
+  languages = []
+  workflow  = null
+
+  copyright = {
+    since = 2026
+  }
+}
+
 resource "github_repository" "website" {
   archive_on_destroy = true
 
