@@ -1,4 +1,0 @@
-[submodule "railway-provider"]
-	path = terraform.d/railway-provider/source
-	url = https://github.com/jmalloc/terraform-provider-railway.git
-	branch = railway-project-token
