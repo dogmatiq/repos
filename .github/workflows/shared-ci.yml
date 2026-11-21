@@ -355,6 +355,8 @@ jobs:
           process.umask(0o077);
           const plan = join(process.env.RUNNER_TEMP, 'railway-plan.json');
           const env = { ...process.env };
+          // Let the SDK find Railway on PATH instead of version-checking the shell.
+          delete env._;
           delete env.RAILWAY_GITHUB_TOKEN;
           const query = (document, variables = {}) => {
             try {
