@@ -409,6 +409,13 @@ jobs:
           }
           NODE
 
+      - name: Run Railway hook
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_IMAGE_TAG: ${{ github.ref_name }}
+        run: make --eval='ci-railway::' ci-railway
+
       - name: Wait for deployments
         if: startsWith(github.ref, 'refs/tags/v')
         timeout-minutes: 10

@@ -32,3 +32,9 @@ Run the same hook locally after building the image:
 make docker
 make --eval='ci-docker::' ci-docker
 ```
+
+On releases, the Railway job invokes an optional `ci-railway::` Makefile hook
+after applying configuration and before waiting for healthy deployments. It
+receives `RAILWAY_TOKEN` and `RAILWAY_IMAGE_TAG`. Use it for operations the Railway
+configuration cannot perform, such as creating custom-domain attachments. The
+injected no-op default keeps the hook optional; a failing hook fails the job.
