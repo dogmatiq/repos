@@ -29,8 +29,6 @@ module "repo_example" {
   languages   = ["go"]
   template    = null
 
-  railway = {}
-
   copyright = {
     since   = 2019
     holders = ["Kevin Millar"]
@@ -152,10 +150,6 @@ module "repo_stories" {
   description = "🚧 Read the story your Dogma applications are telling."
   private     = true
   languages   = []
-
-  railway = {
-    github_pat = var.railway_github_pat
-  }
 
   copyright = {
     since = 2026
