@@ -59,7 +59,6 @@ jobs:
       mise: ${{ steps.check.outputs.mise }}
       docker: ${{ steps.check.outputs.docker }}
       helm: ${{ steps.check.outputs.helm }}
-      railway: ${{ steps.check.outputs.railway }}
       adrs: ${{ steps.check.outputs.adrs }}
 
     steps:
@@ -88,7 +87,6 @@ jobs:
           check docker Dockerfile          "Docker image"
           check helm   charts/Chart.yaml  "Helm chart"
           check adrs   .adr-dir            "Architecture Decision Records"
-          check railway .railway/railway.ts "Railway configuration"
 
           if [ -f go.mod ]; then
             # Use the 'toolchain' directive to find the Go version.
@@ -278,7 +276,6 @@ jobs:
         if: needs.prepare.outputs.mise == 'true'
         uses: jdx/mise-action@v5
 
-      # Docker prerequisites and optional image checks may use Node tooling too.
       - name: Set up Node.js
         if: needs.prepare.outputs.nodejs == 'true'
         uses: actions/setup-node@v7
@@ -300,140 +297,29 @@ jobs:
           DOCKER_TAGS: ${{ startsWith(github.ref , 'refs/tags/v') && github.ref_name || 'dev' }}
         run: docker buildx create --use && make docker${{ startsWith(github.ref , 'refs/tags/v') && '-push' || '' }}
 
-      # A double-colon default keeps this optional for every existing consumer.
-      # Repositories extend ci-docker:: to test the image just built/pushed,
-      # using their ordinary Makefile dependencies and Docker variables.
-      - name: Check image
-        env:
-          DOCKER_TAGS: ${{ startsWith(github.ref , 'refs/tags/v') && github.ref_name || 'dev' }}
-        run: make --eval='ci-docker::' ci-docker
-
   railway:
     name: Railway
     runs-on: ubuntu-latest
     needs:
-      - prepare
       - build
       - docker
-    if: needs.prepare.outputs.railway == 'true'
+    if: startsWith(github.ref, 'refs/tags/v') && vars.RAILWAY_SERVICE_NAME != ''
+    permissions: {}
 
-    # Serialize production applies; ordinary configuration checks stay independent.
     concurrency:
-      group: railway-${{ startsWith(github.ref, 'refs/tags/v') && 'production' || github.run_id }}
+      group: railway-${{ vars.RAILWAY_PROJECT_ID }}-${{ vars.RAILWAY_SERVICE_NAME }}-${{ vars.RAILWAY_ENVIRONMENT_NAME }}
       cancel-in-progress: false
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
+      - name: Deploy published image
+        uses: twopow/railway-deploy-action@a174cfbeb67d1c6b4a4d18998603791730a2f912
         with:
-          node-version: '24'
-
-      - name: Install Railway CLI
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: npm install --global @railway/cli@5.75.0
-
-      - name: Install configuration dependencies
-        run: npm ci --prefix .railway --ignore-scripts
-
-      - name: Check configuration
-        run: npm run check --if-present --prefix .railway
-
-      - name: Apply Railway configuration
-        if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_IMAGE_TAG: ${{ github.ref_name }}
-        run: |
-          node --input-type=module <<'NODE'
-          import { spawnSync } from 'node:child_process';
-          import { rmSync } from 'node:fs';
-          import { join } from 'node:path';
-
-          process.umask(0o077);
-          const plan = join(process.env.RUNNER_TEMP, 'railway-plan.json');
-          const env = { ...process.env };
-          // Let the SDK find Railway on PATH instead of version-checking the shell.
-          delete env._;
-          delete env.RAILWAY_GITHUB_TOKEN;
-          const query = (document, variables = {}) => {
-            try {
-              const result = spawnSync('railway', ['api', document, '--variables', JSON.stringify(variables), '--compact'], {
-                env, encoding: 'utf8', timeout: 30_000,
-                stdio: ['ignore', 'pipe', 'pipe'],
-              });
-              if (result.error || result.status !== 0) throw new Error();
-              const response = JSON.parse(result.stdout);
-              if (response.errors || !response.data) throw new Error();
-              return response.data;
-            } catch {
-              throw new Error('Unable to read Railway deployment context or shared credentials.');
-            }
-          };
-
-          try {
-            // This works before any service exists. Context comes from the token.
-            const context = query('query { projectToken { project { id } environment { id } } }').projectToken;
-            if (!context?.project?.id || !context?.environment?.id) {
-              throw new Error('An environment-scoped Railway token is required.');
-            }
-            const shared = query('query($projectId: String!, $environmentId: String!) { variables(projectId: $projectId, environmentId: $environmentId, unrendered: true) }', {
-              projectId: context.project.id, environmentId: context.environment.id,
-            }).variables;
-            const token = shared?.GITHUB_TOKEN;
-            if (token != null) {
-              if (typeof token !== 'string' || !token.trim() || /[\r\n]/.test(token)) {
-                throw new Error('Railway shared GITHUB_TOKEN must be a non-empty single-line credential.');
-              }
-              const masked = token.replaceAll('%', '%25');
-              process.stdout.write(`::add-mask::${masked}\n`);
-              env.RAILWAY_GITHUB_TOKEN = token;
-            }
-            // The PAT lives only in child environments and the private pinned plan.
-            // Never replace Actions' own GITHUB_TOKEN or upload this plan as an artifact.
-            for (const args of [['config', 'plan', '--out', plan], ['config', 'apply', '--plan', plan, '--yes']]) {
-              const result = spawnSync('railway', args, { env, stdio: 'inherit' });
-              if (result.error) throw new Error('Unable to run Railway configuration command.');
-              if (result.status !== 0) {
-                process.exitCode = result.status ?? 1;
-                break;
-              }
-            }
-          } catch (error) {
-            console.error(error.message);
-            process.exitCode = 1;
-          } finally {
-            rmSync(plan, { force: true });
-          }
-          NODE
-
-      - name: Wait for deployments
-        if: startsWith(github.ref, 'refs/tags/v')
-        timeout-minutes: 10
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          for attempt in {1..60}; do
-            railway service list --json > "$RUNNER_TEMP/railway-services.json"
-            jq -r '.[] | "\(.name): \(.latestDeployment.status // "not deployed")"' "$RUNNER_TEMP/railway-services.json"
-
-            # A failed rollout can leave an older replica serving successfully.
-            if jq -e 'any(.[]; .latestDeployment.status == "FAILED" or .latestDeployment.status == "CRASHED")' "$RUNNER_TEMP/railway-services.json" > /dev/null; then
-              echo "::error::A Railway deployment failed."
-              exit 1
-            fi
-
-            if jq -e 'length > 0 and all(.[]; .latestDeployment.status == "SUCCESS" or .latestDeployment.status == "SLEEPING")' "$RUNNER_TEMP/railway-services.json" > /dev/null; then
-              exit 0
-            fi
-
-            sleep 10
-          done
-
-          echo "::error::Timed out waiting for Railway deployments."
-          exit 1
+          project: ${{ vars.RAILWAY_PROJECT_ID }}
+          service: ${{ vars.RAILWAY_SERVICE_NAME }}
+          environment: ${{ vars.RAILWAY_ENVIRONMENT_NAME }}
+          image: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+          railway-project-token: ${{ secrets.RAILWAY_TOKEN }}
+          wait: "false"
 
   helm:
     name: Helm
