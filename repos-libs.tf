@@ -1,7 +1,7 @@
 module "repo_aureus" {
   source      = "./modules/repo"
   name        = "aureus"
-  description = "🚧 Markdown-based golden-file tests for Go."
+  description = "Markdown-based golden-file tests for Go."
   languages   = ["go"]
 
   copyright = {
@@ -12,7 +12,7 @@ module "repo_aureus" {
 module "repo_cosyne" {
   source      = "./modules/repo"
   name        = "cosyne"
-  description = "🚧 Context-aware synchronization primitives for Go."
+  description = "Context-aware synchronization primitives for Go."
   languages   = ["go"]
 
   copyright = {
@@ -35,7 +35,7 @@ module "repo_dapper" {
 module "repo_dissolve" {
   source      = "./modules/repo"
   name        = "dissolve"
-  description = "🚧 A DNS-SD, Multicast DNS and Zeroconf/Bonjour toolkit for Go."
+  description = "A DNS-SD, Multicast DNS and Zeroconf/Bonjour toolkit for Go."
   languages   = ["go"]
 
   copyright = {
@@ -68,7 +68,7 @@ module "repo_ferrite" {
 module "repo_harpy" {
   source      = "./modules/repo"
   name        = "harpy"
-  description = "🚧 A transport-agnostic JSON-RPC v2 server toolkit for Go."
+  description = "A transport-agnostic JSON-RPC v2 server toolkit for Go."
   languages   = ["go"]
   template    = null
 
@@ -80,7 +80,7 @@ module "repo_harpy" {
 module "repo_imbue" {
   source      = "./modules/repo"
   name        = "imbue"
-  description = "🚧 A type-safe dependency injection container for Go."
+  description = "A type-safe dependency injection container for Go."
   languages   = ["go"]
 
   copyright = {
@@ -91,7 +91,7 @@ module "repo_imbue" {
 module "repo_jumble" {
   source      = "./modules/repo"
   name        = "jumble"
-  description = "🚧 Sorting algorithms for Go."
+  description = "Sorting algorithms for Go."
   languages   = ["go"]
 
   copyright = {
@@ -124,7 +124,7 @@ module "repo_minibus" {
 module "repo_primo" {
   source      = "./modules/repo"
   name        = "primo"
-  description = "🚧 Opinionated Protocol Buffers enhancements for Go."
+  description = "Opinionated Protocol Buffers enhancements for Go."
   languages   = ["go"]
 
   copyright = {
@@ -135,7 +135,7 @@ module "repo_primo" {
 module "repo_spruce" {
   source      = "./modules/repo"
   name        = "spruce"
-  description = "🚧 Pretty-print Go structured logs for humans."
+  description = "Pretty-print Go structured logs for humans."
   languages   = ["go"]
 
   copyright = {
@@ -146,7 +146,7 @@ module "repo_spruce" {
 module "repo_tenet" {
   source      = "./modules/repo"
   name        = "tenet"
-  description = "🚧 Reverse tunnels over WebSockets for Go."
+  description = "Reverse tunnels over WebSockets for Go."
   languages   = ["go"]
 
   copyright = {
@@ -157,7 +157,7 @@ module "repo_tenet" {
 module "repo_zoltar" {
   source      = "./modules/repo"
   name        = "zoltar"
-  description = "🚧 A static analyzer that predicts the values in a Go program without running it."
+  description = "A static analyzer that predicts the values in a Go program without running it."
   languages   = ["go"]
 
   copyright = {

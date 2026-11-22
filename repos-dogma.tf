@@ -14,7 +14,7 @@ module "repo_dogma" {
 module "repo_enginekit" {
   source      = "./modules/repo"
   name        = "enginekit"
-  description = "🚧 Tools for developing Dogma engines."
+  description = "Tools for developing Dogma engines."
   languages   = ["go"]
 
   copyright = {
@@ -38,7 +38,7 @@ module "repo_example" {
 module "repo_observatory" {
   source      = "./modules/repo"
   name        = "observatory"
-  description = "🚧 See what your Dogma applications are doing."
+  description = "See what your Dogma applications are doing."
   languages   = ["js", "go"]
   template    = null
 
@@ -81,7 +81,7 @@ module "repo_projectionkit" {
 module "repo_projectionkit_js" {
   source      = "./modules/repo"
   name        = "projectionkit-js"
-  description = "🚧 Build Dogma projections in JavaScript or TypeScript using popular database systems."
+  description = "Build Dogma projections in JavaScript or TypeScript using popular database systems."
   template    = null
   languages   = ["js"]
 
@@ -102,7 +102,7 @@ module "repo_projectionkit_js" {
 module "repo_protobuf" {
   source      = "./modules/repo"
   name        = "protobuf"
-  description = "🚧 Protocol Buffers and gRPC definitions for Dogma, with generated code for Go and TypeScript."
+  description = "Protocol Buffers and gRPC definitions for Dogma, with generated code for Go and TypeScript."
   languages   = ["go", "js"]
 
   copyright = {
@@ -113,7 +113,7 @@ module "repo_protobuf" {
 module "repo_protokit" {
   source      = "./modules/repo"
   name        = "protokit"
-  description = "🚧 Protocol Buffers code generation for Dogma applications."
+  description = "Protocol Buffers code generation for Dogma applications."
   languages   = ["go"]
 
   copyright = {
@@ -124,7 +124,7 @@ module "repo_protokit" {
 module "repo_runkit" {
   source      = "./modules/repo"
   name        = "runkit"
-  description = "🚧 Run message-driven, event-sourced Dogma applications in production."
+  description = "Run message-driven, event-sourced Dogma applications in production."
   languages   = ["go"]
 
   copyright = {
@@ -135,7 +135,7 @@ module "repo_runkit" {
 module "repo_runkit_cluster" {
   source      = "./modules/repo"
   name        = "runkit-cluster"
-  description = "🚧 Run Dogma applications in production."
+  description = "Run Dogma applications in production."
   languages   = ["go"]
   private     = true
 
@@ -147,7 +147,7 @@ module "repo_runkit_cluster" {
 module "repo_stories" {
   source      = "./modules/repo"
   name        = "stories"
-  description = "🚧 Read the story your Dogma applications are telling."
+  description = "Read the story your Dogma applications are telling."
   private     = true
   languages   = []
 

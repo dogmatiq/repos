@@ -1,7 +1,7 @@
 module "repo_proclaim" {
   source      = "./modules/repo"
   name        = "proclaim"
-  description = "🚧 A Kubernetes controller and CRD that publishes DNS-SD records."
+  description = "A Kubernetes controller and CRD that publishes DNS-SD records."
   languages   = ["go"]
 
   copyright = {
@@ -12,7 +12,7 @@ module "repo_proclaim" {
 module "repo_postgres_crd_controller" {
   source      = "./modules/repo"
   name        = "postgres-crd-controller"
-  description = "🚧 A Kubernetes controller and CRD that manages PostgreSQL databases."
+  description = "A Kubernetes controller and CRD that manages PostgreSQL databases."
   languages   = ["go"]
   private     = true
 
