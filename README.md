@@ -20,8 +20,8 @@ The Docker job builds images with `make docker` and publishes `v*` tags with
 
 Hosting infrastructure and registry credentials are managed in
 [dogmatiq/infra](https://github.com/dogmatiq/infra). Its repository bindings supply
-Actions variables `RAILWAY_PROJECT_ID`, `RAILWAY_SERVICE_ID` and
-`RAILWAY_ENVIRONMENT_ID`, plus the `RAILWAY_TOKEN` secret.
+Actions variables `RAILWAY_PROJECT_ID`, `RAILWAY_SERVICE_NAME` and
+`RAILWAY_ENVIRONMENT_NAME`, plus the `RAILWAY_TOKEN` secret.
 
 For bound repositories, tagged CI runs deploy the published
 `ghcr.io/<owner>/<repository>:<tag>` image after Build and Docker succeed. The

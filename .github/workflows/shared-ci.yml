@@ -304,57 +304,21 @@ jobs:
     needs:
       - build
       - docker
-    if: startsWith(github.ref, 'refs/tags/v') && vars.RAILWAY_SERVICE_ID != ''
+    if: startsWith(github.ref, 'refs/tags/v') && vars.RAILWAY_SERVICE_NAME != ''
     permissions: {}
     timeout-minutes: 20
 
     concurrency:
-      group: railway-${{ vars.RAILWAY_PROJECT_ID }}-${{ vars.RAILWAY_SERVICE_ID }}-${{ vars.RAILWAY_ENVIRONMENT_ID }}
+      group: railway-${{ vars.RAILWAY_PROJECT_ID }}-${{ vars.RAILWAY_SERVICE_NAME }}-${{ vars.RAILWAY_ENVIRONMENT_NAME }}
       cancel-in-progress: false
 
     steps:
-      # Terraform binds repositories to IDs; the deployment action accepts names.
-      - name: Resolve deployment targets
-        id: targets
-        shell: bash
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-          RAILWAY_SERVICE_ID: ${{ vars.RAILWAY_SERVICE_ID }}
-          RAILWAY_ENVIRONMENT_ID: ${{ vars.RAILWAY_ENVIRONMENT_ID }}
-        run: |
-          : "${RAILWAY_TOKEN:?RAILWAY_TOKEN secret is required}"
-          : "${RAILWAY_PROJECT_ID:?RAILWAY_PROJECT_ID variable is required}"
-          : "${RAILWAY_SERVICE_ID:?RAILWAY_SERVICE_ID variable is required}"
-          : "${RAILWAY_ENVIRONMENT_ID:?RAILWAY_ENVIRONMENT_ID variable is required}"
-
-          query='query($project: String!) { project(id: $project) { services { edges { node { id name } } } environments { edges { node { id name } } } } }'
-          jq -n --arg query "$query" --arg project "$RAILWAY_PROJECT_ID" \
-            '{query: $query, variables: {project: $project}}' |
-            curl --fail-with-body --silent --show-error --max-time 30 \
-              --header "Project-Access-Token: $RAILWAY_TOKEN" \
-              --header 'Content-Type: application/json' \
-              --data-binary @- https://backboard.railway.app/graphql/v2 \
-              > "$RUNNER_TEMP/railway-targets.json"
-
-          jq -er --arg service "$RAILWAY_SERVICE_ID" --arg environment "$RAILWAY_ENVIRONMENT_ID" '
-            if (.errors | length) > 0 then error(.errors | tostring) else
-              (.data.project.services.edges // [] | map(.node) | map(select(.id == $service)) | first) as $service |
-              (.data.project.environments.edges // [] | map(.node) | map(select(.id == $environment)) | first) as $environment |
-              if $service == null or $environment == null then
-                error("Railway binding does not identify a service and environment in this project")
-              else
-                "service=\($service.name)\nenvironment=\($environment.name)"
-              end
-            end
-          ' "$RUNNER_TEMP/railway-targets.json" >> "$GITHUB_OUTPUT"
-
       - name: Deploy published image
         uses: twopow/railway-deploy-action@a174cfbeb67d1c6b4a4d18998603791730a2f912
         with:
           project: ${{ vars.RAILWAY_PROJECT_ID }}
-          service: ${{ steps.targets.outputs.service }}
-          environment: ${{ steps.targets.outputs.environment }}
+          service: ${{ vars.RAILWAY_SERVICE_NAME }}
+          environment: ${{ vars.RAILWAY_ENVIRONMENT_NAME }}
           image: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
           railway-project-token: ${{ secrets.RAILWAY_TOKEN }}
 
