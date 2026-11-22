@@ -276,7 +276,6 @@ jobs:
         if: needs.prepare.outputs.mise == 'true'
         uses: jdx/mise-action@v5
 
-      # Docker prerequisites may use Node tooling too.
       - name: Set up Node.js
         if: needs.prepare.outputs.nodejs == 'true'
         uses: actions/setup-node@v7

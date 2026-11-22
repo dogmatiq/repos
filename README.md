@@ -13,17 +13,22 @@ The Build job runs `make ci`. Extend the shared Makefile packages with `ci::`
 recipes/prerequisites for repository-specific checks; generated caller workflows
 remain managed by Terraform.
 
-The Docker job builds images with `make docker` and publishes `v*` tags with
-`make docker-push`.
+The Docker job sets up detected Go, mise and Node tools, builds the production
+image with `make docker`, then invokes an optional `ci-docker::` Makefile hook.
+The hook has an injected no-op double-colon default, so existing consumers need
+no additional target. Extend it to run image integration/smoke tests without
+building another copy of the image. Both steps receive the same `DOCKER_TAGS`:
+`dev` for ordinary checks, or the `v*` tag for releases. Repositories using the
+Docker package can resolve the image as `$(DOCKER_REPO):$(firstword $(DOCKER_TAGS))`.
 
-## Railway deployments
+Tagged releases keep the existing `make docker-push` path and registry login.
+That path pushes rather than loading the image, so a hook that runs it locally
+must pull the already-pushed image first. The release-publishing workflow and
+Terraform caller templates are unchanged.
 
-Hosting infrastructure and registry credentials are managed in
-[dogmatiq/infra](https://github.com/dogmatiq/infra). Its repository bindings supply
-Actions variables `RAILWAY_PROJECT_ID`, `RAILWAY_SERVICE_NAME` and
-`RAILWAY_ENVIRONMENT_NAME`, plus the `RAILWAY_TOKEN` secret.
+Run the same hook locally after building the image:
 
-For bound repositories, tagged CI runs deploy the published
-`ghcr.io/<owner>/<repository>:<tag>` image after Build and Docker succeed. The
-Railway job updates the image and triggers the rollout asynchronously. Its token
-must grant access to the bound project's environment.
+```sh
+make docker
+make --eval='ci-docker::' ci-docker
+```
