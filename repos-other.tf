@@ -83,7 +83,6 @@ module "repo_website" {
   private     = true
 
   languages = []
-  workflow  = null
 
   copyright = {
     since = 2019
