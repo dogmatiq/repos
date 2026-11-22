@@ -54,7 +54,7 @@ variable "workflow" {
 }
 
 variable "publish_releases" {
-  description = "Override whether to publish a GitHub release for each tag, otherwise releases are published for any repository that has a workflow"
+  description = "Override whether to publish a GitHub release for each tag, otherwise releases are published for any public repository that has a workflow"
   type        = bool
   default     = null
   nullable    = true
@@ -87,5 +87,13 @@ locals {
   enable_codecov               = local.unarchived && contains(var.languages, "go") && !var.private # not supported by private repos on free-tier
   enable_apm                   = local.unarchived && length(var.languages) != 0
 
-  publish_releases = local.unarchived && (var.publish_releases == null ? local.has_workflow : var.publish_releases) # by default, publish releases for any repo that has a build process
+  # By default, publish releases for any public repo that has a build process.
+  #
+  # Releases are announced in Slack, so private repos don't publish them unless
+  # explicitly overridden.
+  publish_releases_by_default = local.has_workflow && !var.private
+  publish_releases = (
+    local.unarchived &&
+    coalesce(var.publish_releases, local.publish_releases_by_default)
+  )
 }
