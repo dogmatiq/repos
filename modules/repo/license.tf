@@ -1,4 +1,8 @@
+# The MIT license grants permissions to everyone, so it is only published to
+# public repositories.
 resource "github_repository_file" "license" {
+  count = var.private ? 0 : 1
+
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = "LICENSE"
@@ -22,8 +26,13 @@ resource "github_repository_file" "license" {
 }
 
 data "github_repository_file" "existing_license" {
-  count      = local.unarchived ? 0 : 1
+  count      = local.unarchived || var.private ? 0 : 1
   repository = github_repository.this.name
   branch     = github_repository.this.default_branch
   file       = "LICENSE"
+}
+
+moved {
+  from = github_repository_file.license
+  to   = github_repository_file.license[0]
 }
