@@ -76,6 +76,20 @@ module "repo_infra" {
   }
 }
 
+module "repo_website" {
+  source      = "./modules/repo"
+  name        = "website"
+  description = "The source of the Dogmatiq website."
+  private     = true
+
+  languages = []
+  workflow  = null
+
+  copyright = {
+    since = 2019
+  }
+}
+
 resource "github_repository" "website" {
   archive_on_destroy = true
 
