@@ -25,5 +25,5 @@ Actions variables `RAILWAY_PROJECT_ID`, `RAILWAY_SERVICE_NAME` and
 
 For bound repositories, tagged CI runs deploy the published
 `ghcr.io/<owner>/<repository>:<tag>` image after Build and Docker succeed. The
-Railway job waits for the deployment it triggered to reach `SUCCESS`. Its token
+Railway job updates the image and triggers the rollout asynchronously. Its token
 must grant access to the bound project's environment.
