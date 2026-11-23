@@ -90,7 +90,8 @@ module "repo_website" {
 }
 
 resource "github_repository" "website" {
-  archive_on_destroy = true
+  archive_on_destroy = false # the repository is to be deleted, not archived, when this resource is removed
+  archived           = true
 
   name         = "dogmatiq.github.io"
   description  = "The Dogmatiq website."
@@ -106,4 +107,11 @@ resource "github_repository" "website" {
   allow_rebase_merge     = false
 
   vulnerability_alerts = true
+
+  pages {
+    cname = "dogmatiq.io"
+    source {
+      branch = "main"
+    }
+  }
 }
