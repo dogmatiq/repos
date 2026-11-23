@@ -91,6 +91,7 @@ module "repo_website" {
 
 resource "github_repository" "website" {
   archive_on_destroy = true
+  archived           = true
 
   name         = "dogmatiq.github.io"
   description  = "The Dogmatiq website."
