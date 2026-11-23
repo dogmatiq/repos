@@ -90,7 +90,7 @@ module "repo_website" {
 }
 
 resource "github_repository" "website" {
-  archive_on_destroy = true
+  archive_on_destroy = false # the repository is to be deleted, not archived, when this resource is removed
   archived           = true
 
   name         = "dogmatiq.github.io"
