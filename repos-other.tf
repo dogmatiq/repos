@@ -106,4 +106,11 @@ resource "github_repository" "website" {
   allow_rebase_merge     = false
 
   vulnerability_alerts = true
+
+  pages {
+    cname = "dogmatiq.io"
+    source {
+      branch = "main"
+    }
+  }
 }
