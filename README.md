@@ -1,4 +1,13 @@
-# Dogmatiq Repositories
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://dogmatiq.io/res/img/dynamic/repo/repos/banner/dark.svg">
+  <img alt="Dogmatiq repos" src="https://dogmatiq.io/res/img/dynamic/repo/repos/banner/light.svg" height="44">
+</picture>
+
+Terraform configuration for managing Dogmatiq Git repositories.
+
+</div>
 
 This repository contains a Terraform configuration that is responsible for
 managing the lifetime and settings of the Git repositories within the Dogmatiq
